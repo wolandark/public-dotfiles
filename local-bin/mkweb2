@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+#Author Woland
+#Makes Web Project & Appends Basic Skeleton To The Relative Files
+
+mkdir web-"$1"
+touch web-"$1"/index.html
+touch web-"$1"/script.js
+mkdir web-"$1"/style && touch web-"$1"/style/style.css
+mkdir web-"$1"/img
+mkdir web-"$1"/fonts
+
+echo "<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta 1="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href=style/style.css>
+    <title>Document</title>
+
+    <style>
+
+
+    </style>
+    </head>
+<body>
+        <p> </p>
+        <div> </div>
+        
+
+        <script src="script.js"> 
+
+        </script>
+</body>
+</html>
+
+" >> web-"$1"/index.html
+
+echo "*{
+    padding: 0;
+    margin: 0;
+    left:0;
+}" >> web-"$1"/style/style.css
+
+echo -e "Project Directory at $PWD/web-$1 Was Created!\n"
+
+
+
+# cd "$PWD"/web-"$1" || return

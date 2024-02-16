@@ -1,0 +1,5 @@
+#!/usr/bin/env bash 
+
+exec /home/woland/tmp/palemoon/palemoon-bin &
+
+

@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# Written By Woland
+
+# Choose Files From Dmenu To Edit In Vim
+
+# Dependency:
+#          dmenu
+#          Change editor and term to your liking
+
+# https://github.com/wolandark
+# https://github.com/wolandark/BASH_Scripts_For_Everyone
+
+# Configs
+sxhkd=$HOME/.config/sxhkd/sxhkdrc
+# sxhkdi3=$HOME/.config/sxhkd/sxhkdrc-i3
+# bspwmrc=$HOME/.config/bspwm/bspwmrc
+# polybar=$HOME/.config/polybar/config.ini
+i3=$HOME/.config/i3/config
+i3autostart=$HOME/.config/i3/autostart
+i3keys=$HOME/.config/i3/bindings
+i3status=$HOME/.config/i3/i3status.conf
+i3bar=$HOME/.config/i3/bar.conf
+brc=$HOME/.bashrc
+
+# Dmenu Format
+dmenu="dmenu -i -l 5 -fn monospace-12 -p Edit"
+
+# Editor
+editor=vim
+
+# Terminal
+term=xterm
+
+# Items Array
+items=(
+    "$i3"
+    "$i3autostart"
+    "$i3keys"
+    "$i3status"
+    "$i3bar"
+    "$sxhkd"
+    "$sxhkdi3"
+    "$bspwmrc"
+    "$polybar"
+    "$brc"
+)
+
+# Main Loop
+for i in "${items[@]}"; do
+    echo "$(basename "$i")"
+done | $dmenu | while read -r selected; do
+    for i in "${items[@]}"; do
+        if [ "$(basename "$i")" = "$selected" ]; then
+            "$term" -e "$editor" "$i"
+        fi
+    done
+done

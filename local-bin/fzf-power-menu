@@ -1,0 +1,17 @@
+#!/bin/bash
+
+items="$(echo -e "Shutdown\nReboot\nLogout\nCancel" | fzf --prompt="Choose your fate: " --header-first --reverse --header="POWER MENU" --border=rounded --margin=15% --height 10  --info=hidden)"
+
+case $items in
+    Shutdown) 
+    doas poweroff
+        ;;
+    Reboot)
+    doas reboot
+        ;;
+    Logout)
+        i3-msg exit
+        ;;
+    *)
+        ;;
+esac
