@@ -1,0 +1,37 @@
+# =================
+# Marks
+# bindsym $mod+apostrophe exec --no-startup-id i3-input -F 'mark %s' -f "-*-dejavu sans mono-medium-r-normal--*-200-*-*-*-*-iso10646-1" -l 1 -P 'Mark: '
+# bindsym $mod+bracketright exec --no-startup-id i3-input -F '[con_mark="%s"] focus' -f "-*-dejavu sans mono-medium-r-normal--*-200-*-*-*-*-iso10646-1" -l 1 -P 'Goto: ' 
+#
+#
+#
+
+# bindsym $mod+d exec --no-startup-id "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-11' -p 'dmenu'"
+
+# bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -fn 'monospace-13'"
+
+
+# bindsym $mod1+p exec --no-startup-id termite -t 'fzfmenu' -e '/home/woland/.local/bin/fzfmenu'
+# for_window [title="fzfmenu"] floating enable 
+
+#bindsym $mod1+r exec --no-startup-id "dmenu-recent-aliases"
+
+
+# bindsym $mod1+Tab exec --no-startup-id rofi -show window -icon-theme "Papirus" -show-icons
+# bindsym $mod1+Tab exec --no-startup-id skippy-xd
+#
+#
+# bindsym $mod+n exec --no-startup-id nitrogen --set-scaled --random --save
+# bindsym $mod1+m exec --no-startup-id /home/woland/.config/rofi/applets/bin/mpd.sh
+# bindsym $mod1+q exec --no-startup-id /home/woland/.config/rofi/applets/bin/quicklinks.sh
+# bindsym $mod1+g exec --no-startup-id /home/woland/.config/rofi/launchers/type-7/launcher.sh
+# bindsym $mod1+y exec --no-startup-id /home/woland/.config/rofi/launchers/type-8/launcher.sh
+#
+# bindsym $mod+x [class="xdman-Main"] scratchpad show
+# bindsym $mod+v [class="Gvim"] scratchpad show resize set 1142 1010, move position 386px 28px
+# Quit 
+# bindsym $mod1+Ctrl+DEL exec --no-startup-id loginctl terminate-user $USER
+
+# bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
+# bindsym $mod+Shift+e exec --no-startup-id xterm -T powermenu -e $HOME/.local/bin/fzf-power-menu
+# for_window [title="powermenu"] floating enable , resize set 350 300, move absolute position 740 411

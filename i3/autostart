@@ -1,0 +1,10 @@
+exec_always --no-startup-id /home/woland/.screenlayout/two.sh
+exec_always --no-startup-id xcompmgr
+exec_always --no-startup-id albert
+exec_always --no-startup-id udiskie
+exec_always --no-startup-id autotiling
+exec_always --no-startup-id sxhkd 
+exec_always --no-startup-id /home/woland/.config/i3/scripts/idle.sh
+exec_always --no-startup-id keyboardrate.sh
+exec_always feh --bg-scale '/home/woland/Pictures/catppuccin-wallpapers/landscapes/Clearnight.jpg' '/home/woland/Pictures/catppuccin-wallpapers/landscapes/Clearnight.jpg'
+# exec_always feh --bg-scale '/home/woland/Pictures/HD/NEW/dave-ruck-OqaavL4MpJQ-unsplash.jpg' '/home/woland/Pictures/HD/NEW/dave-ruck-OqaavL4MpJQ-unsplash.jpg'

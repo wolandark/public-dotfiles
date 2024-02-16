@@ -1,0 +1,265 @@
+# oooooo   oooooo     oooo           oooo                              .o8  
+#  `888.    `888.     .8'            `888                             "888  
+#   `888.   .8888.   .8'    .ooooo.   888   .oooo.   ooo. .oo.    .oooo888  
+#    `888  .8'`888. .8'    d88' `88b  888  `P  )88b  `888P"Y88b  d88' `888  
+#     `888.8'  `888.8'     888   888  888   .oP"888   888   888  888   888  
+#      `888'    `888'      888   888  888  d8(  888   888   888  888   888  
+#       `8'      `8'       `Y8bod8P' o888o `Y888""8o o888o o888o `Y8bod88P" 
+
+#  .oooooo..o ooooooo  ooooo ooooo   ooooo oooo    oooo oooooooooo.   
+# d8P'    `Y8  `8888    d8'  `888'   `888' `888   .8P'  `888'   `Y8b  
+# Y88bo.         Y888..8P     888     888   888  d8'     888      888 
+#  `"Y8888o.      `8888'      888ooooo888   88888[       888      888 
+#      `"Y88b    .8PY888.     888     888   888`88b.     888      888 
+# oo     .d8P   d8'  `888b    888     888   888  `88b.   888     d88' 
+# 8""88888P'  o888o  o88888o o888o   o888o o888o  o888o o888bood8P'   
+
+
+# wm independent hotkeys
+super + shift + w
+    /home/woland/Downloads/Programs/waterfox/waterfox-bin
+
+mod1 + shift + w
+	firefox
+
+mod1 + t 
+    telegram
+
+mod1 + f
+	thunar
+
+mod1 + shift + f
+	pcmanfm
+
+ctrl + Print
+	flameshot
+
+super + ctrl + o
+    dmenu-config-editor
+
+super + shift + End
+    uxterm -sk -e htop
+
+super + shift + Home
+    uxterm -sk -e lf
+
+super + shift + Page_Down
+    uxterm -e nmtui
+
+super + shift + Page_Up
+    uxterm -sk -e w3m ddg.gg
+
+# ctrl + space
+      # rofi -show drun -theme /home/woland/.config/rofi/launchers/type-3/style-4.rasi
+
+mod1 + ctrl + s
+	word-lookup
+
+mod1 + g
+    dmenu-search
+
+mod1 + p
+	passmenu -fn Hack-14 -l 10 -c -bw 1
+
+# mod1 + p
+	# rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+# mod1 + shift + 1
+    # transset-df -p 0.8
+mod1 + shift + 2
+    transset-df -p 0.85
+mod1 + shift + 3
+    transset-df -p 0.89
+mod1 + shift + 4
+    transset-df -p 0.90
+mod1 + shift + 5
+    transset-df -p 0.95
+mod1 + shift + 6
+    transset-df -p 0.97
+mod1 + shift + 7
+    transset-df -p 0.98
+mod1 + shift + 8
+    transset-df -p 0.99
+mod1 + shift + 9
+    transset-df -p 1
+
+# ┌───┐
+# │BSP│
+# └───┘
+super + ctrl + o
+    $HOME/.local/bin/config.sh
+# terminal emulator
+super + Return
+	st
+
+super + shift + Return
+	uxterm -sk -ti vt340
+
+# program launcher
+super + d
+    dmenu_run -c -bw 2 -l 10 -g 3 -fn monospace-12 -p Dmenu
+
+mod1 + d
+	rofi -show drun
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd && notify-send "SXHKD Reloaded"
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r} && notify-send "BSPWM Restarted"
+
+# close and kill
+super + q
+	bspc node -c
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+super + ctrl + Left
+	bspc desktop -f prev.local
+
+super + ctrl + Right
+	bspc desktop -f next.local
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+super + {_,shift + }F11
+	bspc {desktop -f,node -d} '11'
+
+super + {_,shift + }F12
+	bspc {desktop -f,node -d} '12'
+
+super + {_,shift + }Print
+	bspc {desktop -f,node -d} '13'
+
+super + {_,shift + }Scroll_Lock
+	bspc {desktop -f,node -d} '14'
+
+super + {_,shift + }Pause
+	bspc {desktop -f,node -d} '15'
+# preselect
+#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+mod1 + space
+    xkb-switch -n
+
+super + shift + e
+	/home/woland/.config/rofi/powermenu/type-2/powermenu.sh
+    # $HOME/.local/bin/dmenu-power-menu
+
+
+super + shift + minus
+    scratch --toggle
+
+super + minus
+    scratch --cycle
+
+Scroll_Lock
+    slock
+
+#Print
+#    scrot -d 1 & notify-send Captured
+
+# ~button3
+# 	[ "$(xqp)" = "$(xdo id -N Bspwm -n root)" ] && jgmenu_run
+
+F1
+    xfce4-appfinder
+    # jgmenu_run
+
+# bspc query -D -d 'focused.!occupied' \
+#         && jgmenu_run

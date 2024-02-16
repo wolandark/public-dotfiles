@@ -1,0 +1,14 @@
+#!/bin/bash
+
+while getopts "dgtyw" par; do
+    case "$par" in 
+         "g")echo "open -t https://duckduckgo.com/?q=${QUTE_SELECTED_TEXT//$'\n'/%0A}" >> "$QUTE_FIFO";;
+        # "g")echo "open -t https://www.google.com/search?=0Qq-XfnqK-qQ1fAPwKGdyAc&q=${QUTE_SELECTED_TEXT//$'\n'/%0A}" >> "$QUTE_FIFO";;
+        # "g")echo "open -t https://search.brave.com/search?q=${QUTE_SELECTED_TEXT//$'\n'/%0A}" >> "$QUTE_FIFO";;
+
+
+        # "y")echo "open -t https://www.youtube.com/results?search_query=${QUTE_SELECTED_TEXT}" >> "$QUTE_FIFO";;
+        # "w")echo "open -t https://en.wikipedia.org/w/index.php?search=${QUTE_SELECTED_TEXT}" >> "$QUTE_FIFO";;
+        "t")notify-send -t 10000 "Translate:" "$(trans -tl en -b "${QUTE_SELECTED_TEXT}")";;
+    esac
+done

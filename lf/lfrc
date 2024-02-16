@@ -1,0 +1,348 @@
+# border
+set drawbox
+
+# show icons
+set icons
+
+# interpreter for shell commands
+set shell bash
+
+set previewer ~/.config/lf/pistol-static-linux-x86_64
+
+# set '-eu' options for shell commands
+# These options are used to have safer shell commands. Option '-e' is used to
+# exit on error and option '-u' is used to give error for unset variables.
+# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
+# $fx variables contain names with '*' or '?' characters. However, this option
+# is used selectively within individual commands as it can be limiting at
+# times.
+set shellopts '-eu'
+
+# set internal field separator (IFS) to "\n" for shell commands
+# This is useful to automatically split file names in $fs and $fx properly
+# since default file separator used in these variables (i.e. 'filesep' option)
+# is newline. You need to consider the values of these options and create your
+# commands accordingly.
+set ifs "\n"
+
+# leave some space at the top and the bottom of the screen
+set scrolloff 10
+
+# Use the `dim` attribute instead of underline for the cursor in the preview pane
+set cursorpreviewfmt "\033[7;2m"
+
+# fzf
+cmd fzf_search ${{
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    res="$(
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+    )"
+    [ -n "$res" ] && lf -remote "send $id select \"$res\""
+}}
+
+cmd fzf_jump ${{
+    res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    if [ -d "$res" ] ; then
+        cmd="cd"
+    elif [ -f "$res" ] ; then
+        cmd="select"
+    else
+        exit 0
+    fi
+    lf -remote "send $id $cmd \"$res\""
+}}
+
+# define a custom 'open' command
+# This command is called when current file is not a directory. You may want to
+# use either file extensions and/or mime types here. Below uses an editor for
+# text files and a file opener for the rest.
+cmd open &{{
+    case $(file --mime-type -Lb $f) in
+        text/*) lf -remote "send $id \$$EDITOR \$fx";;
+        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+    esac
+}}
+
+# define a custom 'rename' command without prompt for overwrite
+# cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+# map r push :rename<space>
+
+# make sure trash folder exists
+# %mkdir -p ~/.trash
+
+# move current file or selected files to trash folder
+# cmd trash %set -f; mv $fx ~/.trash
+
+# define a custom 'delete' command with trash-put
+cmd delete ${{
+    set -f
+    printf "$fx\n"
+    printf "delete?"
+    read ans
+    if [[ "$ans" == "y" || -z "$ans" ]];
+    then
+    trash-put $fx
+    fi
+}}
+# use '<delete>' key for either 'trash' or 'delete' command
+map <delete> delete
+
+# extract the current file with the right command
+cmd ex ${{
+set -f 
+    case $f in
+      *.tar.bz2)   tar xjf $f   ;;
+      *.tar.gz)    tar xzf $f   ;;
+      *.bz2)       bunzip2 $f   ;;
+      *.rar)       unrar x $f   ;;
+      *.gz)        gunzip $f    ;;
+      *.tar)       tar xf $f    ;;
+      *.tbz2)      tar xjf $f   ;;
+      *.tgz)       tar xzf $f   ;;
+      *.zip)       unzip $f     ;;
+      *.Z)         uncompress $f;;
+      *.7z)        7z x $f      ;;
+      *.deb)       ar x $f      ;;
+      *.tar.xz)    tar xf $f    ;;
+      *.tar.zst)   tar xf $f    ;;
+    esac
+}}
+
+# compress current file or selected files with tar and gunzip
+cmd tar ${{
+    set -f
+    mkdir t$1
+    cp -r $fx t$1
+    tar czf $1.tar.gz t$1
+    rm -rf t$1
+}}
+
+# compress current file or selected files with zip
+cmd zip ${{
+    set -f
+    mkdir t$1
+    cp -r $fx t$1
+    zip -r $1.zip t$1
+    rm -rf t$1
+}}
+
+# cmd mkdir ${{
+#     printf "Dir Name: "
+#     read ans
+#     mkdir $ans
+# }}
+
+cmd touch ${{
+    printf "File Name: "
+    read ans 
+    touch $ans
+}}
+
+
+cmd setbg ${{
+    cp "$f" ~/.config/lf/wall.jpg && feh --bg-scale "$f"
+}}
+
+
+cmd video_preview ${{
+    cache="$(mktemp "${TMPDIR:-/tmp}/thumb_cache.XXXXX")"
+    ffmpegthumbnailer -i "$f" -o "$cache" -s 0
+    ~/.config/lf/draw_img.sh "$cache"
+}}
+
+cmd tilde ${{
+  scp -rP 22 "$f" woland@tilde.club:~/public_html/
+  }}
+
+# dedicated keys for file opener actions
+map o &mimeopen $f
+map O $mimeopen --ask $f
+map <enter> shell
+
+map D delete
+map E ex
+map C copyto
+map M moveto
+map zz push :zip<space>
+map T push :tar<space>
+
+map <enter> shell
+
+map x $$f
+map X !$f
+# map A mkdir
+map A push %mkdir<space>
+map a rename # at the very end
+map <insert> touch
+
+# execute current file (must be executable)
+map x $$f
+map X !$f
+
+map b setbg
+map - $~/.config/lf/draw_img.sh "$f"
+map + :video_preview
+map <c-f> :fzf_jump
+map gs :fzf_search
+
+# Move parent
+cmd move-parent &{{
+    dironly="setlocal '$(dirname "$PWD")' dironly"
+    lf -remote "send $id :updir; $dironly true; $1; $dironly false; open"
+}}
+
+map J move-parent down
+map K move-parent up
+
+# Show progress for file copying
+cmd rpaste &{{
+    set -- $(cat ~/.local/share/lf/files)
+    mode="$1"
+    shift
+    case "$mode" in
+        copy)
+            rsync -av --ignore-existing --progress -- "$@" . |
+            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+            while IFS= read -r line; do
+                lf -remote "send $id echo $line"
+            done
+            ;;
+        move) mv -n -- "$@" .;;
+    esac
+    rm ~/.local/share/lf/files
+    lf -remote "send clear"
+}}
+map gp rpaste
+
+# bulkrename
+cmd bulk-rename ${{
+    old="$(mktemp)"
+    new="$(mktemp)"
+    if [ -n "$fs" ]; then
+        fs="$(basename -a $fs)"
+    else
+        fs="$(ls)"
+    fi
+    printf '%s\n' "$fs" >"$old"
+    printf '%s\n' "$fs" >"$new"
+    $EDITOR "$new"
+    [ "$(wc -l < "$new")" -ne "$(wc -l < "$old")" ] && exit
+    paste "$old" "$new" | while IFS= read -r names; do
+        src="$(printf '%s' "$names" | cut -f1)"
+        dst="$(printf '%s' "$names" | cut -f2)"
+        if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
+            continue
+        fi
+        mv -- "$src" "$dst"
+    done
+    rm -- "$old" "$new"
+    lf -remote "send $id unselect"
+}}
+map gr bulk-rename
+
+# folow symlinks
+cmd follow_link %{{
+  lf -remote "send ${id} select '$(readlink $f)'"
+}}
+map gL follow_link
+
+# yank paths
+cmd yank-dirname $dirname -- "$f" | head -c-1 | xclip -i -selection clipboard
+cmd yank-path $printf '%s' "$fx" | xclip -i -selection clipboard
+cmd yank-basename $basename -a -- $fx | head -c-1 | xclip -i -selection clipboard
+
+cmd yank-basename-without-extension ${{
+    echo "$fx" |
+      xargs -r -d '\n' basename -a |
+      awk -e '{
+        for (i=length($0); i > 0; i--) {
+          if (substr($0, i, 1) == ".") {
+            if (i == 1) print $0
+            else print substr($0, 0, i-1)
+
+            break
+          }
+        }
+
+        if (i == 0)
+          print $0
+      }' |
+      if [ -n "$fs" ]; then cat; else tr -d '\n'; fi |
+      xclip -i -selection clipboard
+}}
+
+map Yp yank-path
+map Yd yank-dirname
+map Yb yank-basename
+map Yn yank-basename-without-extension 
+
+# Ctrl+C to copy one file path
+cmd copy_to_clipboard %{{
+    if type pbcopy > /dev/null 2>&1; then
+    printf '%s' "$f" | pbcopy
+    elif type xsel > /dev/null 2>&1; then
+    printf '%s' "$f" | xsel -ib
+    fi
+}}
+map <c-c> :copy_to_clipboard
+
+# Select all files or directories in the current directory
+cmd select-files &{{
+    get_files() {
+        if [ "$lf_hidden" = 'false' ]; then
+            find "$PWD" -mindepth 1 -maxdepth 1 -type f -not -name '.*' -print0
+        else
+            find "$PWD" -mindepth 1 -maxdepth 1 -type f -print0
+        fi |
+        xargs -0 printf ' %q'
+    }
+
+    lf -remote "send $id :unselect; toggle $(get_files)"
+}}
+map <c-a> select-files
+
+cmd select-dirs &{{
+    get_dirs() {
+        if [ "$lf_hidden" = 'false' ]; then
+            find "$PWD" -mindepth 1 -maxdepth 1 -type d -not -name '.*' -print0
+        else
+            find "$PWD" -mindepth 1 -maxdepth 1 -type d -print0
+        fi |
+        xargs -0 printf ' %q'
+    }
+
+    lf -remote "send $id :unselect; toggle $(get_dirs)"
+}}
+map <c-d> select-dirs
+
+map Pp $~/.config/lf/populate.sh
+
+
+
+# ===
+# map c push A<c-u> # new rename
+# map I push A<c-a> # at the very beginning
+# map i push A<a-b><a-b><a-f> # before extension
+# map a push A<a-b> # after extension
+# map B bulkrename
+# map b $setbg $f
+
+# map <c-e> down
+# map <c-y> up
+# map V push :!nvim<space>
+
+# map W $setsid -f $TERMINAL >/dev/null 2>&1
+
+# map Y $printf "%s" "$fx" | xclip -selection clipboard
+
+# Source Bookmarks
+# source "~/.config/lf/shortcutrc"
+# source "~/.config/lf/colors"
+
+# map <c-f> $lf -remote "send $id select \"$(fzf)\""
+
+# map f push :fzf<space>
+# map f $vim $(fzf)

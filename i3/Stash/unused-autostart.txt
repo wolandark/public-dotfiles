@@ -1,0 +1,65 @@
+
+#exec_always --no-startup-id uget-gtk
+#for_window [class="Uget-gtk"] , move scratchpad
+
+#exec_always --no-startup-id thunar
+#for_window [class="Thunar"] , move scratchpad
+
+#Vim
+#exec_always --no-startup-id gvim 
+#for_window [class="Gvim"] , move scratchpad 
+
+#Xdman
+# exec_always --no-startup-id xdman 
+# for_window [class="xdman-Main"] , move scratchpad
+
+# exec_always --no-startup-id xfce4-clipman
+# exec_always --no-startup-id picom --config /etc/xdg/picom.conf
+# exec_always --no-startup-id guake
+# exec_always --no-startup-id cerebro
+
+############
+# Not Used #
+############
+# exec --no-startup-id nitrogen --restore
+# exec_always ~/.screenlayout/i3maindisplay.sh
+# exec_always ~/keyboardrate.sh
+# exec_always emacs --daemon
+# exec_always --no-startup-id xfce4-panel --disable-wm-check
+# exec_always --no-startup-id screendimmer
+# exec_always /home/woland/.config/polybar/launch.sh
+# exec_always feh --bg-fill ~/Pictures/Artix/Artix-dark.png --bg-fill ~/Pictures/Vertical/verticalmountains.jpg
+#####################
+# Auto Start Items  #
+#####################
+# exec --no-startup-id i3-msg 'workspace $ws4; layout stacking; exec $myTerm -e vim; exec $myTerm -e ranger; exec $myTerm; exec $myTerm -e nmtui' 
+# exec --no-startup-id i3-msg 'workspace $ws4; layout stacking; exec $myTerm -e nmtui' 
+# exec --no-startup-id xclock -bg white -geometry 200x200
+#Display & Wallpaper
+# exec --no-startup-id nitrogen --restore
+# exec --no-startup-id feh --bg-fill ~/Pictures/Artix/Artix-dark.png
+# exec --no-startup-id ~/.screenlayout/i3maindisplay.sh
+#Programs
+# exec --no-startup-id exec /usr/lib/brave-bin/brave
+# exec --no-startup-id exec /home/woland/Downloads/Telegram/Telegram
+# exec --no-startup-id exec /usr/lib/firefox/firefox
+# exec_always i3a-master-stack
+#Custom Layout
+# exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/woland/.config/i3/workspace-1.json'"
+# exec_always alacritty --title ide-term,ide-term
+# for_window [title="ide-term"] , move scratchpad
+#Htop
+# exec --no-startup-id alacritty --title htop,htop -e htop
+# for_window [title="htop"] , move scratchpad
+#Calculator
+#exec --no-startup-id alacritty --title bc,bc -e bc
+#for_window [title="bc"] , move scratchpad
+##LF
+#exec --no-startup-id alacritty --title lf-fm,lf-fm -e lf
+#for_window [title="lf-fm"] , move scratchpad
+#BTM
+# exec --no-startup-id konsole --title btm,btm -e btm
+# for_window [title="btm"] , move scratchpad
+#Vim
+# exec_always st -c wiki,wiki -e vim
+# for_window [class="wiki,wiki"] , move scratchpad

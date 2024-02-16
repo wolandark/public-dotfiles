@@ -1,0 +1,112 @@
+### │ Browser│
+
+super + shift + w
+    waterfox-g
+
+mod1 + shift + w
+	firefox
+
+### │ Utilities │
+
+Print
+	flameshot gui
+
+mod1 + t 
+    telegram-desktop
+
+mod1 + f
+	thunar
+
+### │ Misc │
+
+super + ctrl + o
+    dmenu-config-editor
+
+mod1 + ctrl + s
+	word-lookup
+
+mod1 + g
+    dmenu-search
+
+mod1 + q 
+	passmenu
+
+super + ctrl +shift + p
+    bash $HOME/ocr/ocr.sh
+
+super + Escape
+	pkill -USR1 -x sxhkd && notify-send "SXHKD Reloaded"
+
+super + shift + e
+    /home/woland/.config/rofi/powermenu/type-2/powermenu.sh
+   powermenu
+
+
+mod1 + shift + 1
+    transset-df -p 0.8
+
+mod1 + shift + 2
+    transset-df -p 0.85
+
+mod1 + shift + 3
+    transset-df -p 0.89
+
+mod1 + shift + 4
+    transset-df -p 0.90
+
+mod1 + shift + 5
+    transset-df -p 0.95
+
+mod1 + shift + 6
+    transset-df -p 0.97
+
+mod1 + shift + 7
+    transset-df -p 0.98
+
+mod1 + shift + 8
+    transset-df -p 0.99
+
+mod1 + shift + 9
+    transset-df -p 1
+
+
+
+#=========================================
+#super + ctrl + shift + a 
+#   libresprite
+
+    # transset-df -p -m 0.85 -x 0.95 --inc
+# mod1 + shift + underscore
+    # transset-df -p -m 0.85 -x 0.95 --dec
+
+#mod1 + d
+	#/home/woland/.config/rofi/launchers/type-3/launcher.sh
+
+#mod1 + shift + e
+#    emacsclient -c -a emacs
+
+# mod1 + w
+	# badwolf
+
+
+#super + shift + End
+#    xterm -sk -e htop
+#
+#super + shift + Home
+#    xterm -sk -e lf
+#
+#super + shift + Page_Down
+#    xterm -e nmtui
+#
+#super + shift + Page_Up
+#    xterm -sk -e w3m ddg.gg
+
+# super + p
+     # rofi -show drun -theme /home/woland/.config/rofi/launchers/type-3/style-4.rasi
+
+# mod1 + Return 
+	# xterm -sk
+
+#mod1 + d
+    #rofi -show drun
+

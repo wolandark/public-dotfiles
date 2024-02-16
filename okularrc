@@ -1,0 +1,59 @@
+[Desktop Entry]
+FullScreen=false
+
+[General]
+LockSidebar=true
+ShowSidebar=true
+
+[MainWindow]
+2 screens: Height=1030
+2 screens: Width=1890
+2 screens: XPosition=12
+2 screens: YPosition=35
+3 screens: Height=1050
+3 screens: Width=953
+3 screens: XPosition=959
+3 screens: YPosition=25
+DP1 HDMI1=HDMI1
+DP1 HDMI1 Height 1076x1913=1858
+DP1 HDMI1 Height 1914x1077 DP1=1016
+DP1 HDMI1 Height 1914x1077 HDMI1=1016
+DP1 HDMI1 Width 1076x1913=1042
+DP1 HDMI1 Width 1914x1077 DP1=1894
+DP1 HDMI1 Width 1914x1077 HDMI1=1894
+DP1 HDMI1 XPosition 1076x1913=17
+DP1 HDMI1 XPosition 1914x1077 DP1=1930
+DP1 HDMI1 XPosition 1914x1077 HDMI1=0
+DP1 HDMI1 YPosition 1076x1913=39
+DP1 HDMI1 YPosition 1914x1077 DP1=51
+DP1 HDMI1 YPosition 1914x1077 HDMI1=0
+DP1 HDMI1 eDP1=HDMI1
+DP1 Height 1920x1080=1019
+DP1 Width 1920x1080=1920
+DP1 XPosition 1920x1080=0
+DP1 YPosition 1920x1080=29
+RestorePositionForNextInstance=false
+State=AAAA/wAAAAD9AAAAAQAAAAAAAAGZAAADvPwCAAAAAfsAAAAcAG8AawB1AGwAYQByAF8AcwBpAGQAZQBiAGEAcgEAAABKAAADvAAAAQIBAAAIAAAFyAAAA7wAAAAEAAAABAAAAAgAAAAI/AAAAAMAAAABAAAAAQAAACwAcQB1AGkAYwBrAEEAbgBuAG8AdABhAHQAaQBvAG4AVABvAG8AbABCAGEAcgIAAAAA/////wAAAAAAAAAAAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAAgAAAAEAAAAiAGEAbgBuAG8AdABhAHQAaQBvAG4AVABvAG8AbABCAGEAcgAAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+
+[Recent Files]
+File1[$e]=$HOME/Documents/Untitled 1.pdf
+File10[$e]=$HOME/PDF/lpg-0.4.pdf
+File2[$e]=$HOME/Documents/(Cookbooks (O'Reilly)) Albing, Carl_ Newham, Cameron_ Vossen, JP - Bash Cookbook _ Solutions and Examples for bash Users-O'Reilly Media (2007).pdf
+File3[$e]=$HOME/tmp/privategpt/PGPT/source_documents/HUGETrackerManual.pdf
+File4[$e]=$HOME/Downloads/Telegram Desktop/ریشه‌های بی ریشه - اریک ریموند.pdf
+File5[$e]=$HOME/ParsiSareh.pdf
+File6[$e]=$HOME/Downloads/Telegram Desktop/Album lyrics.pdf
+File7[$e]=$HOME/PDF/ald Lewine - POSIX programmer's guide_ writing portable UNIX programs with the POSIX.1 standard-O'Reilly & Associates (1991).pdf
+File8[$e]=$HOME/PDF/CSS/Ivaylo Gerchev - Tailwind CSS (2022, SitePoint) - libgen.li.epub
+File9[$e]=$HOME/Downloads/Telegram Desktop/resume-file-cvresume-ir-1706158565-30.pdf
+Name1[$e]=Untitled 1.pdf
+Name10[$e]=lpg-0.4.pdf
+Name2[$e]=(Cookbooks (O'Reilly)) Albing, Carl_ Newham, Cameron_ Vossen, JP - Bash Cookbook _ Solutions and Examples for bash Users-O'Reilly Media (2007).pdf
+Name3[$e]=HUGETrackerManual.pdf
+Name4[$e]=ریشه‌های بی ریشه - اریک ریموند.pdf
+Name5[$e]=ParsiSareh.pdf
+Name6[$e]=Album lyrics.pdf
+Name7[$e]=ald Lewine - POSIX programmer's guide_ writing portable UNIX programs with the POSIX.1 standard-O'Reilly & Associates (1991).pdf
+Name8[$e]=Ivaylo Gerchev - Tailwind CSS (2022, SitePoint) - libgen.li.epub
+Name9[$e]=resume-file-cvresume-ir-1706158565-30.pdf
