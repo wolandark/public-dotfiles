@@ -1,0 +1,531 @@
+! _       __      __                __
+!| |     / /___  / /___ _____  ____/ /
+!| | /| / / __ \/ / __ `/ __ \/ __  / 
+!| |/ |/ / /_/ / / /_/ / / / / /_/ /  
+!|__/|__/\____/_/\__,_/_/ /_/\__,_/   
+!                                     
+!   _  __                                               
+!  | |/ /________  _________  __  _______________  _____
+!  |   // ___/ _ \/ ___/ __ \/ / / / ___/ ___/ _ \/ ___/
+! /   |/ /  /  __(__  ) /_/ / /_/ / /  / /__/  __(__  ) 
+!/_/|_/_/   \___/____/\____/\__,_/_/   \___/\___/____/  
+!                                                       
+!=========
+!  Guide |
+!=========
+!
+!(ctrl+plus = increase ; ctrl+minus = decrease, ctrl+0 = default)
+! ctrl+shift+c  ; ctrl+shift+v 
+! - open url (clickable links)
+!   1) double click to highlight the full url
+!   2) Shift + click it to open it
+
+!select with mouth to copy to CLIPBOARD 
+!use Shift + middle mouse button to paste
+!
+!Scroll with mouse or Shift Pgup PgDn
+
+
+! Allow xterm to report the TERM variable correctly.
+! Do not set the TERM variable from your ~/.bashrc or ~/.bash_profile or similar file.
+! The terminal itself should report the correct TERM to the system so that the proper terminfo file will be used.
+! Two usable terminfo names are xterm and xterm-256color
+
+!==========================================!
+!=================Themes===================!
+!==========================================!
+! Base16 Horizon Dark
+! Scheme author: Michaël Ball (http://github.com/michael-ball/)
+! Template author: Tinted Theming (https://github.com/tinted-theming)
+
+!#define base00 #1c1e26
+!#define base01 #232530
+!#define base02 #2e303e
+!#define base03 #6f6f70
+!#define base04 #9da0a2
+!#define base05 #cbced0
+!#define base06 #dcdfe4
+!#define base07 #e3e6ee
+!#define base08 #e93c58
+!#define base09 #e58d7d
+!#define base0A #efb993
+!#define base0B #efaf8e
+!#define base0C #24a8b4
+!#define base0D #df5273
+!#define base0E #b072d1
+!#define base0F #e4a382
+!
+!*foreground:   base05
+!#ifdef background_opacity
+!*background:   base00
+!#else
+!*background:   base00
+!#endif
+!*cursorColor:  base05
+!
+!*color0:       base00
+!*color1:       base08
+!*color2:       base0B
+!*color3:       base0A
+!*color4:       base0D
+!*color5:       base0E
+!*color6:       base0C
+!*color7:       base05
+!
+!*color8:       base03
+!*color9:       base08
+!*color10:      base0B
+!*color11:      base0A
+!*color12:      base0D
+!*color13:      base0E
+!*color14:      base0C
+!*color15:      base07
+!
+! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+!*color16:      base09
+!*color17:      base0F
+!*color18:      base01
+!*color19:      base02
+!*color20:      base04
+!*color21:      base06
+!
+!===============!
+!=====Mocha=====!
+!===============!
+
+!*.background:   #282936
+
+*.cursorColor:  #e9e9f4
+
+*background: #1E1E2E
+*foreground: #CDD6F4
+
+! black
+*color0: #45475A
+*color8: #585B70
+
+! red
+*color1: #F38BA8
+*color9: #F38BA8
+
+! green
+*color2: #A6E3A1
+*color10: #A6E3A1
+
+! yellow
+*color3: #F9E2AF
+*color11: #F9E2AF
+
+! blue
+*color4: #89B4FA
+*color12: #89B4FA
+
+! magenta
+*color5: #F5C2E7
+*color13: #F5C2E7
+
+! cyan
+*color6: #94E2D5
+*color14: #94E2D5
+
+! white
+*color7: #f2f2f2
+*color15: #f8f8f8
+!=======================!
+!========Lunaperche=====!
+!=======================!
+! special
+!*.foreground:   #ffffff
+!*.background:   #000000
+!*.cursorColor:  #fffff7
+
+! black
+!*.color0:       #000000
+!*.color8:       #767676
+
+! red
+!*.color1:       #af5f5f
+!*.color9:       #ff5f5f
+
+! green
+!*.color2:       #5fd75f
+!*.color10:      #5faf5f
+
+! yellow
+!*.color3:       #ffd787
+!*.color11:      #af875f
+
+! blue
+!*.color4:       #5fb3f0
+!*.color12:      #06b1ff
+
+! magenta
+!*.color5:       #e85b92
+!*.color13:      #bb5d79
+
+! cyan
+!*.color6:       #5f87af
+!*.color14:      #5fafff
+
+! white
+!*.color7:       #c6c6c6
+!*.color15:      #e2f1f6
+
+!=======================!
+!========Woland=========!
+!=======================!
+! special
+!*.foreground:   #fffff7
+!*.background:   #000000
+!*.cursorColor:  #fffff7
+!
+! black
+!*.color0:       #151515
+!*.color8:       #696969
+!
+! red
+!*.color1:       #ff8eaf
+!*.color9:       #ed4c7a
+!
+! green
+!*.color2:       #a6e25f
+!*.color10:      #a6e179
+!
+! yellow
+!*.color3:       #f8e578
+!*.color11:      #ffdf6b
+!
+! blue
+!*.color4:       #a6b3f0
+!*.color12:      #06b1ff
+!
+! magenta
+!*.color5:       #e85b92
+!*.color13:      #bb5d79
+!
+! cyan
+!*.color6:       #5f868f
+!*.color14:      #87a8af
+!
+! white
+!*.color7:       #d5f1f2
+!*.color15:      #e2f1f6
+
+!==================
+!---Gruvbox-dark---
+!==================
+! File: gruvbox-dark.xresources
+! Author: morhetz <morhetz@gmail.com>
+! Source: https://github.com/morhetz/gruvbox-generalized
+
+! hard contrast: *background: #1d2021
+!*background: #282828
+! soft contrast: *background: #32302f
+!*foreground: #ebdbb2
+! Black + DarkGrey
+!*color0:  #282828
+!*color8:  #928374
+! DarkRed + Red
+!*color1:  #cc241d
+!*color9:  #fb4934
+! DarkGreen + Green
+!*color2:  #98971a
+!*color10: #b8bb26
+! DarkYellow + Yellow
+!*color3:  #d79921
+!*color11: #fabd2f
+! DarkBlue + Blue
+!*color4:  #458588
+!*color12: #83a598
+! DarkMagenta + Magenta
+!*color5:  #b16286
+!*color13: #d3869b
+! DarkCyan + Cyan
+!*color6:  #689d6a
+!*color14: #8ec07c
+! LightGrey + White
+!*color7:  #a89984
+!*color15: #ebdbb2
+
+!====================
+!---Solarized-Dark---
+!====================
+!!Source http://github.com/altercation/solarized
+!
+! *background: #002b36
+! *foreground: #657b83
+! !*fading: 40
+! *fadeColor: #002b36
+! ! *cursorColor: #93a1a1
+! *pointerColorBackground: #586e75
+! *pointerColorForeground: #93a1a1
+
+! ! black dark/light
+! *color0: #073642
+! *color8: #002b36
+
+! ! red dark/light
+! *color1: #dc322f
+! *color9: #cb4b16
+!
+! ! green dark/light
+! *color2: #859900
+! *color10: #586e75
+!
+! ! yellow dark/light
+! *color3: #b58900
+! *color11: #657b83
+!
+! ! blue dark/light
+! *color4: #268bd2
+! *color12: #839496
+!
+! ! magenta dark/light
+! *color5: #d33682
+! *color13: #6c71c4
+!
+! ! cyan dark/light
+! *color6: #2aa198
+! *color14: #93a1a1
+!
+! ! white dark/light
+! *color7: #eee8d5
+! *color15: #fdf6e3
+
+!==========================================!
+!=================Dracula==================!
+!==========================================!
+! Base16 Dracula
+! Scheme: Mike Barkmin (http://github.com/mikebarkmin) based on Dracula Theme (http://github.com/dracula)
+
+!#define base00 #282936
+!#define base01 #3a3c4e
+!#define base02 #4d4f68
+!#define base03 #626483
+!#define base04 #62d6e8
+!#define base05 #e9e9f4
+!#define base06 #f1f2f8
+!#define base07 #f7f7fb
+!#define base08 #ea51b2
+!#define base09 #b45bcf
+!#define base0B #00f769
+!#define base0A #ebff87
+!#define base0C #a1efe4
+!#define base0D #62d6e8
+!#define base0E #b45bcf
+!#define base0F #00f769
+
+!*.foreground:   base05
+!#ifdef background_opacity
+!*.background:   [background_opacity]base00
+!#else
+!*.background:   base00
+!#endif
+!*.cursorColor:  base05
+
+!*.color0:       base00
+!*.color1:       base08
+!*.color2:       base0B
+!*.color3:       base0A
+!*.color4:       base0D
+!*.color5:       base0E
+!*.color6:       base0C
+!*.color7:       base05
+!
+!*.color8:       base03
+!*.color9:       base08
+!*.color10:      base0B
+!*.color11:      base0A
+!*.color12:      base0D
+!*.color13:      base0E
+!*.color14:      base0C
+!*.color15:      base07
+
+! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+!*.color16:      base09
+!*.color17:      base0F
+!*.color18:      base01
+!*.color19:      base02
+!*.color20:      base04
+!*.color21:      base06
+
+!===============================================================!
+!====================== Xterm Settings =========================!
+!===============================================================!
+!XTerm.termName: xterm-truecolor
+XTerm.termName: xterm-256color
+XTerm*transparent: true
+
+!-------[ Fonts ]-------
+XTerm*faceName: SauceCodeProNerdFont
+XTerm*faceSize: 13
+
+! VT Font Menu: Unreadable
+xterm*faceSize1: 10
+! VT font menu: Tiny
+xterm*faceSize2: 11
+! VT font menu: Medium
+xterm*faceSize3: 14
+! VT font menu: Large
+xterm*faceSize4: 16
+! VT font menu: Huge
+xterm*faceSize5: 18
+xterm*faceSize6: 20
+xterm*faceSize7: 22
+xterm*faceSize8: 24
+xterm*faceSize9: 26
+
+! Locale must be UTF-8 
+XTerm.vt100.locale: true
+
+!---------- [ Cursor ] ------------------
+! pointer and cursor (blinking and color)
+XTerm*pointerColor: white
+XTerm*pointerColorBackground: black
+! XTerm*cursorColor: #EBD27D
+! XTerm*cursorColor: white
+XTerm*cursorBlink: false
+
+!Bell
+XTerm*bellIsUrgent: false
+XTerm*bellOff: true
+
+!! Selecting Text
+! Only select text
+XTerm*highlightSelection: true
+! Remove trailing spaces
+XTerm*trimSelection: true
+
+!!------------ [Scrolling ]---------------
+! Lines that you can scroll back 
+XTerm*saveLines: 16384
+
+! Turn the scrollbar on, and put it on the right
+! XTerm.vt100.scrollBar: true
+! XTerm.vt100.scrollbar.width: 8
+! xterm*scrollBar: true
+! xterm*rightScrollBar: true
+
+! Do not scroll when there is new input e.g. tail -f /var/syslog
+XTerm*scrollTtyOutput: false
+
+!!-------------------[ Keybinding ]-------------------
+XTerm.vt100.translations: #override \n\
+  Ctrl <Key> minus: smaller-vt-font() \n\
+  Ctrl <Key> plus: larger-vt-font() \n\
+  Ctrl <Key> 0: set-vt-font(d) \n\
+  Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+  Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+  Shift <Btn1Up>: exec-formatted("xdg-open '%t'", PRIMARY) \n\
+  <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0) \n\
+  <Btn2Up>: insert-selection(PRIMARY)
+
+! enable copy/paste hotkey to work (shift+insert = paste ; mouse highlight = copy)
+XTerm*selectToClipboard: true
+! disable fullscreen hotkey alt+enter (hotkey conflicts with weechat, midnight commander ...etc)
+XTerm*fullscreen: never
+! enable alt key to work
+XTerm*metaSendsEscape: true 
+! Fix the backspace key (for Emacs)
+XTerm.vt100.backarrowKey: false
+XTerm.ttyModes: erase ^?
+
+! double-click to select whole URLs 
+XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! Tips: Left and right selection (text selection using left button for beginning and right button for end)
+! Tips: Triple Click ( 1 click = nothing, 2 click = select word, 3 click = select line )
+!
+! XTerm*on3Clicks: regex [[:alpha:]]+://([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+XTerm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+
+XTerm*vt100.Translations: #override\
+  Shift <KeyPress> Home:  scroll-to(begin) \n\
+  Shift <KeyPress> End:   scroll-to(end) \n\
+
+!    Ctrl <Key>M: maximize() \n\
+!    Ctrl <Key>R: restore() \n\
+!                 Shift <KeyPress> Prior:scroll-back(1,halfpage) \n\
+!                  Shift <KeyPress> Next:scroll-forw(1,halfpage) \n\
+!                Shift <KeyPress> Select:select-cursor-start() \
+!                                        select-cursor-end(SELECT, CUT_BUFFER0) \n\
+!                Shift <KeyPress> Insert:insert-selection(SELECT, CUT_BUFFER0) \n\
+!                        Alt <Key>Return:fullscreen() \n\
+!               <KeyRelease> Scroll_Lock:scroll-lock() \n\
+!           Shift~Ctrl <KeyPress> KP_Add:larger-vt-font() \n\
+!           Shift Ctrl <KeyPress> KP_Add:smaller-vt-font() \n\
+!           Shift <KeyPress> KP_Subtract:smaller-vt-font() \n\
+!                       ~Meta <KeyPress>:insert-seven-bit() \n\
+!                        Meta <KeyPress>:insert-eight-bit() \n\
+!                       !Ctrl <Btn1Down>:popup-menu(mainMenu) \n\
+!                       ~Meta <Btn1Down>:select-start() \n\
+!                     ~Meta <Btn1Motion>:select-extend() \n\
+!                       !Ctrl <Btn2Down>:popup-menu(vtMenu) \n\
+!                 ~Ctrl ~Meta <Btn2Down>:ignore() \n\
+!                        Meta <Btn2Down>:clear-saved-lines() \n\
+!                   ~Ctrl ~Meta <Btn2Up>:insert-selection(SELECT, CUT_BUFFER0) \n\
+!                       !Ctrl <Btn3Down>:popup-menu(fontMenu) \n\
+!                 ~Ctrl ~Meta <Btn3Down>:start-extend() \n\
+!                     ~Meta <Btn3Motion>:select-extend() \n\
+!                        Ctrl <Btn4Down>:scroll-back(1,halfpage,m) \n\
+!                             <Btn4Down>:scroll-back(5,line,m)     \n\
+!                        Ctrl <Btn5Down>:scroll-forw(1,halfpage,m) \n\
+!                                <BtnUp>:select-end(SELECT, CUT_BUFFER0) \n\
+!                              <BtnDown>:ignore()
+
+!====================================
+!===============UXTerm===============
+!====================================
+UXTerm*faceName: RobotoMonoNerdFont
+UXTerm*faceSize: 13
+uxterm*faceSize1: 10
+uxterm*faceSize2: 11
+uxterm*faceSize3: 14
+uxterm*faceSize4: 16
+uxterm*faceSize5: 18
+uxterm*faceSize6: 20
+uxterm*faceSize7: 22
+uxterm*faceSize8: 24
+uxterm*faceSize9: 26
+uXTerm.vt100.locale: true
+
+!!-------------------[ Keybinding ]-------------------
+UXTerm.vt100.translations: #override \n\
+  Ctrl <Key> minus: smaller-vt-font() \n\
+  Ctrl <Key> plus: larger-vt-font() \n\
+  Ctrl <Key> 0: set-vt-font(d) \n\
+  Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+  Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+  Shift <Btn1Up>: exec-formatted("xdg-open '%t'", PRIMARY) \n\
+  <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0) \n\
+  <Btn2Up>: insert-selection(PRIMARY)
+
+UXTerm*selectToClipboard: true
+UXTerm*fullscreen: never
+UXTerm*metaSendsEscape: true 
+UXTerm.vt100.backarrowKey: false
+UXTerm.ttyModes: erase ^?
+UXTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+UXTerm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+UXTerm*vt100.Translations: #override\
+  Shift <KeyPress> Home:  scroll-to(begin) \n\
+  Shift <KeyPress> End:   scroll-to(end) \n\
+
+!---------- [ Cursor ] ------------------
+UXTerm*pointerColor: white
+UXTerm*pointerColorBackground: black
+! XTerm*cursorColor: #EBD27D
+! XTerm*cursorColor: white
+UXTerm*cursorBlink: false
+!UXTerm*bellIsUrgent: false
+UXTerm*bellOff: false
+UXTerm*bellIsAudible: true
+
+UXTerm*highlightSelection: true
+UXTerm*trimSelection: true
+!!------------ [Scrolling ]---------------
+UXTerm*saveLines: 16384
+UXTerm*scrollTtyOutput: false
+

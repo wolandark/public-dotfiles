@@ -1,0 +1,100 @@
+#!/bin/sh
+
+# alias vim.='vim "+:CocCommand explorer"'
+#========[ALIASES]========#
+#====[PACMAN]====#
+alias update='doas pacman -Sy'
+alias upgrade='doas pacman -Syu'
+alias Ss='doas pacman -Ss'
+alias fuck='doas pacman -Rnscd'
+alias pkl='doas pacman -Qq'
+alias upkl='doas pacman -Qeq'
+alias cleanup='doas pacman -Sc'
+alias fullcleanup='doas pacman -Scc'
+alias autoremove='doas pacman -Rsn $(pacman -Qdtq)'
+alias killtheorphans='doas pacman -Qdtq > orphans'
+alias cachesize='du -sh /var/cache/pacman/pkg/'
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
+
+#====[MISC]====#
+alias p3='python3'
+alias ..='cd ..'
+alias cls='clear'
+alias ':q'='exit'
+alias ':wq'='exit'
+alias lf='lfcd'
+# ls
+alias ls='eza'
+alias l='eza'
+alias ll='eza -l'
+alias la='eza -a'
+alias lla='eza -al'
+# web
+alias linksg='links -g www.duckduckgo.com'
+alias www='w3m duckduckgo.com'
+alias arch='w3m archlinux.org/packages'
+alias rss='newsboat'
+alias reddit='tuir'
+
+alias brc='vim ~/.bashrc'
+alias arc='vim ~/.aliases'
+alias vrc='vim ~/.vimrc'
+
+alias yt='youtube-dl -ic'
+
+alias hp='htop'
+alias gtop='gotop --layout=minimal'
+alias nf='neofetch'
+alias nfl='neofetch | lolcat'
+
+alias reload='source ~/.bashrc'
+alias merge='xrdb ~/.Xresources'
+# alias yabridge='/home/woland/.local/share/yabridge/yabridgectl'
+
+alias disk='ncdu'
+
+alias gc='git clone'
+alias pk='pulseaudio -k'
+alias r='ranger'
+alias v='vim'
+alias vc='vim --clean'
+alias f='vifm .' 
+alias X='exit' 
+alias ww='vim ~/vimwiki/index.wiki'
+alias pm='pulsemixer'
+
+# alias scrot="scrot '%d-%H:%M-$a.png'"
+
+alias screenkey='screenkey --scr 2 --opacity 0 -p bottom -s small -f Terminus-Bold --font-color yellow & '
+alias xep='Xephyr -br -ac -noreset -screen 800x600 :1'
+alias wm='DISPLAY=:1'
+
+alias feh2='feh --bg-fill ~/Pictures/Artix/Artix-dark.png --bg-fill ~/Pictures/Vertical/galaxy2.jpg'
+alias i3lock='i3lock -c 000000'
+alias xclock='xclock -bg gray -geometry 328x328'
+alias binit="curl -F 'file=@-' 0x0.st"
+alias tilde='ssh -p 443 woland@ssh.tilde.team'
+alias psg='python ~/.local/bin/passgen.py'
+alias finder='xfce4-appfinder'
+alias page='/usr/share/vim/vim90/macros/less.sh'
+
+alias player='ncmpcpp'
+alias ping='ping -c 10 8.8.8.8'
+# alias cat='bat'
+
+alias tp='trash-put'
+alias tl='trash-list'
+# alias rm='echo "Do You Mean trash-put?"; false'
+
+# git aliases
+alias g='git'
+alias ga='git add'
+alias gt='git commit -m'
+alias gpl='git pull'
+alias gpsh='git push origin'
+alias docker='doas docker'
+
+# MISC
+alias fs='fluidsynth -a pulseaudio -m alsa_raw -o midi.alsa.device=hw:3,0,1 -g 1.0 /usr/share/soundfonts/default.sf2'
+alias mc='tmux split -h lf; lf'
