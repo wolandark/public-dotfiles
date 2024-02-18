@@ -23,6 +23,7 @@ pkgs=(
 	base-devel
 	bash-completion
 	bat
+	bc
 	chromium 
 	curl
 	dash
@@ -78,6 +79,7 @@ pkgs=(
 	qbittorrent 
 	qt5ct
 	ranger
+	realtime-privileges
 	ripgrep-all
 	rofi 
 	rsync
@@ -156,6 +158,7 @@ aur=(
 	vazirmatn-fonts
 	waterfox-bin
 	xkb-switch 
+	xidle
 )
 
 for i in "${pkgs[@]}" 
@@ -260,6 +263,7 @@ mv pistol-static-linux-x86_64 ~/.config/lf/
 echo -e "\033[7;32mInstalling Qemu Now\033[0m"
 sudo pacman -S qemu-full iptables-nft dnsmasq 
 sudo usermod -aG libvirt $USER
+sudo usermod -aG realtime $USER
 sudo systemctl enable --now libvirtd.service
 sudo systemctl enable --now virtlogd.service
 sudo systemctl enable --now libvirtd.socket
