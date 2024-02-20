@@ -145,6 +145,7 @@ aur=(
 	lsix-git
 	noto-color-emoji-fontconfig
 	powerline-fonts 
+	poppler
 	python-jdatetime
 	qogir-gtk-theme-git
 	qogir-icon-theme-git 
