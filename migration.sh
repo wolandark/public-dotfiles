@@ -127,6 +127,7 @@ pkgs=(
 	zathura
 	zathura-cb
 	man-db
+	man-pages
 	zathura-djvu
 	zathura-pdf-mupdf
 	zathura-ps
