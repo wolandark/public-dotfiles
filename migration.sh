@@ -1,5 +1,5 @@
 #!/usr/bin/env bash 
-                                                                          
+
 install_yay()
 {
 	git clone https://aur.archlinux.org/yay.git
@@ -132,10 +132,12 @@ pkgs=(
 	zathura-pdf-mupdf
 	zathura-ps
 	zenity 
+	kvantum
 )
 
 aur=(
 	7-zip-bin
+	kvantum-theme-catppuccin-git
 	albert 
 	bottom
 	cava
