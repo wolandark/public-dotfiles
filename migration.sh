@@ -53,11 +53,15 @@ pkgs=(
 	kate
 	konsole
 	ksh
+	kvantum
 	leafpad
 	lf
 	libnewt
 	libnotify 
 	lxappearance-gtk3
+	lxqt-archiver
+	man-db
+	man-pages
 	mg
 	mocp
 	mpc
@@ -74,6 +78,7 @@ pkgs=(
 	openssh 
 	pandoc-bin
 	pass
+	pcmanfm 
 	proxychains-ng
 	pulsemixer
 	qbittorrent 
@@ -126,30 +131,31 @@ pkgs=(
 	z
 	zathura
 	zathura-cb
-	man-db
-	man-pages
 	zathura-djvu
 	zathura-pdf-mupdf
 	zathura-ps
 	zenity 
-	kvantum
 )
 
 aur=(
 	7-zip-bin
-	kvantum-theme-catppuccin-git
 	albert 
 	bottom
+	catppuccin-gtk-theme-frappe
+	catppuccin-gtk-theme-latte
+	catppuccin-gtk-theme-macchiato
+	catppuccin-gtk-theme-mocha
 	cava
 	fsearch 
 	i3-swallow-git 
 	jcal
+	kvantum-theme-catppuccin-git
 	libvirt-python
 	lightly-qt
 	lsix-git
 	noto-color-emoji-fontconfig
-	powerline-fonts 
 	poppler
+	powerline-fonts 
 	python-jdatetime
 	qogir-gtk-theme-git
 	qogir-icon-theme-git 
@@ -162,8 +168,8 @@ aur=(
 	vazirmatn-code-fonts
 	vazirmatn-fonts
 	waterfox-bin
-	xkb-switch 
 	xidle
+	xkb-switch 
 )
 
 for i in "${pkgs[@]}" 
@@ -244,7 +250,7 @@ cd || return
 sleep 1
 
 echo -e "\033[7;32mSetting Up Some Themes Now\033[0m"
-git clone https://github.com/catppuccin/xfce4-terminal.git
+# git clone https://github.com/catppuccin/xfce4-terminal.git
 mkdir -p ~/.local/share/xfce4/terminal/colorschemes/
 rsync -av ~/xfce4-terminal/src/ ~/.local/share/xfce4/terminal/colorschemes/
 sleep 1
@@ -254,12 +260,12 @@ git clone --depth=1 https://github.com/adi1090x/rofi.git
 chmod +x rofi/setup.sh
 rofi/setup.sh
 
-echo -e "\033[7;32mSetting QT5CT Themes Now\033[0m"
-mkdir -p ~/.config/qt5ct/colors/
-curl -o ~/.config/qt5ct/colors/Catppuccin-Frappe.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Frappe.conf
-curl -o ~/.config/qt5ct/colors/Catppuccin-Latte.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Latte.conf
-curl -o ~/.config/qt5ct/colors/Catppuccin-Macchiato.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Macchiato.conf
-curl -o ~/.config/qt5ct/colors/Catppuccin-Mocha.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Mocha.conf
+# echo -e "\033[7;32mSetting QT5CT Themes Now\033[0m"
+# mkdir -p ~/.config/qt5ct/colors/
+# curl -o ~/.config/qt5ct/colors/Catppuccin-Frappe.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Frappe.conf
+# curl -o ~/.config/qt5ct/colors/Catppuccin-Latte.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Latte.conf
+# curl -o ~/.config/qt5ct/colors/Catppuccin-Macchiato.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Macchiato.conf
+# curl -o ~/.config/qt5ct/colors/Catppuccin-Mocha.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Mocha.conf
 
 echo -e "\033[7;32mDownloading Pistol Now\033[0m"
 wget https://github.com/doronbehar/pistol/releases/download/v0.4.2/pistol-static-linux-x86_64
