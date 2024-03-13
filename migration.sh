@@ -170,6 +170,7 @@ aur=(
 	waterfox-bin
 	xidle
 	xkb-switch 
+	ttf-ubraille
 )
 
 for i in "${pkgs[@]}" 
