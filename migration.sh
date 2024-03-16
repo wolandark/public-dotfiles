@@ -125,6 +125,7 @@ pkgs=(
 	xorg-xset 
 	xorg-xwininfo
 	xsel 
+	xclip
 	xterm
 	yarn
 	yt-dlp
