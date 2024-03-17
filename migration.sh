@@ -142,6 +142,7 @@ aur=(
 	7-zip-bin
 	albert 
 	bottom
+	selectdefaultapplication-git
 	catppuccin-gtk-theme-frappe
 	catppuccin-gtk-theme-latte
 	catppuccin-gtk-theme-macchiato
