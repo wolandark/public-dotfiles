@@ -55,6 +55,8 @@ pkgs=(
 	git 
 	glava
 	glow
+	go
+	gopls
 	gthumb 
 	gvim 
 	hexchat
@@ -173,6 +175,7 @@ aur=(
 	qogir-gtk-theme-git
 	qogir-icon-theme-git 
 	selectdefaultapplication-git
+	shellcheck-bin
 	simplescreenrecorder-bin
 	transset-df
 	ttf-firacode-nerd 
