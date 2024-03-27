@@ -194,11 +194,11 @@ do
 	then
 		sudo pacman -S "$i" --noconfirm
 		((installed_count++))
+		echo -e "\033[7;32mInstalled \"$i\"! Continuing ...\033[0m"
 	else
 		echo "Package \"$i\" is already installed. Skipping ..."
 	fi
 	((remaining_count--))
-	echo -e "\033[7;32mInstalled \"$i\"! Continuing ...\033[0m"
 	display_counters
 	sleep 0.1
 done
@@ -209,13 +209,13 @@ for i in "${aur[@]}"
 do
 	if ! is_pkg_installed "$i"
 	then
-		yay -S "$i" --noconfirm
+		yay -S "$i" --askyesremovemake --noconfirm
 		((installed_count++))
+		echo -e "\033[7;32mInstalled \"$i\"! Continuing ...\033[0m"
 	else
 		echo "Package \"$i\" is already installed. Skipping ..."
 	fi
 	((remaining_count--))
-	echo -e "\033[7;32mInstalled \"$i\"! Continuing ...\033[0m"
 	display_counters
 	sleep 0.1
 done
