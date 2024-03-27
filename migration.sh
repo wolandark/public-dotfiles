@@ -1,5 +1,10 @@
 #!/usr/bin/env bash 
 
+########################
+# vim: foldmethod=marker
+########################
+
+# YAY {{{
 install_yay()
 {
 	git clone https://aur.archlinux.org/yay.git
@@ -7,7 +12,9 @@ install_yay()
 	makepkg -si
 }
 install_yay
+# }}}
 
+# Functins {{{
 display_counters() {
     echo -e "\033[7;35mPackages installed: $installed_count\033[0m"
     echo -e "\033[7;35mPackages remaining: $remaining_count\033[0m"
@@ -16,10 +23,14 @@ display_counters() {
 is_pkg_installed() {
     pacman -Q "$1" &>/dev/null
 }
+# }}}
 
+# Vars {{{
 installed_count=0
 remaining_count=${#pkgs[@]}
+# }}}
 
+# Pacman PKGs Array {{{
 pkgs=(
 	adwaita-cursors
 	alsa-firmware
@@ -150,7 +161,9 @@ pkgs=(
 	zathura-ps
 	zenity 
 )
+# }}}
 
+# AUR PKGs Array {{{
 aur=(
 	7-zip-bin
 	albert 
@@ -186,11 +199,14 @@ aur=(
 	vazirmatn-code-fonts
 	vazirmatn-fonts
 	waterfox-bin
+	xdman
 	xidle
 	xidlehook
 	xkb-switch 
 )
+# }}}
 
+# Pacman Loop {{{
 for i in "${pkgs[@]}" 
 do
 	if ! is_pkg_installed "$i"
@@ -205,7 +221,9 @@ do
 	display_counters
 	sleep 0.1
 done
+# }}}
 
+# AUR Loop {{{
 echo -e "\033[7;34mInstalling AUR Packages Now ...\033[0m"
 
 for i in "${aur[@]}" 
@@ -222,11 +240,15 @@ do
 	display_counters
 	sleep 0.1
 done
+# }}}
 
+# Config {{{
 echo -e "\033[7;32mCopying Files Around ...\033[0m"
 rsync -av ~/public-dotfiles/config/ ~/.config/
 sleep 1
+# }}}
 
+# Shell Files {{{
 echo -e "\033[7;32mCopying Shell Files ...\033[0m"
 rsync -av ~/public-dotfiles/bashrc ~/.bashrc
 rsync -av ~/public-dotfiles/aliases ~/.aliases
@@ -235,10 +257,14 @@ rsync -av ~/public-dotfiles/profile ~/.profile
 rsync -av ~/public-dotfiles/tmux.conf ~/.tmux.conf
 rsync -av ~/public-dotfiles/kshrc ~/.kshrc
 sleep 1
+# }}}
 
+# TPM {{{
 echo -e "\033[7;32mInstalling TPM for Tmux ...\033[0m"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# }}}
 
+# Config Files {{{
 echo -e "\033[7;32mCopying Setting Files ...\033[0m"
 rsync -av ~/public-dotfiles/nk.sh ~/nk.sh
 rsync -av ~/public-dotfiles/taskrc ~/.taskrc
@@ -249,31 +275,41 @@ rsync -av ~/public-dotfiles/xinitrc ~/.xinitrc
 rsync -av ~/public-dotfiles/ocr/ ~/ocr/
 rsync -av ~/public-dotfiles/screenlayout/ ~/.screenlayout/
 sleep 1
+# }}}
 
+# Wim {{{
 echo -e "\033[7;32mCloning Wim and Downloading Nekoray Now\033[0m"
 git clone -b Devel https://github.com/wolandark/wim.git 
 ~/public-dotfiles/NEKO/updater.sh 
 sleep 1
+# }}}
 
+# Local Bin Files {{{
 echo -e "\033[7;32mCopying Local Bin Files ...\033[0m"
 mkdir -p ~/.local/bin
 rsync -av ~/public-dotfiles/local-bin/ ~/.local/bin/
 sleep 1
+# }}}
 
+# Proxy Keyboard Doas {{{
 echo -e "\033[7;32mCopying Proxy, Keyboard and Doas Files ...\033[0m"
 sudo rsync -av ~/public-dotfiles/proxychains.conf /etc/proxychains.conf
 sudo rsync -av ~/public-dotfiles/X11/xorg.conf.d/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
 sudo rsync -av ~/public-dotfiles/doas.conf /etc/doas.conf
 sudo chown root:root /etc/doas.conf
 sleep 1
-#
+# }}}
+
+# Pics {{{
 echo -e "\033[7;32mCopying Pictures ...\033[0m"
 mkdir -p ~/Pictures
 rsync -av ~/public-dotfiles/catppuccin-wallpapers ~/Pictures/
 rsync -av ~/public-dotfiles/Dracula-Wallpapers ~/Pictures/
 echo -e "\033[7;32mFinished Copying Files\033[0m"
 sleep 1
+# }}}
 
+# slock dmenu {{{
 echo -e "\033[7;32mMaking slock Now\033[0m"
 cd ~/.config/slock/ && sudo make install && cd || return
 echo -e "\033[7;32mFinished Making slock\033[0m"
@@ -281,13 +317,17 @@ echo -e "\033[7;32mMaking dmenu Now\033[0m"
 cd ~/.config/dmenu/ && sudo make install && cd || return
 echo -e "\033[7;32mFinished Making dmenu\033[0m"
 sleep 1
+# }}}
 
+# FZF {{{
 echo -e "\033[7;32mInstalling FZF Now\033[0m"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 cd || return
 sleep 1
+# }}}
 
+# Themes Rofi QT5CT{{{
 echo -e "\033[7;32mSetting Up Some Themes Now\033[0m"
 # git clone https://github.com/catppuccin/xfce4-terminal.git
 # mkdir -p ~/.local/share/xfce4/terminal/colorschemes/
@@ -306,12 +346,16 @@ curl -o ~/.config/qt5ct/colors/Catppuccin-Frappe.conf https://raw.githubusercont
 curl -o ~/.config/qt5ct/colors/Catppuccin-Latte.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Latte.conf
 curl -o ~/.config/qt5ct/colors/Catppuccin-Macchiato.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Macchiato.conf
 curl -o ~/.config/qt5ct/colors/Catppuccin-Mocha.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Mocha.conf
+# }}}
 
+# Pistol For LF {{{
 echo -e "\033[7;32mDownloading Pistol Now\033[0m"
 wget https://github.com/doronbehar/pistol/releases/download/v0.4.2/pistol-static-linux-x86_64
 chmod +x pistol-static-linux-x86_64
 mv pistol-static-linux-x86_64 ~/.config/lf/
+# }}}
 
+# Qemu {{{
 echo -e "\033[7;32mInstalling Qemu Now\033[0m"
 sudo pacman -S qemu-full iptables-nft dnsmasq 
 sudo usermod -aG libvirt $USER
@@ -320,6 +364,6 @@ sudo systemctl enable --now libvirtd.service
 sudo systemctl enable --now virtlogd.service
 sudo systemctl enable --now libvirtd.socket
 sudo pacman -S virt-manager
+# }}}
 
 echo -e "\n\t\033[6;7;32mAll Done\033[0m"
-
