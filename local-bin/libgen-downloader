@@ -1,0 +1,10 @@
+#!/bin/sh
+# distrobox_binary
+# name: test-4
+if [ -z "${CONTAINER_ID}" ]; then
+	exec "/usr/bin/distrobox-enter"  -n test-4 --  /usr/sbin/libgen-downloader  "$@"
+elif [ -n "${CONTAINER_ID}" ] && [ "${CONTAINER_ID}" != "test-4" ]; then
+	exec distrobox-host-exec /home/woland/.local/bin/libgen-downloader  "$@"
+else
+	exec /usr/sbin/libgen-downloader "$@"
+fi

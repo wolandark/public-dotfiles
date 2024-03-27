@@ -1,7 +1,40 @@
 #!/bin/bash
 
 alias rm='trash-put'
-shopt -s autocd
+#========[BETTER DIRECTORY NAVIGATION]========#
+# Prepend cd to directory names automatically
+shopt -s autocd 2> /dev/null
+# Correct spelling errors during tab-completion
+shopt -s dirspell 2> /dev/null
+# Correct spelling errors in arguments supplied to cd
+shopt -s cdspell 2> /dev/null
+# CDPATH
+export CDPATH=".:~:~/Work:~/.local:~/.config"
+
+#========[HISTORY]========#
+# Append to the history file, don't overwrite it
+shopt -s histappend
+
+# Save multi-line commands as one command
+shopt -s cmdhist
+
+# Record each line as it gets issued
+PROMPT_COMMAND='history -a'
+
+# Huge history. Doesn't appear to slow things down, so why not?
+HISTSIZE=500000
+HISTFILESIZE=100000
+
+# Avoid duplicate entries
+HISTCONTROL="erasedups:ignoreboth"
+
+# Don't record some commands
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+
+# Use standard ISO 8601 timestamp
+# %F equivalent to %Y-%m-%d
+# %T equivalent to %H:%M:%S (24-hours format)
+HISTTIMEFORMAT='%F %T '
 
 #======[ SOURCE ]======#
 source "$HOME"/.aliases
@@ -17,8 +50,8 @@ fi
 
 #========[Vi  MODE]========#
 if [[ $- == *i* ]]; then # in interactive session
-    # set -o vi
     set -o emacs
+    # set -o vi
     # bind -m vi-command 'Control-l: clear-screen'
     # bind -m vi-insert 'Control-l: clear-screen'
     # bind '"jj":vi-movement-mode'
@@ -39,31 +72,25 @@ fi
 	# transset-df "0.9" --id $WINDOWID >/dev/null
 # fi
 
-#========[DIFFERENT PS1 FOR SSH]========#
+#========[PS1]========#
 parse_git_branch() {
-  branch=$(git branch 2>/dev/null | grep -E '^\*' | awk '{print $2}')
-  if [ ! -z "$branch" ]; then
-    printf "  %s" "$branch"
+  # branch=$(git branch 2>/dev/null | grep -E '^\*' | awk '{print $2}')
+  branch=$(git branch 2>/dev/null | sed -n '/\* /s///p')
+  if [ -n "$branch" ]; then
+    ansi --green --italic " " "$branch"
   fi
 }
 
-PS1='\[\e[38;5;39m\] 󰣇 \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\[\e[0m\]\n \[\e[38;5;51m\]╰─󰁔\[\e[0m\] '
+PS1='\[\e[38;5;39m\]\h 󰣇 \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\[\e[0m\]\n \[\e[38;5;86m\]╰─󰁔\[\e[0m\] '
+PS2='\[\e[31m\] \[\e[0m\] '
+# export PS1="\[\033[32m\]\u@\h \[\033[33;1m\]\w \[\033[36m\]\$(parse_git_branch) \[\033[0m\]\$ "
 # PS1='\[\e[38;5;39m\]  \[\e[0;38;5;46m\] \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\] \[\e[0m\]'
-PS2='>>> '
 # PS1='\[\e[38;5;39m\]  \[\e[0;38;5;46m\] \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\q{my/vim-mode}\[\e[0m\]'
 
 #=======[EXPORT VARIABLES]=========#
-export CDPATH=.:$HOME:$HOME/.config/:$HOME/.local:/
-export PATH="$HOME/.cargo/bin:$HOME/.nimble/bin:$HOME/.local/todo.sh:$HOME/.local/scripts:$HOME/.local/scripts/dmenu:$PATH"
-export JAVA_HOME=/usr/lib/jvm/java-20-openjdk
-export HISTCONTROL=ignoredups
 export EDITOR=vim
-export TUIR_BROWSER=w3m
 export PATH="$PATH":~/.local/bin
-export PATH="$PATH":~/.local/share/gem/ruby/3.0.0/bin
-export PATH="$PATH":~/go/bin
-export PATH="$PATH":~/tmp/Stash/programs/kyryl-neatvi/nextvi
-export PATH="$PATH":/home/woland/.yarn/bin
+export PATH="$PATH":~/go/bin/
 export BROWSER=waterfox-g
 export browser=waterfox-g
 export TERM=xterm-256color
@@ -71,15 +98,18 @@ export MANPAGER='vim -M +MANPAGER -'
 export BAT_THEME="1337"
 complete -cf sudo
 complete -cf doas
-unset QT_STYLE_OVERRIDE
-export QT_QPA_PLATFORMTHEME=qt5ct
+# unset QT_STYLE_OVERRIDE
+# export QT_QPA_PLATFORMTHEME=kvantum
+# export QT_QPA_PLATFORMTHEME=qt5ct
 # export DISPLAY=:0.0
-# export _JAVA_AWT_WM_NONREPARENTING=1
-# export QT_STYLE_OVERRIDE=kvantum
 
 #========[FUNCTIONS]========#
 mkcd () {
     mkdir -p "$@" && eval cd "\"\$$#\"";
+}
+
+os() {
+	cat /etc/os-release
 }
 
 cs () {
@@ -90,44 +120,31 @@ gccd () {
     git clone $1 && cs "$(basename "$_" .git) "
 }
 
-gd () {
-    git clone "https://github.com/$1/$2"
-    repo_name=$(basename "$2" .git)
-    cd "$repo_name"
-}
-
-
 redraw() {
-  clear
-  echo "Width = $(tput cols) Height = $(tput lines)"
+	tput reset
+	clear
+	echo "Width = $(tput cols) Height = $(tput lines)"
 }
-
-# trap redraw WINCH
-
-# redraw
-# while true; do
-#   :
-# done
 
 #====[EXTRACTOR]====#
 ex ()
 {
-  if [ -f $1 ] ; then
+  if [ -f "$1" ] ; then
     case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1   ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *.deb)       ar x $1      ;;
-      *.tar.xz)    tar xf $1    ;;
-      *.tar.zst)   tar xf $1    ;;
+      *.tar.bz2)   tar xjf "$1"   ;;
+      *.tar.gz)    tar xzf "$1"   ;;
+      *.bz2)       bunzip2 "$1"   ;;
+      *.rar)       unrar x "$1"   ;;
+      *.gz)        gunzip "$1"    ;;
+      *.tar)       tar xf "$1"    ;;
+      *.tbz2)      tar xjf "$1"   ;;
+      *.tgz)       tar xzf "$1"   ;;
+      *.zip)       unzip "$1"     ;;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1"      ;;
+      *.deb)       ar x "$1"      ;;
+      *.tar.xz)    tar xf "$1"    ;;
+      *.tar.zst)   tar xf "$1"    ;;
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
@@ -170,6 +187,16 @@ lfcd () {
     fi
 }
 
+#========[ViFm]========#
+vicd()
+{
+    local dst="$(command vifm --choose-dir - "$@")"
+    if [ -z "$dst" ]; then
+        echo 'Directory picking cancelled/failed'
+        return 1
+    fi
+    cd "$dst"
+}
 #====[COLORS]====#
 ylw() {
   echo -e "\033[32m$@\033[0m"
@@ -372,7 +399,6 @@ man-find() {
     f=$(fd . $MANPATH/man${1:-1} -t f -x echo {/.} | fzf) && man $f
 }
 
-
 # FZF DOCKER
 # Select a docker container to start and attach to
 function da() {
@@ -446,6 +472,17 @@ tempo() {
     play -n -c1 synth 0.001 sine 1000 pad $(awk "BEGIN { print 60/$1 -.001 }") repeat 999999
 } 
 
+vis_tempo() {
+	BPM=120;
+	while :;
+	do
+		printf "\e]11;#D80000\007";
+		sleep "$(bc <<< "scale=2; 60 / $BPM")";
+		printf "\e]11;#1e1e2e\007";
+		sleep "$(bc <<< "scale=2; 60 / $BPM")"; 
+	done
+}
+
 price(){
   KEY="freeUNamoXxueUHXqoMnEZJCDwTwdQWp"
   price=$(curl -s "http://api.navasan.tech/latest/?api_key=$KEY" | jq 'walk(if type == "object" then del(.date, .change, .timestamp) else . end) .usd_buy' | tr -d '{},",:' | sed 's/value//')
@@ -470,4 +507,19 @@ get_skeleton() {
 
 get_miligram() {
   wget https://github.com/milligram/milligram/archive/v1.4.1.zip
+}
+
+# fromhex A52A2A
+# fromhex "#A52A2A"
+# BLUE_VIOLET=$(fromhex "#8A2BE2")
+# http://unix.stackexchange.com/a/269085/67282
+function fromhex() {
+  hex=$1
+  if [[ $hex == "#"* ]]; then
+    hex=$(echo $1 | awk '{print substr($0,2)}')
+  fi
+  r=$(printf '0x%0.2s' "$hex")
+  g=$(printf '0x%0.2s' ${hex#??})
+  b=$(printf '0x%0.2s' ${hex#????})
+  echo -e `printf "%03d" "$(((r<75?0:(r-35)/40)*6*6+(g<75?0:(g-35)/40)*6+(b<75?0:(b-35)/40)+16))"`
 }

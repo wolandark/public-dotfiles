@@ -8,6 +8,18 @@ install_yay()
 }
 install_yay
 
+display_counters() {
+    echo -e "\033[7;35mPackages installed: $installed_count\033[0m"
+    echo -e "\033[7;35mPackages remaining: $remaining_count\033[0m"
+}
+
+is_pkg_installed() {
+    pacman -Q "$1" &>/dev/null
+}
+
+installed_count=0
+remaining_count=${#pkgs[@]}
+
 pkgs=(
 	adwaita-cursors
 	alsa-firmware
@@ -17,7 +29,6 @@ pkgs=(
 	amfora
 	ark
 	audacious
-	autotiling
 	awesome-terminal-fonts 
 	axel
 	base-devel
@@ -115,6 +126,7 @@ pkgs=(
 	vlc
 	w3m
 	wget
+	xclip
 	xcompmgr
 	xorg-modmap
 	xorg-xinit 
@@ -125,7 +137,6 @@ pkgs=(
 	xorg-xset 
 	xorg-xwininfo
 	xsel 
-	xclip
 	xterm
 	yarn
 	yt-dlp
@@ -141,8 +152,8 @@ pkgs=(
 aur=(
 	7-zip-bin
 	albert 
+	autotiling
 	bottom
-	selectdefaultapplication-git
 	catppuccin-gtk-theme-frappe
 	catppuccin-gtk-theme-latte
 	catppuccin-gtk-theme-macchiato
@@ -161,32 +172,51 @@ aur=(
 	python-jdatetime
 	qogir-gtk-theme-git
 	qogir-icon-theme-git 
+	selectdefaultapplication-git
 	simplescreenrecorder-bin
 	transset-df
 	ttf-firacode-nerd 
 	ttf-font-awesome-5
 	ttf-roboto-mono-nerd 
+	ttf-ubraille
 	urlview
 	vazirmatn-code-fonts
 	vazirmatn-fonts
 	waterfox-bin
 	xidle
+	xidlehook
 	xkb-switch 
-	ttf-ubraille
 )
 
 for i in "${pkgs[@]}" 
 do
-	sudo pacman -S "$i" --noconfirm
+	if ! is_pkg_installed "$i"
+	then
+		sudo pacman -S "$i" --noconfirm
+		((installed_count++))
+	else
+		echo "Package \"$i\" is already installed. Skipping ..."
+	fi
+	((remaining_count--))
 	echo -e "\033[7;32mInstalled \"$i\"! Continuing ...\033[0m"
+	display_counters
 	sleep 0.1
 done
 
 echo -e "\033[7;34mInstalling AUR Packages Now ...\033[0m"
+
 for i in "${aur[@]}" 
 do
-	yay -S "$i" --noconfirm
+	if ! is_pkg_installed "$i"
+	then
+		yay -S "$i" --noconfirm
+		((installed_count++))
+	else
+		echo "Package \"$i\" is already installed. Skipping ..."
+	fi
+	((remaining_count--))
 	echo -e "\033[7;32mInstalled \"$i\"! Continuing ...\033[0m"
+	display_counters
 	sleep 0.1
 done
 
@@ -202,6 +232,9 @@ rsync -av ~/public-dotfiles/profile ~/.profile
 rsync -av ~/public-dotfiles/tmux.conf ~/.tmux.conf
 rsync -av ~/public-dotfiles/kshrc ~/.kshrc
 sleep 1
+
+echo -e "\033[7;32mInstalling TPM for Tmux ...\033[0m"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo -e "\033[7;32mCopying Setting Files ...\033[0m"
 rsync -av ~/public-dotfiles/nk.sh ~/nk.sh
@@ -254,24 +287,26 @@ sleep 1
 
 echo -e "\033[7;32mSetting Up Some Themes Now\033[0m"
 # git clone https://github.com/catppuccin/xfce4-terminal.git
-mkdir -p ~/.local/share/xfce4/terminal/colorschemes/
-rsync -av ~/xfce4-terminal/src/ ~/.local/share/xfce4/terminal/colorschemes/
-sleep 1
+# mkdir -p ~/.local/share/xfce4/terminal/colorschemes/
+# rsync -av ~/xfce4-terminal/src/ ~/.local/share/xfce4/terminal/colorschemes/
+# sleep 1
 
 echo -e "\033[7;32mSetting Rofi Themes and Scripts Now\033[0m"
 git clone --depth=1 https://github.com/adi1090x/rofi.git
 chmod +x rofi/setup.sh
 rofi/setup.sh
+sed -i 's/style-1/style-7/' ~/.config/rofi/powermenu/type-2/powermenu.sh
 
-# echo -e "\033[7;32mSetting QT5CT Themes Now\033[0m"
-# mkdir -p ~/.config/qt5ct/colors/
-# curl -o ~/.config/qt5ct/colors/Catppuccin-Frappe.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Frappe.conf
-# curl -o ~/.config/qt5ct/colors/Catppuccin-Latte.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Latte.conf
-# curl -o ~/.config/qt5ct/colors/Catppuccin-Macchiato.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Macchiato.conf
-# curl -o ~/.config/qt5ct/colors/Catppuccin-Mocha.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Mocha.conf
+echo -e "\033[7;32mSetting QT5CT Themes Now\033[0m"
+mkdir -p ~/.config/qt5ct/colors/
+curl -o ~/.config/qt5ct/colors/Catppuccin-Frappe.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Frappe.conf
+curl -o ~/.config/qt5ct/colors/Catppuccin-Latte.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Latte.conf
+curl -o ~/.config/qt5ct/colors/Catppuccin-Macchiato.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Macchiato.conf
+curl -o ~/.config/qt5ct/colors/Catppuccin-Mocha.conf https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Mocha.conf
 
 echo -e "\033[7;32mDownloading Pistol Now\033[0m"
 wget https://github.com/doronbehar/pistol/releases/download/v0.4.2/pistol-static-linux-x86_64
+chmod +x pistol-static-linux-x86_64
 mv pistol-static-linux-x86_64 ~/.config/lf/
 
 echo -e "\033[7;32mInstalling Qemu Now\033[0m"

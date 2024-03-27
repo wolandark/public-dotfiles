@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 # alias vim.='vim "+:CocCommand explorer"'
 #========[ALIASES]========#
 #====[PACMAN]====#
+alias pacman='pacman --color=always'
 alias update='doas pacman -Sy'
 alias upgrade='doas pacman -Syu'
 alias Ss='doas pacman -Ss'
@@ -30,6 +31,7 @@ alias l='eza'
 alias ll='eza -l'
 alias la='eza -a'
 alias lla='eza -al'
+alias t='tree'
 # web
 alias linksg='links -g www.duckduckgo.com'
 alias www='w3m duckduckgo.com'
@@ -49,7 +51,7 @@ alias nf='neofetch'
 alias nfl='neofetch | lolcat'
 
 alias reload='source ~/.bashrc'
-alias merge='xrdb ~/.Xresources'
+alias merge='xrdb -merge ~/.Xresources'
 # alias yabridge='/home/woland/.local/share/yabridge/yabridgectl'
 
 alias disk='ncdu'
@@ -98,3 +100,5 @@ alias docker='doas docker'
 # MISC
 alias fs='fluidsynth -a pulseaudio -m alsa_raw -o midi.alsa.device=hw:3,0,1 -g 1.0 /usr/share/soundfonts/default.sf2'
 alias mc='tmux split -h lf; lf'
+alias glow='glow -s dracula'
+alias pc='proxychains'
