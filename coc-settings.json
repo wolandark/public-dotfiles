@@ -3,6 +3,20 @@
 	"css.completion.completePropertyWithSemicolon": false,
 	"scss.completion.completePropertyWithSemicolon": false,
 	"less.completion.completePropertyWithSemicolon": false,
-	"pyright.inlayHints.enable": false
+	"pyright.inlayHints.enable": false,
+	"pyright.inlayHints.functionReturnTypes": false,
+	"pyright.inlayHints.variableTypes": false,
+	"pyright.inlayHints.parameterTypes": false,
+	"explorer.icon.enableNerdfont": true,
+	"explorer.file.reveal.auto": true,
+	"languageserver": {
+		"intelephense": {
+			"command": "intelephense",
+			"args": ["--stdio"],
+			"filetypes": ["php"],
+			"initializationOptions": {
+				"storagePath": "/tmp/intelephense"
+			}
+		}
+	}
 }
-

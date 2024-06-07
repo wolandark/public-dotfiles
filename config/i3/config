@@ -22,19 +22,19 @@ floating_modifier $mod
 # ===[ Borders and window styles ]=== #
 # default_border pixel 1
 # smart_borders on
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 1
 workspace_layout default
 for_window [all] title_window_icon on
 
-bindsym $mod+y border pixel 5
+bindsym $mod+u border pixel 5
 # use window title, but no border
-bindsym $mod+u border normal 0
+bindsym $mod+o border normal 0
 # use no window title and a thick border
-bindsym $mod+i border pixel 3
+bindsym $mod+i border pixel 1
 # use window title *and* a thick border
-bindsym $mod+o border normal 3
+bindsym $mod+p border normal 3
 # use neither window title nor border
-bindsym $mod+p border none
+bindsym $mod+y border none
 
 # ===[ Gaps ]=== #
 smart_gaps off
@@ -50,7 +50,7 @@ workspace $ws3 gaps outer 0
 
 # ===[ Terminal ]=== #
 set $myTerm uxterm -sk -ti vt340
-set $myTerm2 xfce4-terminal
+set $myTerm2 konsole
 
 # ===[ multi-monitor settings ]=== #
 workspace $ws1 output HDMI-1 
@@ -80,7 +80,7 @@ set $ws10 "10"
 # ===[ Assign ]=== #
 # for_window [class="albert"] move absolute position 639 388
 for_window [class="Virt-manager"] move to workspace $ws7 , border normal, layout tabbed
-for_window [class="REAPER" instance="REAPER"] border normal 2, move to Workspace $ws8
+for_window [class="REAPER"] border normal 2, move to workspace $ws8
 
 # To Workspace
 for_window [class="Brave-browser"] move to workspace $ws4
@@ -90,6 +90,7 @@ for_window [class="waterfox"] move to workspace $ws1
 for_window [class="QjackCtl"] floating enable
 for_window [class="Surge XT Effects"] floating enable
 for_window [class="Qsynth"] floating enable
+for_window [class="xdman-Main"] floating enable
 
 # Correct handling of floating dialogs
 for_window [window_role="About"] floating enable
@@ -104,6 +105,9 @@ for_window [window_role="webconsole"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 for_window [class="(?i)mplayer"] floating enable
+for_window [class="mpv"] floating enable, resize set 1404 790, move position 2174px 178px
+for_window [class="vlc"] floating enable, resize set 1404 790, move position 2174px 178px
+# for_window [class="vlc"] floating enable
 
 # ===[ Fonts ]=== #
 # font xft: Comic Sans MS 8

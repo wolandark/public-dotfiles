@@ -1,3 +1,4 @@
+let g:vimwiki_map_prefix = '<leader>v'
 "===[ Setting up Wim ]==="
 function! VimplugInstaller()
   let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -31,11 +32,21 @@ call SetupWim()
 set encoding=utf-8
 "===[ Plugins ]==="
 call plug#begin()
-Plug 'wolandark/Mitra-Vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'https://github.com/Rican7/php-doc-modded.git'
+Plug 'mattn/emmet-vim'
+" Plug 'wolandark/Mitra-Vim'
+Plug 'wolandark/NotePad-Vim'
+Plug 'wolandark/Pool-Vim'
+Plug 'wolandark/ColorschemeFromHell-Vim'
 Plug 'wolandark/vim-live-server'
 Plug 'wolandark/vim-loremipsum'
+Plug 'wolandark/redundant'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Plug 'https://gitlab.com/HiPhish/info.vim.git'
+" Plug 'https://github.com/alx741/vinfo.git'
 Plug 'yegappan/mru'
 Plug 'DougBeney/pickachu'
 Plug 'alvan/vim-closetag'
@@ -44,24 +55,29 @@ Plug 'lifepillar/vim-cheat40'
 Plug 'ptzz/lf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
-Plug 'chriskempson/base16-vim'
+Plug 'mengelbrecht/lightline-bufferline'
+" Plug 'https://github.com/ap/vim-buftabline.git'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'https://github.com/rhysd/clever-f.vim.git'
+Plug 'https://github.com/justinmk/vim-sneak.git'
+" Plug 'https://github.com/vim-scripts/Vimacs.git'
 Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
-Plug 'https://github.com/ap/vim-css-color.git'
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'https://github.com/godlygeek/tabular.git'
 Plug 'mhinz/vim-startify'
 Plug 'https://github.com/markonm/traces.vim.git'
 Plug 'vimwiki/vimwiki'
-Plug 'https://github.com/rstacruz/sparkup.git'
+" Plug 'https://github.com/rstacruz/sparkup.git'
 Plug 'https://github.com/Valloric/MatchTagAlways.git'
 Plug 'https://github.com/preservim/tagbar.git'
 Plug 'junegunn/vim-peekaboo'
@@ -69,14 +85,31 @@ Plug 'https://github.com/907th/vim-auto-save.git'
 Plug 'https://github.com/sedm0784/vim-you-autocorrect.git'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install --frozen-lockfile --production',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+Plug 'fcpg/vim-fahrenheit'
+
+Plug 'chriskempson/base16-vim'
+" Plug 'https://github.com/ap/vim-css-color.git'
+" Plug 'neoclide/coc.nvim', {'branch': 'release','for':['javascript', 'C', 'sh']}
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install --frozen-lockfile --production',
+"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html', 'go'] }
+
+Plug 'iibe/gruvbox-high-contrast'
+Plug 'fcpg/vim-farout'
+
 call plug#end()
 
 "===[ Auto Save ]==="
-let g:auto_save = 1  
+" function! ToggleAutoSave()
+"     if g:auto_save == 1
+"         let g:auto_save = 0
+"     else
+"         let g:auto_save = 1
+"     endif
+" endfunction
+nnoremap <nowait>\a :call AutoSaveToggle()<CR>
 
 "===[ Theme ]==="
 set background=dark
@@ -86,24 +119,35 @@ if &term =~ '256color'
 	if has('termguicolors')
 		let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 		let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+		let &t_TI = ""
+		let &t_TE = ""
 		set termguicolors
 		set mouse=a
 		colorscheme catppuccin_mocha
 	endif
 	if expand('%:e') == 'wiki'
 		colorscheme base16-horizon-dark
+		let &t_TI = ""
+		let &t_TE = ""
         autocmd VimEnter * :set rnu!
 	else
 		colorscheme catppuccin_mocha
+		let &t_TI = ""
+		let &t_TE = ""
 	endif
 endif
 
 if has('gui_running')
 	set mouse=a
 	set guicursor+=a:blinkon0
-	set guifont=Fira\ Code\ 12
+	set guifont=FiraCodeNerdFont\ 14
 	colorscheme catppuccin_mocha
 endif
+
+"===[ Curosr Shape ]==="
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 "===[ Startify ]==="
 " let g:startify_padding_left = 3
@@ -201,11 +245,12 @@ set noeb vb t_vb=
 set relativenumber
 set number
 set hlsearch
-noremap <silent><ESC> <ESC>:noh<CR><ESC>
+nnoremap <silent><ESC> <ESC>:noh<CR><ESC>
 set termbidi
 set autowrite
 set autowriteall
 set laststatus=2
+set showtabline=2
 set noshowmode
 set colorcolumn=80
 set shiftwidth=4
@@ -225,40 +270,79 @@ let g:netrw_special_syntax = 3
 let g:netrw_banner = 0
 let g:netrw_keepdir=0
 
+" Syntax Item In Ststus
+function! SyntaxItem()
+  return synIDattr(synID(line("."),col("."),1),"name")
+endfunction
+
 "===[ Lightline Statusbar ]==="
 let g:lightline = {
           \ 'colorscheme': 'catppuccin_mocha',
 		  \ 'active': {
-		  \ 'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'filetype' ], [ 'bufname' ] ],
+		  \ 'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'filetype' ], [ 'bufname' ], ['syntaxitem'] ],
 		  \ 'left': [ [ 'mode' ], [ 'readonly', 'absolutepath', 'modified', 'gitbranch' ] ],
 		  \ },
 		  \ 'component_function': {
 		  \ 'gitbranch': 'FugitiveHead',
+		  \ 'syntaxitem': 'SyntaxItem',
 		  \ },
 		  \ 'component': {
 		  \ 'charvaluehex': '0x%B',
 		  \ 'lineinfo': '%l\%L',
+		  \ },
+		  \ 'tabline': {
+		  \   'left': [ ['buffers'] ],
+		  \   'right': [ ['close'] ]
+		  \ },
+		  \ 'component_expand': {
+		  \   'buffers': 'lightline#bufferline#buffers'
+		  \ },
+		  \ 'component_type': {
+		  \   'buffers': 'tabsel'
 		  \ }
 		  \ }
 
 let g:lightline.separator={ 'left': "\ue0b0", 'right': "\ue0b2" }
 let g:lightline.subseparator={ 'left': "\ue0b1", 'right': "\ue0b3" }
 
+let g:lightline#bufferline#enable_devicons=1
+let g:lightline#bufferline#enable_nerdfont=1
 "===[ SpellCheking ]==="
-noremap <F6> :setlocal spell! spelllang=en_us<CR>
+nnoremap <F6> :setlocal spell! spelllang=en_us<CR>
 hi SpellBad ctermfg=red guifg=red
 set wildmode=longest,list,full
 
 function! FixSpell()
-  normal! 1z=<CR>
+	normal! 1z=<CR>
 endfunction
-map <leader>z :call FixSpell()<CR>
+nnoremap gs :call FixSpell()<CR>
+" map <leader>z :call FixSpell()<CR>
 
 "===[ Custom Mappings ]==="
 let mapleader =" "
 
-nnoremap <leader>t :FloatermToggle<CR>
-noremap <nowait><leader>M :Maps <CR>
+"===[ Floaterm ]==="
+let g:floaterm_autoclose = 1
+nnoremap \t  :FloatermToggle<CR>
+nnoremap \q :FloatermKill <CR>
+nnoremap \n  :FloatermNext<CR>
+nnoremap \p  :FloatermPrev<CR>
+
+" Filemanagers
+nnoremap \v :FloatermNew! vifm <CR>
+nnoremap \ra :FloatermNew! ranger <CR>
+" Terminal Right/Bottom
+nnoremap \tr :FloatermNew --wintype=vsplit --position=right --width=0.4
+nnoremap \tb :FloatermNew --wintype=split --position=bottom --height=0.2
+
+" Run Go Files
+nnoremap \rg :FloatermNew --autoclose=0 --wintype=split --position=bottom --height=0.3 go run % <Cr>
+" Run Bash Files
+nnoremap \rb :FloatermNew --autoclose=0 --wintype=split --position=bottom --height=0.3 bash % <CR>
+" Run NodeJs Files
+nnoremap \rj :FloatermNew --autoclose=0 --wintype=split --position=bottom --height=0.3 node % <CR>
+" Run Python Files
+nnoremap \rp :FloatermNew --autoclose=0 --wintype=split --position=bottom --height=0.3 python % <CR>
 
 " Bilingual 
 inoremap <C-p> <C-o>:SwitchKeymap<CR>
@@ -301,54 +385,80 @@ inoremap <nowait> jj <ESC>
 nnoremap <leader>pli :PlugInstall<CR>
 nnoremap <leader>plc :PlugClean<CR>
 nnoremap <leader>plu :PlugUpdate<CR>
-nnoremap <leader>pld :PlugUpgrade<CR>
+nnoremap <leader>plg :PlugUpgrade<CR>
 
 "===[ Split Navigation  ]==="
 set splitbelow splitright
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-LEFT> <C-w>h
-noremap <C-DOWN> <C-w>j
-noremap <C-UP> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-LEFT> <C-w>h
+nnoremap <C-DOWN> <C-w>j
+nnoremap <C-UP> <C-w>k
 
-noremap <C-RIGHT> <C-w>l
-noremap <leader>R <C-w>R  "rotate window up/left
-noremap <leader>r <C-w>r  "rotate window down/right
+nnoremap <C-RIGHT> <C-w>l
+nnoremap <leader>R <C-w>R  "rotate window up/left
+nnoremap <leader>r <C-w>r  "rotate window down/right
 
 "shift arrows to resize splits
-noremap <s-Right> :vertical resize +5 <CR>
-noremap <s-LEFT> :vertical resize -5 <CR>
-noremap <s-UP> :resize +5 <CR>
-noremap <s-DOWN> :resize -5 <CR>
+nnoremap <s-Right> :vertical resize +5 <CR>
+nnoremap <s-LEFT> :vertical resize -5 <CR>
+nnoremap <s-UP> :resize +5 <CR>
+nnoremap <s-DOWN> :resize -5 <CR>
 
 "Alt arrows to go to next/previous tab
 nnoremap <M-Left> :tabprevious<CR>
 nnoremap <M-Right> :tabnext<CR>
 
 "Keybindings for tab navigation with leader and number
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<CR>
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
+nnoremap <leader>0 :tablast<CR>
 nnoremap <leader>x :tabclose<CR>
-noremap <leader>tm :tabmove<CR>
+nnoremap <leader>tm :tabmove<CR>
 
 " FZF 🙂 
-noremap <nowait><leader>c :Colors<CR>
-noremap <nowait><leader>C :History:<CR>
-noremap <nowait><leader>b :Buffers<CR>
-noremap <nowait><leader>q :Files<CR>
-noremap <nowait><leader>W :Windows<CR>
-noremap <nowait><leader>H :History<CR>
-noremap <nowait><leader>h :Chmod +x <CR>
+nnoremap \c :Colors<CR>
+nnoremap <nowait><leader>b :Buffers<CR>
+nnoremap <nowait><leader>ff :Files<CR>
+nnoremap <nowait><leader>W :Windows<CR>
+nnoremap <nowait><leader>h :History<CR>
+nnoremap <nowait><leader>hc :History:<CR>
+nnoremap <nowait><leader>rg :Rg <CR>
+nnoremap <nowait><leader>li :Lines <CR>
+" nnoremap <nowait><leader>bli :BLines <CR>
+" nnoremap <nowait><leader>ju :Jumps <CR>
+nnoremap <nowait><leader>ma :Marks <CR>
+nnoremap <nowait><leader>M :Maps <CR>
+nnoremap <nowait><leader>sn :Snippets <CR>
+nnoremap <nowait><leader>com :Commands <CR>
+nnoremap <nowait><leader>ag :Ag <CR>
+nnoremap <nowait><leader>tag :Tags <CR>
+
+" Tabular
+" if exists(":Tabularize")
+vnoremap \at :Tabularize /\|<CR> 
+vnoremap \ta :Tabularize /
+vnoremap \ah :Tabularize /=<CR> 
+" endif
+
+" Enuch
+nnoremap <nowait><leader>ch :Chmod +x <CR>
+nnoremap <nowait><leader>suw :SudoWrite <CR>
+nnoremap <nowait><leader>sue :SudoEdit <CR>
+nnoremap <nowait><leader>rm :Remove <CR>
+nnoremap <nowait><leader>del :Delete! <CR>
+nnoremap <nowait><leader>mv :Move 
+nnoremap <nowait><leader>dup :Duplicate 
+nnoremap <nowait><leader>mkd :Mkdir
 
 "===[ Live Server ]==="
 nnoremap <F2> :StartBrowserSync <CR>
@@ -400,6 +510,10 @@ augroup Xml
     " set filetype=html
 augroup end
 
+"===[ Emmet ]==="
+let g:user_emmet_install_global = 1
+let g:user_emmet_leader_key = '<C-z>'
+
 "===[ Close Tag ]==="
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.md'
 let g:closetag_filetypes = 'html,xhtml,phtml'
@@ -422,8 +536,9 @@ let g:tagbar_autoupdate = 1
 let wiki = {}
 let g:vimwiki_global_ext = 0
 let g:vimwiki_root_dir = '~/vimwiki/'
-let wiki.nested_syntaxes = {'bash': 'bash', 'python': 'python', 'c++': 'cpp', 'javascript': 'javascript', 'awk': 'awk'}
+let wiki.nested_syntaxes = {'php': 'php', 'bash': 'bash', 'python': 'python', 'c++': 'cpp', 'javascript': 'javascript', 'awk': 'awk'}
 let g:vimwiki_list = [wiki]
+" nmap <leader>vw <Plug>VimwikiIndex
 
 command! Diary VimwikiDiaryIndex
 augroup vimwikigroup
@@ -440,9 +555,11 @@ tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-Down> <C-\><C-n><C-w>j
 tnoremap <C-Up> <C-\><C-n><C-w>k
-tnoremap <C-PageUp> :tabprevious<CR>
-tnoremap <C-PageDown> :tabnext<CR>
+" tnoremap <C-PageUp> :tabprevious<CR>
+" tnoremap <C-PageDown> :tabnext<CR>
 set shell=/bin/bash
+" Clear Terminal in BG
+nnoremap \l :!clear<CR><CR>
 
 "===[ Runtime Macros ]==="
 runtime macros/emoji-ab.vim
@@ -485,11 +602,11 @@ let g:mkdp_theme = 'dark'
 "Use Ctrl j key to trigger the snippets, default was TAB but that conflicts with
 "the Completion trigger see :h keycodes to change this to sth else 
 "use Ctrl j and k to move visually within the snippet that was just triggered
-"Ctrl PGDN lists the available snippets
+"Ctrl l lists the available snippets
 let g:UltiSnipsExpandTrigger='<C-j>'
-let g:UltiSnipsListSnippets='<c-PageDown>'
-let g:UltiSnipsJumpForwardTrigger='<c-j>'
-let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+let g:UltiSnipsListSnippets='<C-l>'
+let g:UltiSnipsJumpForwardTrigger='<C-j>'
+let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 let g:copypath_copy_to_unnamed_register = 1
 
 "===[ CleverF ]==="
@@ -539,12 +656,61 @@ let g:coc_explorer_global_root = 'current'
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-sh',
-  \ 'coc-explorer'
-  \ ]
+  \ 'coc-explorer',
+  \ 'coc-vimlsp',
+  \ 'coc-html',
+  \ 'coc-css',
+  \ 'coc-pyright'
+\ ]
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+"
+" List code actions available for the current buffer
+nmap <leader>ca  <Plug>(coc-codeaction)
+
+nnoremap <silent> K :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Add `:Format` command to format current buffer
+command! -nargs=0 Format :call CocActionAsync('format')
+" Formatting selected code
+vmap <leader>f  <Plug>(coc-format-selected)
+
+" Navigations
+" nmap <Leader>o <Plug>(coc-definition)
+" nmap <Leader>O <Plug>(coc-type-definition)
+" nmap <Leader>I <Plug>(coc-implementation)
+" nmap <Leader>R <Plug>(coc-references)
+
+" Hover
+" nmap K :call <SID>show_documentation()<CR>
+" function! s:show_documentation()
+" 	if (index(['vim','help'], &filetype) >= 0)
+" 		execute 'h '.expand('<cword>')
+" 	else
+" 		call CocAction('doHover')
+" 	endif
+" endfunction
+" Use K to show documentation in preview window
 
 "===[ Coc-Snippets ]==="
 "Use <C-l> for trigger snippet expand.
-"imap <C-l> <Plug>(coc-snippets-expand)
+" imap <C-l> <Plug>(coc-snippets-expand)
 
 "Use <C-j> for select text for visual placeholder of snippet.
 "vmap <C-j> <Plug>(coc-snippets-select)
@@ -562,7 +728,7 @@ let g:coc_global_extensions = [
 "xmap <leader>x  <Plug>(coc-convert-snippet)
 
 "===[ Compile and Run C ]==="
-noremap <F8> :call CompileAndRun()<CR>
+nnoremap <F8> :call CompileAndRun()<CR>
 
 function! CompileAndRun()
   let current_file = expand('%')
@@ -579,14 +745,21 @@ function! ExecuteCustomCommand()
         execute 'RB'
 	elseif &ft ==# 'javascript'
 		execute 'RJs'
+	elseif &ft ==# 'php'
+		execute 'RPHP'
+	elseif &ft ==# 'go'
+		execute 'RGo'
     endif
 endfunction
 
+" Define several language specific Run commands 
 augroup custom_commands
     au!
     au FileType python command! RPy :!python3 %
-    au BufRead,BufNewFile *.sh command! RB :!bash %
+    au FileType sh command! RB :!bash %
 	au FileType javascript command! RJs :!node %
+	au FileType go command! RGo :!go run %
+	au FileType php command! RPHP :!php %
     nnoremap <F12> :call ExecuteCustomCommand()<CR>
 augroup end
 
@@ -634,11 +807,12 @@ function! ListKeymapFiles()
     :Explore $VIMRUNTIME/keymap/
 endfunction
 
-"===[ Abbreviations ]==="
-iab sh! #!/bin/sh
-iab ds! #!/bin/dash
-iab bsh! #!/usr/bin/env bash
+iab sh: #!/bin/sh
+iab shs: #!/bin/sh
+iab bsh: #!/usr/bin/env bash
+iab pys: #!/usr/bin/env python
 iab br <br>
+iab hr <hr>
 iab Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at
 \ massa et est vulputate sollicitudin vitae at libero. Pellentesque iaculis neque
 \ diam, vulputate tempor est ullamcorper quis. Lorem ipsum dolor sit amet, consectetur
@@ -653,7 +827,82 @@ iab Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at
 let g:lf_map_keys = 0
 let g:lf_width = 100
 let g:lf_height = 40
-nnoremap <leader>l :Lf<CR>
+nnoremap <leader>lf :Lf<CR>
 
 "===[ Custom Cheat40.txt ]==="
 let g:cheat40_use_default = 0
+
+"===[ Hexokinase ]==="
+" All possible values
+let g:Hexokinase_optInPatterns = [
+\     'full_hex',
+\     'triple_hex',
+\     'rgb',
+\     'rgba',
+\     'hsl',
+\     'hsla',
+\     'colour_names'
+\ ]
+let g:Hexokinase_highlighters = [ 'backgroundfull' ]
+
+"===[ Help ]==="
+command! -nargs=1 -complete=help H :h <args> | only
+command! -nargs=1 -complete=help Hv :vert h <args>
+command! -nargs=1 -complete=help Hh :vert h <args>
+
+"===[ Never Leave Vim ]==="
+nnoremap \w :bwipeout <CR>
+
+"===[ MRU }==="
+nnoremap \h :MRU <CR>
+
+"===[ Indentlines ]==="
+function! ToggleIndentLine()
+    if &list
+        set nolist
+    else
+        exe 'setlocal listchars=tab:\|\ ,multispace:\|' . repeat('\ ', &sw - 1)
+        set list
+    endif
+endfunction
+
+nnoremap \rnb :!erb -T - % > %<.vim 
+
+augroup go
+    au BufNewFile *.go 0r ~/.vim/skeleton.go
+augroup end
+
+" Replace Easier
+" function! ReplaceParams(param1, param2)
+    " execute '%s/' . a:param1 . '/' . a:param2 . '/g'
+" endfunction
+
+" command! -nargs=* S call ReplaceParams(<f-args>)
+
+"===[ Auto Pairs ]==="
+" let g:AutoPairsFlyMode = 1
+" let g:AutoPairsShortcutBackInsert = '<M-b>'
+" let g:AutoPairs = {'(':')', '[':']', '{':'}'}
+
+"===[ PHP ]==="
+inoremap 4 $
+inoremap $ 4
+
+" for sql syntax highlighting in php files
+let php_sql_query = 1
+let php_htmlInStrings = 1
+
+" for trimming extra $ with phpactor
+autocmd FileType php set iskeyword+=$
+
+augroup php
+    au BufNewFile *.php 0r ~/.vim/skeleton.php
+augroup end
+
+" Comment with \\
+autocmd FileType php setlocal commentstring=/\/\ %s
+
+" sneak 
+nmap \S <Plug>Sneak_S
+let g:sneak#label = 1
+

@@ -2,18 +2,6 @@
 bindsym $mod+n exec --no-startup-id ~/.config/i3/scripts/new-workspace-right.sh
 biNdsym $mod+b exec --no-startup-id ~/.config/i3/scripts/new-workspace-left.sh
 
-# Gaps
-# bindsym $mod+Shift+z    gaps outer current plus 5
-# bindsym $mod+Shift+a    gaps outer current minus 5
-
-# bindsym Ctrl+Shift+z    gaps horizontal current plus 5
-# bindsym Ctrl+Shift+a    gaps vertical current plus 5
-# bindsym Ctrl+Shift+x    gaps horizontal current minus 5
-# bindsym Ctrl+Shift+s    gaps vertical current minus 5
-
-# bindsym $mod+$mod1+z    gaps inner current plus 5
-# bindsym $mod+$mod1+a    gaps inner current minus 5
-
 # Close
 bindsym $mod+q kill
 
@@ -31,23 +19,16 @@ bindsym Scroll_Lock exec --no-startup-id slock
 bindsym Ctrl+Print exec --no-startup-id scrot
 
 # Launchers
-bindsym $mod+d exec --no-startup-id dmenu_run -g 3 -l 10  -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-12' -p 'dmenu' -bw 3 -c
+# bindsym $mod+d exec --no-startup-id dmenu_run -g 3 -l 10  -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-12' -p 'dmenu' -bw 3 -c
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-2/launcher.sh
+bindsym $mod1+Tab exec --no-startup-id rofi -show window
 
 # Change Focus Between Monitors
-bindsym $mod1+Ctrl+l focus output right
-bindsym $mod1+Ctrl+h focus output left
-bindsym $mod1+Ctrl+Left focus output left
-bindsym $mod1+Ctrl+Right focus output right
-# Move Container Between Monitors
-bindsym $mod+Control+Shift+Left move output left
-bindsym $mod+Control+Shift+Right move output right
-bindsym $mod+Control+Shift+h move output left
-bindsym $mod+Control+Shift+l move output right
-# Move Container To Workspace next/prev
-bindsym $mod1+Control+Shift+Right move to workspace next
-bindsym $mod1+Control+Shift+Left move to workspace prev
-bindsym $mod1+Control+Shift+l move to workspace next
-bindsym $mod1+Control+Shift+h move to workspace prev
+# bindsym $mod1+Ctrl+l focus output right
+# bindsym $mod1+Ctrl+h focus output left
+bindsym $mod1+Ctrl+Left workspace prev
+bindsym $mod1+Ctrl+Right workspace next
+
 # Change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -88,13 +69,19 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 # Focus the child container
 bindsym $mod+c focus child
-#Next/prev workspace
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
-bindsym $mod+Ctrl+l workspace next
-bindsym $mod+Ctrl+h workspace prev
+
+#Move To Other Display
+bindsym $mod+Ctrl+Right move output right
+bindsym $mod+Ctrl+Left move output left
+bindsym $mod+Ctrl+l move output right
+bindsym $mod+Ctrl+h move output left
+
+#Go To Next/Prev Workspace
 bindsym $mod+bracketright workspace next
 bindsym $mod+bracketleft workspace prev
+#Take Focused Window and Go To Next/Prev Workspace
+bindsym $mod1+bracketright move workspace next
+bindsym $mod1+bracketleft move workspace prev
 
 # Move Workspace to Monitor
 #bindsym $mod1+Ctrl+Left move workspace to output HDMI1
@@ -162,3 +149,27 @@ bindsym Pause exec --no-startup-id mpc toggle
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show, border normal 2
+
+# Move Container Between Monitors
+# bindsym $mod+Control+Shift+Left move output left
+# bindsym $mod+Control+Shift+Right move output right
+# bindsym $mod+Control+Shift+h move output left
+# bindsym $mod+Control+Shift+l move output right
+
+# Move Container To Workspace next/prev
+# bindsym $mod1+Control+Right move to workspace next
+# bindsym $mod1+Control+Left move to workspace prev
+# bindsym $mod1+Control+l move to workspace next
+# bindsym $mod1+Control+h move to workspace prev
+
+# Gaps
+# bindsym $mod+Shift+z    gaps outer current plus 5
+# bindsym $mod+Shift+a    gaps outer current minus 5
+
+# bindsym Ctrl+Shift+z    gaps horizontal current plus 5
+# bindsym Ctrl+Shift+a    gaps vertical current plus 5
+# bindsym Ctrl+Shift+x    gaps horizontal current minus 5
+# bindsym Ctrl+Shift+s    gaps vertical current minus 5
+
+# bindsym $mod+$mod1+z    gaps inner current plus 5
+# bindsym $mod+$mod1+a    gaps inner current minus 5

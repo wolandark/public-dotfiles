@@ -1,0 +1,87 @@
+#Class                  border  bground text    indicator child_border
+#client.focused         #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+
+#for yellow border
+client.focused          #FFFF8F #FFFF8F #000000 ##8EC07C   #FFFF8F
+client.background       #F8F8F2
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #6272A4 #F8F8F2 #6272A4   #6272A4
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+
+bar {
+status_command i3blocks -c /home/woland/.config/i3/i3blocks/i3blocks.conf 
+position top 
+# output primary
+tray_output primary
+tray_padding 0
+# mode hide
+# hidden_state show
+# modifier $mod
+font xft:Mononoki 10
+    colors {
+      background #282A36
+      statusline #F8F8F2
+      separator  #44475A
+
+      focused_workspace  #44475A #44475A #F8F8F2
+      active_workspace   #282A36 #44475A #F8F8F2
+      inactive_workspace #282A36 #282A36 #BFBFBF
+      urgent_workspace   #900000 #900000 #F8F8F2
+      binding_mode       #900000 #900000 #F8F8F2
+
+}}
+
+ # bar {
+ #          status_command ~/.config/i3/bs/bs/bumblebee-status -m vpn libvirtvms cpu memory pasink arch-update layout-xkbswitch time  \
+ #      -p time.format=" %H:%M %B %d" memory.format={used} -t dracula-powerline
+ #      position top
+ #      tray_output primary
+
+ #   colors {
+ #     background #282A36
+ #     statusline #F8F8F2
+ #     separator  #44475A
+
+ #     focused_workspace  #44475A #44475A #F8F8F2
+ #     active_workspace   #282A36 #44475A #F8F8F2
+ #     inactive_workspace #282A36 #282A36 #BFBFBF
+ #     urgent_workspace   #900000 #900000 #F8F8F2
+ #     binding_mode       #900000 #900000 #F8F8F2
+ #   }}
+
+#{=======================================================}#
+# client.focused #FFFF8F #FFFF8F #ffffff ##8EC07C   #FFFF8F
+#  bar {
+#         font xft:pango 10
+#         status_command i3blocks -c /home/woland/.config/i3/i3blocks.conf
+#         position bottom
+#         workspace_buttons no
+#  colors{
+#         background $darkgrey
+#         }
+#         }
+# set $darkgrey    #383c4a
+
+#########################################################
+# colorschemes to choose from for the bumblebee status  #
+#########################################################
+# -t gruvbox-powerline
+# -t gruvbox-powerline-light 
+# -t solarized-powerline
+# -t gruvbox
+# -t gruvbox-light 
+# -t solarized
+# -t powerline
+# -t greyish-powerline 
+# -t iceberg 
+# -t iceberg-powerline 
+# -t iceberg-dark-powerline 
+# -t iceberg-rainbow 
+# -t iceberg-contrast 
+# -t onedark-powerline 
+# -t dracula-powerline 
+# -t nord-powerline 
+# -t night-powerline 
+# Default (nothing or -t default)

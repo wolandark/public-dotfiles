@@ -2,6 +2,5 @@
 
 while :;
 do 
-	xidle -timeout 1200 -program /usr/local/bin/slock 
+	xidle -timeout 1200 -program /usr/local/bin/slock #-ne -delay 0 -area 1
 done
-#-ne -delay 0 -area 1

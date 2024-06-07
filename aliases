@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 # alias vim.='vim "+:CocCommand explorer"'
 #========[ALIASES]========#
 #====[PACMAN]====#
 alias pacman='pacman --color=always'
+alias yay='yay --color=always'
 alias update='doas pacman -Sy'
 alias upgrade='doas pacman -Syu'
 alias Ss='doas pacman -Ss'
@@ -52,7 +53,9 @@ alias nfl='neofetch | lolcat'
 
 alias reload='source ~/.bashrc'
 alias merge='xrdb -merge ~/.Xresources'
-# alias yabridge='/home/woland/.local/share/yabridge/yabridgectl'
+alias yabridge='/home/woland/.local/share/yabridge/yabridgectl'
+alias yabridge_sync='/home/woland/.local/share/yabridge/yabridgectl sync'
+alias yabridge_status='/home/woland/.local/share/yabridge/yabridgectl status'
 
 alias disk='ncdu'
 
@@ -98,7 +101,7 @@ alias gpsh='git push origin'
 alias docker='doas docker'
 
 # MISC
-alias fs='fluidsynth -a pulseaudio -m alsa_raw -o midi.alsa.device=hw:3,0,1 -g 1.0 /usr/share/soundfonts/default.sf2'
+alias fs='fluidsynth -a pulseaudio -m alsa_raw -o midi.alsa.device=hw:3,0,1 -g 1.0 ~/Music/Soundfonts/FluidR3_GM.sf2'
 alias mc='tmux split -h lf; lf'
 alias glow='glow -s dracula'
 alias pc='proxychains'

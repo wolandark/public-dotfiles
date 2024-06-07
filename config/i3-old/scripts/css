@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+exec firefox https://www.w3schools.com/colors/colors_picker.asp &
+
+

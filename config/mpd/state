@@ -1,10 +1,10 @@
-sw_volume: 63
+sw_volume: 78
 audio_device_state:1:mpd alsamixer-output
 audio_device_state:1:toggle_visualizer
 audio_device_state:1:pulse audio
 state: pause
-current: 0
-time: 1.904000
+current: 26
+time: 0.479000
 random: 0
 repeat: 1
 single: 0
@@ -35,4 +35,9 @@ playlist_begin
 19:Dungeon Synth/Hole Dweller-Flies the Coop II/Hole Dweller - The Fall of a Brave Dwarven Company (Run Hobb.mp3
 20:Dungeon Synth/Hole Dweller-Flies the Coop II/Hole Dweller - A Rusted Coffer Within the Ruins of Emyn Hoed.mp3
 21:Dungeon Synth/Hole Dweller-Flies the Coop II/Hole Dweller - Crawlers, Spiders, and Wights!.mp3
+22:Black Metal/Burzum/(1996) Filosofem/01 - Burzum.mp3
+23:AudioBook/The Sum of Their Parts/04-The Sum of Their Parts - Chapter 4 ｜ Harry Potter FanFiction AudioBook.m4a
+24:Avant/Sloum-A_Prelude_To_Monsters/A_Prelude_To_Monsters/Sloum_Prelude-to-Monsters_01_At-Night,-Mostly.mp3
+25:Avant/Sloum-A_Prelude_To_Monsters/A_Prelude_To_Monsters/Sloum_Prelude-to-Monsters_02_Bad-Dreams.mp3
+26:Avant/Sloum-A_Prelude_To_Monsters/A_Prelude_To_Monsters/Sloum_Prelude-to-Monsters_04_The-Library.mp3
 playlist_end

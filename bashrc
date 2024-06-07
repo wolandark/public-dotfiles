@@ -39,6 +39,7 @@ HISTTIMEFORMAT='%F %T '
 #======[ SOURCE ]======#
 source "$HOME"/.aliases
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+source ~/tmp/Programs/extraterm-commands-0.9.4/setup_extraterm_bash.sh
 #========[COMPLETION]========#
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -81,7 +82,7 @@ parse_git_branch() {
   fi
 }
 
-PS1='\[\e[38;5;39m\]\h 󰣇 \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\[\e[0m\]\n \[\e[38;5;86m\]╰─󰁔\[\e[0m\] '
+PS1='\[\e[38;5;39m\]󰣇 \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\[\e[0m\]\n \[\e[38;5;86m\]╰─󰁔\[\e[0m\] '
 PS2='\[\e[31m\] \[\e[0m\] '
 # export PS1="\[\033[32m\]\u@\h \[\033[33;1m\]\w \[\033[36m\]\$(parse_git_branch) \[\033[0m\]\$ "
 # PS1='\[\e[38;5;39m\]  \[\e[0;38;5;46m\] \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\] \[\e[0m\]'
@@ -89,7 +90,9 @@ PS2='\[\e[31m\] \[\e[0m\] '
 
 #=======[EXPORT VARIABLES]=========#
 export EDITOR=vim
-export PATH="$PATH":~/.local/bin
+export PATH="$PATH":~/.local/bin/
+export PATH="$PATH":~/.local/bin/PhpStorm2024/bin/
+export PATH="$PATH":/opt/lampp/bin/
 export PATH="$PATH":~/go/bin/
 export BROWSER=waterfox-g
 export browser=waterfox-g
@@ -104,7 +107,11 @@ complete -cf doas
 # export DISPLAY=:0.0
 
 #========[FUNCTIONS]========#
-mkcd () {
+ai() {
+	proxychains ~/SenGPT/bin/python3.11 ~/SenGPT/bin/sengpt "$1"
+}
+
+mkcd() {
     mkdir -p "$@" && eval cd "\"\$$#\"";
 }
 
@@ -141,7 +148,7 @@ ex ()
       *.tgz)       tar xzf "$1"   ;;
       *.zip)       unzip "$1"     ;;
       *.Z)         uncompress "$1";;
-      *.7z)        7z x "$1"      ;;
+      *.7z)        7zz x "$1"      ;;
       *.deb)       ar x "$1"      ;;
       *.tar.xz)    tar xf "$1"    ;;
       *.tar.zst)   tar xf "$1"    ;;
@@ -281,7 +288,7 @@ z() {
 }
 # Install packages using yay (change to pacman/AUR helper of your choice)
 function aur() {
-    yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}'| xargs -ro yay -S
+    yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}'| xargs -ro yay -S --color=always --askyesremovemake
 }
 # Remove installed packages (change to pacman/AUR helper of your choice)
 function raur() {
@@ -490,7 +497,13 @@ price(){
   echo -e "\033[1;33m$print\033[0m"
 }
 
-alias fs='fluidsynth -a pulseaudio -m alsa_raw -o midi.alsa.device=hw:3,0,1 -g 1.0 /usr/share/soundfonts/default.sf2'
+getDefinitions() {
+    local word="$1"
+    local res=$(curl -s "https://api.dictionaryapi.dev/api/v2/entries/en_US/$word")
+    echo "$res" | jq -r '.[0].meanings[].definitions[]?.definition'
+}
+
+# alias fs='fluidsynth -a pulseaudio -m alsa_raw -o midi.alsa.device=hw:3,0,1 -g 1.0 /usr/share/soundfonts/default.sf2'
 alias mc='tmux split -h lf; lf'
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -523,3 +536,15 @@ function fromhex() {
   b=$(printf '0x%0.2s' ${hex#????})
   echo -e `printf "%03d" "$(((r<75?0:(r-35)/40)*6*6+(g<75?0:(g-35)/40)*6+(b<75?0:(b-35)/40)+16))"`
 }
+
+function bgFg() {
+	printf "\033]11;#"$1"\007"
+	printf "\033]10;#"$2"\007"
+}
+
+function lms(){
+	 export QT_AUTO_SCREEN_SCALE_FACTOR=1
+	 export QT_SCREEN_SCALE_FACTORS=1.2
+	 swallow lmms 
+ }
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi

@@ -1,0 +1,401 @@
+bindsym $mod+m exec --no-startup-id i3bartoggle
+
+# for_window [workspace="2"] floating enable
+################################################
+#__        __    _                 _   _ _____ #
+#\ \      / /__ | | __ _ _ __   __| | (_)___ / #
+# \ \ /\ / / _ \| |/ _` | '_ \ / _` | | | |_ \ #
+#  \ V  V / (_) | | (_| | | | | (_| | | |___) |#
+#   \_/\_/ \___/|_|\__,_|_| |_|\__,_| |_|____/ #
+#                                              #
+################################################
+# exec --no-startup-id nitrogen --restore
+# exec_always ~/.screenlayout/i3maindisplay.sh
+# exec_always ~/keyboardrate.sh
+# exec_always emacs --daemon
+# exec_always --no-startup-id xfce4-panel --disable-wm-check
+exec_always --no-startup-id xcompmgr
+exec_always --no-startup-id albert
+exec_always --no-startup-id udiskie
+exec_always --no-startup-id autotiling
+exec_always --no-startup-id guake
+exec_always --no-startup-id xfce4-clipman
+exec_always --no-startup-id /home/woland/.config/i3/scripts/idle.sh
+# exec_always --no-startup-id screendimmer
+# exec_always /home/woland/.config/polybar/launch.sh
+# exec_always feh --bg-fill ~/Pictures/Artix/Artix-dark.png --bg-fill ~/Pictures/Vertical/verticalmountains.jpg
+
+#############
+#Theme & Bar#
+#############
+include /home/woland/.config/i3/themes-and-bar/dracula.conf
+###########
+# MOD KEY #
+###########
+set $mod Mod4
+set $mod1 Mod1
+#####################
+# hide_edge_borders #
+#####################
+ for_window [class="^.*"] border pixel 1.1
+workspace_layout default
+default_border none
+new_window 1pixel
+# force_focus_wrapping yes
+# bindsym --border button3 border normal
+######
+#Gaps#
+#####
+gaps inner 5
+gaps outer 5
+bindsym $mod+z          gaps outer current plus 5
+bindsym $mod+Shift+z    gaps outer current minus 5
+#######################
+# Kill Focused Window #
+#######################
+bindsym $mod+q kill
+############
+# Terminal #
+############
+set $myTerm xterm -sk -ti vt340
+set $myTerm2 roxterm
+# start a terminal
+bindsym $mod+Return exec --no-startup-id $myTerm
+bindsym $mod+Shift+Return exec --no-startup-id $myTerm2
+bindsym $mod+Shift+t exec --no-startup-id st
+#bindsym $mod+t exec $myTerm
+################
+# KEY BINDINGS #
+################
+# bindsym $mod+Ctrl+o exec --no-startup-id $myTerm -e vim ~/.config/i3/config
+#System Monitoring
+# bindsym $mod+Shift+End exec --no-startup-id $myTerm -e htop
+#Terminal FileManager
+# bindsym $mod+Shift+Home exec --no-startup-id $myTerm -e ranger
+#GUI FileManager
+# bindsym $mod1+f exec --no-startup-id thunar
+#Nmtui
+# bindsym $mod+Shift+Page_Down exec --no-startup-id $myTerm -e nmtui
+#Browser
+# bindsym $mod+Shift+w exec --no-startup-id qutebrowser
+# bindsym $mod1+w exec --no-startup-id /home/woland/Downloads/waterfox/waterfox
+# bindsym $mod1+Shift+f exec --no-startup-id firefox
+# bindsym $mod1+Shift+s exec --no-startup-id surf 
+#Editor
+# bindsym Ctrl+Shift+e exec --no-startup-id emacsclient -c -a emacs
+#Terminal Browser
+# bindsym $mod+Shift+Page_Up exec --no-startup-id xterm -e w3m duckduckgo.com
+# bindsym $mod+Shift+Page_Up exec --no-startup-id $myTerm -e links www.google.com
+#Others
+# bindsym $mod1+v exec --no-startup-id virt-manager
+# bindsym $mod1+o exec --no-startup-id obs
+# bindsym $mod1+r exec --no-startup-id /home/woland/opt/REAPER/reaper
+# bindsym $mod1+k exec --no-startup-id kdenlive
+# bindsym $mod1+g exec --no-startup-id gimp
+# bindsym $mod1+t exec --no-startup-id /home/woland/Downloads/Telegram/Telegram
+#Keyboard layout switch | needs xkb-switch from AUR and added layout in /etc/X11/xorg.conf.d/00-keyboard.conf
+bindsym $mod1+space exec --no-startup-id xkb-switch -n
+############
+#LockScreen#
+############
+bindsym Scroll_Lock exec --no-startup-id betterlockscreen -l dim
+########
+#LogOut#
+########
+bindsym $mod1+Ctrl+DEL exec --no-startup-id loginctl terminate-user $USER
+############
+#Screenshot#
+############
+bindsym Print exec --no-startup-id scrot & notify-send "Screenshot Saved"
+############################
+#Laptop Volume & Brightness#
+############################
+# Use pactl to adjust volume in PulseAudio.
+# Volume Keys
+
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+# bindsym XF84AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# Brightness
+
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+###############################
+# Program Launcher Dmenu/Rofi #
+###############################
+# bindsym $mod+d exec --no-startup-id rofi -show drun -icon-theme "Papirus" -show-icons
+# bindsym $mod+d exec --no-startup-id rofi -show drun 
+bindsym $mod+d exec --no-startup-id "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-13' -p 'dmenu'"
+bindsym $mod1+r exec --no-startup-id "dmenu-recent-aliases"
+bindsym $mod1+Tab exec --no-startup-id rofi -show window -icon-theme "Papirus" -show-icons
+
+########################
+#multi-monitor settings#
+########################
+workspace $ws1 output primary
+workspace $ws2 output primary
+workspace $ws3 output primary
+workspace $ws4 output primary
+workspace $ws5 output primary
+
+workspace $ws6 output HDMI1
+workspace $ws7 output HDMI1
+workspace $ws8 output HDMI1
+workspace $ws9 output HDMI1
+workspace $ws0 output HDMI1
+
+#bindsym $mod1+Ctrl+Left move workspace to output HDMI1
+#bindsym $mod1+Ctrl+Right move workspace to output primary
+
+##############
+#Change Focus#
+##############
+bindsym $mod1+Ctrl+l focus output right
+bindsym $mod1+Ctrl+h focus output left
+bindsym $mod1+Ctrl+Left focus output left
+bindsym $mod1+Ctrl+Right focus output right
+################
+#Move Container#
+################
+bindsym $mod+Control+Shift+Left move output left
+bindsym $mod+Control+Shift+Right move output right
+bindsym $mod+Control+Shift+h move output left
+bindsym $mod+Control+Shift+l move output right
+##############
+# WORKSPACES #
+##############
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+
+# set $ws1 "1:"
+# set $ws2 "2:"
+# set $ws3 "3:"
+# set $ws4 "4:"
+# set $ws5 "5"
+# set $ws6 "6"
+# set $ws7 "7"
+# set $ws8 "8"
+# set $ws9 "9"
+# set $ws10 "10"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+# You can also use the arrow keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+# alternatively, you can use the arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+Ctrl+v split h
+# split in vertical orientation
+bindsym $mod+Ctrl+b split v
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+# toggle tiling / floating
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+# bindsym $mod+Shift+space floating toggle , border normal 1
+bindsym $mod+Shift+space floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+# focus the parent container
+bindsym $mod+a focus parent
+# focus the child container
+bindsym $mod+c focus child
+
+#Next/prev workspace
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+
+bindsym $mod+Ctrl+l workspace next
+bindsym $mod+Ctrl+h workspace prev
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+# bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
+
+# Resizing #
+bindsym $mod+r mode "resize"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+# Pressing left will shrink the window’s width.
+# Pressing right will grow the window’s width.
+# Pressing up will shrink the window’s height.
+# Pressing down will grow the window’s height.
+bindsym h resize shrink width 10 px or 10 ppt
+bindsym j resize grow height 10 px or 10 ppt
+bindsym k resize shrink height 10 px or 10 ppt
+bindsym l resize grow width 10 px or 10 ppt
+
+# same bindings, but for the arrow keys
+bindsym Left resize shrink width 10 px or 10 ppt
+bindsym Down resize grow height 10 px or 10 ppt
+bindsym Up resize shrink height 10 px or 10 ppt
+bindsym Right resize grow width 10 px or 10 ppt
+
+# back to normal: Enter or Escape or $mod+r
+bindsym Return mode "default"
+bindsym Escape mode "default"
+bindsym $mod+r mode "default"
+}
+
+########
+#Assign#
+########
+#Always Floating
+#for_window [class="REAPER" instance="REAPER"] floating enable , border normal 2
+for_window [class="REAPER" instance="REAPER"] floating enable , border normal 2
+for_window [class="REAPER" instance="REAPER"] output primary
+#XClock
+
+for_window [class="XClock"] floating enable
+for_window [class="glhack"] floating enable , resize 151x36
+# for_window [class="XClock"] floating enable , border normal 2 
+
+#To Workspace
+for_window [class="Brave-browser"] move to workspace $ws1
+for_window [class="TelegramDesktop"] move to workspace $ws2
+for_window [class="firefox"] move to workspace $ws3
+# for_window [class="Virt-manager"] move to workspace $ws7
+
+#####################
+# Auto Start Items  #
+#####################
+# exec --no-startup-id i3-msg 'workspace $ws4; layout stacking; exec $myTerm -e vim; exec $myTerm -e ranger; exec $myTerm; exec $myTerm -e nmtui' 
+# exec --no-startup-id i3-msg 'workspace $ws4; layout stacking; exec $myTerm -e nmtui' 
+# exec --no-startup-id xclock -bg white -geometry 200x200
+
+#Display & Wallpaper
+
+bindsym $mod+n exec --no-startup-id nitrogen --set-scaled --random
+# exec --no-startup-id nitrogen --restore
+# exec --no-startup-id feh --bg-fill ~/Pictures/Artix/Artix-dark.png
+# exec --no-startup-id ~/.screenlayout/i3maindisplay.sh
+
+#Programs
+# exec --no-startup-id exec /usr/lib/brave-bin/brave
+# exec --no-startup-id exec /home/woland/Downloads/Telegram/Telegram
+# exec --no-startup-id exec /usr/lib/firefox/firefox
+# exec_always i3a-master-stack
+
+#Custom Layout
+# exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/woland/.config/i3/workspace-1.json'"
+
+############
+#Scratchpad#
+############
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+#Xdman
+exec_always --no-startup-id xdman 
+for_window [class="xdman-Main"] , move scratchpad
+bindsym $mod+x [class="xdman-Main"] scratchpad show
+#Vim
+# exec_always st -c wiki,wiki -e vim
+# for_window [class="wiki,wiki"] , move scratchpad
+# bindsym $mod+v [class="wiki,wiki"] scratchpad show, resize set 1600 900, move position 150px 100px
+
+exec_always --no-startup-id gvim 
+for_window [class="Gvim"] , move scratchpad 
+bindsym $mod+v [class="Gvim"] scratchpad show resize set 1142 1010, move position 386px 28px
+# exec_always alacritty --title ide-term,ide-term
+# for_window [title="ide-term"] , move scratchpad
+# bindsym $mod1+backslash [title="ide-term"] scratchpad show, resize set 1904 400, move position 1929px 681px
+
+#Htop
+# exec --no-startup-id alacritty --title htop,htop -e htop
+# for_window [title="htop"] , move scratchpad
+# bindsym $mod+b [title="htop"] scratchpad show
+#Calculator
+#exec --no-startup-id alacritty --title bc,bc -e bc
+#for_window [title="bc"] , move scratchpad
+#bindsym $mod+m [title="bc"] scratchpad show
+##LF
+#exec --no-startup-id alacritty --title lf-fm,lf-fm -e lf
+#for_window [title="lf-fm"] , move scratchpad
+#bindsym $mod+n [title="lf-fm"] scratchpad show
+#BTM
+# exec --no-startup-id konsole --title btm,btm -e btm
+# for_window [title="btm"] , move scratchpad
+# bindsym $mod+b [title="btm"] scratchpad show
+
+#######
+#Marks#
+#######
+# read 1 character and mark the current window with this character
+# bindsym $mod+apostrophe exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+bindsym $mod+apostrophe exec --no-startup-id i3-input -F 'mark %s' -f "-*-dejavu sans mono-medium-r-normal--*-200-*-*-*-*-iso10646-1" -l 1 -P 'Mark: '
+# read 1 character and go to the window with the character
+# bindsym $mod+bracketright exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
+bindsym $mod+bracketright exec --no-startup-id i3-input -F '[con_mark="%s"] focus' -f "-*-dejavu sans mono-medium-r-normal--*-200-*-*-*-*-iso10646-1" -l 1 -P 'Goto: ' 
+#########
+# Fonts #
+#########
+# This Font Is Used For The Window Titles And For The Bar Unless Defined Otherwised
+# I Have Removed The Window Titles Since They Were Ugly To Me
+font xft:Mononoki 0
+# Font Pango Can Be Used For Glyphs In The Bar
+#######
+# BAR #
+#######
+# exec --no-startup-id pa-applet

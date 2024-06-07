@@ -1,0 +1,38 @@
+sw_volume: 63
+audio_device_state:1:mpd alsamixer-output
+audio_device_state:1:toggle_visualizer
+audio_device_state:1:pulse audio
+state: pause
+current: 0
+time: 1.904000
+random: 0
+repeat: 1
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0.000000
+mixrampdelay: -1.000000
+playlist_begin
+0:Dungeon Synth/aindulmedir/star-lore/01 - celestial-studies.mp3
+1:Dungeon Synth/aindulmedir/star-lore/02 - nightfall.mp3
+2:Dungeon Synth/aindulmedir/star-lore/03 - always-a-wind.mp3
+3:Dungeon Synth/aindulmedir/star-lore/04 - a-thousand-winters.mp3
+4:Dungeon Synth/aindulmedir/star-lore/05 - hidden-pillars.mp3
+5:Dungeon Synth/aindulmedir/star-lore/06 - star-lore.mp3
+6:Dungeon Synth/aindulmedir/star-lore/07 - the-hermits-sleep.mp3
+7:Dungeon Synth/aindulmedir/star-lore/08 - silvery-fields.mp3
+8:Dungeon Synth/goblin-fort/lost-arcane-tunnels/01 - lost-arcane-tunnels.mp3
+9:Dungeon Synth/goblin-fort/lost-arcane-tunnels/02 - goblin-priest-echoes.mp3
+10:Dungeon Synth/old-sorcery/realms-of-magickal-sorrow/01 - sorcerers-dream.mp3
+11:Dungeon Synth/old-sorcery/realms-of-magickal-sorrow/02 - vaikerruksen-portti.mp3
+12:Dungeon Synth/old-sorcery/realms-of-magickal-sorrow/03 - a-lost-soul-amid-the-listening-trees.mp3
+13:Dungeon Synth/old-sorcery/realms-of-magickal-sorrow/04 - in-a-forest-trapped.mp3
+14:Dungeon Synth/old-sorcery/realms-of-magickal-sorrow/05 - further-beyond-the-melancholic-horizon.mp3
+15:Dungeon Synth/erang/a-blaze-in-time/01 - a-blaze-in-time.mp3
+16:Dungeon Synth/erang/a-blaze-in-time/06 - the-silent-storyteller-and-the-banished-bard-1982.mp3
+17:Dungeon Synth/Hole Dweller-Flies the Coop II/Hole Dweller - Bridges to Ered Luin.mp3
+18:Dungeon Synth/Hole Dweller-Flies the Coop II/Hole Dweller - The Hospitality of Elves Is Nearly That of Ha.mp3
+19:Dungeon Synth/Hole Dweller-Flies the Coop II/Hole Dweller - The Fall of a Brave Dwarven Company (Run Hobb.mp3
+20:Dungeon Synth/Hole Dweller-Flies the Coop II/Hole Dweller - A Rusted Coffer Within the Ruins of Emyn Hoed.mp3
+21:Dungeon Synth/Hole Dweller-Flies the Coop II/Hole Dweller - Crawlers, Spiders, and Wights!.mp3
+playlist_end

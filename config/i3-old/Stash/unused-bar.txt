@@ -1,0 +1,84 @@
+# client.focused              #0099E6 #0099E6 #000000 #F8F8F8   #0099E6
+#{=======================================================}#
+# client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+# client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+# client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+# client.urgent           #2f343a #900000 #ffffff #900000   #900000
+# client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+#
+# bar {
+#     font pango:DejaVu Sans Mono, FontAwesome 10
+#     position top
+#     status_command i3status-rs ~/.config/i3status-rust/config.toml
+#    colors {
+#      # background #282A36
+#      background #000000
+#      statusline #F8F8F2
+#      separator  #44475A
+#      focused_workspace  #44475A #44475A #F8F8F2
+#      active_workspace   #282A36 #44475A #F8F8F2
+#      inactive_workspace #282A36 #282A36 #BFBFBF
+#      urgent_workspace   #900000 #900000 #F8F8F2
+#      binding_mode       #900000 #900000 #F8F8F2
+#    }
+#    }
+
+# client.focused #FFFFFF #FFFFFF #ffffff ##8EC07C   #FFFFFF
+#  bar {
+#         font xft:pango 10
+#         status_command i3blocks -c /home/woland/.config/i3/i3blocks.conf
+#         position bottom
+#         workspace_buttons no
+#  colors{
+#         background $darkgrey
+#         }
+#         }
+# set $darkgrey    #383c4a
+# client.focused          #9999ff #9999ff #000000 #ffffff   #9999ff
+#########################################################
+# colorschemes to choose from for the bumblebee status  #
+#########################################################
+# -t gruvbox-powerline
+# -t gruvbox-powerline-light 
+# -t solarized-powerline
+# -t gruvbox
+# -t gruvbox-light 
+# -t solarized
+# -t powerline
+# -t greyish-powerline 
+# -t iceberg 
+# -t iceberg-powerline 
+# -t iceberg-dark-powerline 
+# -t iceberg-rainbow 
+# -t iceberg-contrast 
+# -t onedark-powerline 
+# -t dracula-powerline 
+# -t nord-powerline 
+# -t night-powerline 
+# Default (nothing or -t default)
+
+#bar {
+#status_command i3blocks -c /home/woland/.config/i3/i3blocks/i3blocks.conf 
+#position top 
+#tray_output primary
+#tray_padding 0
+#font xft:Mononoki 10
+#    colors {
+#       background #282A36
+#      # background #000000
+#      statusline #F8F8F2
+#      separator  #44475A
+#
+#      focused_workspace  #44475A #44475A #F8F8F2
+#      active_workspace   #282A36 #44475A #F8F8F2
+#      inactive_workspace #282A36 #282A36 #BFBFBF
+#      urgent_workspace   #900000 #900000 #F8F8F2
+#      binding_mode       #900000 #900000 #F8F8F2
+#
+#}}
+
+#== UnUsed==
+# output primary
+# mode hide
+# hidden_state show
+# modifier $mod

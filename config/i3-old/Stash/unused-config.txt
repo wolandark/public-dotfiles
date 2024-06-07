@@ -1,0 +1,31 @@
+
+# for_window [class="Godot_Engine"] floating enable
+# for_window [class="Godot_Editor"] floating enable
+# for_window [class="Godot"] floating enable, border normal 2
+# =========================================
+# for_window [workspace="2"] floating enable
+# set $i3l vstack 0.7 to workspace $ws1
+# set $i3l vstack 0.7 to workspace $ws2
+# set $i3l vstack 0.7 to workspace $ws3
+# set $i3l vstack 0.7 to workspace $ws4
+# set $i3l vstack 0.7 to workspace $ws5
+# set $i3l vstack 0.7 to workspace $ws6
+# set $i3l vstack 0.7 to workspace $ws7
+# set $i3l vstack 0.7 to workspace $ws8
+# set $i3l vstack 0.7 to workspace $ws9
+# set $i3l vstack 0.7 to workspace $ws10
+
+# default_border none
+# new_window 1pixel
+# force_focus_wrapping yes
+
+#Always Floating
+#for_window [class="REAPER" instance="REAPER"] floating enable , border normal 2
+# for_window [class="REAPER" instance="REAPER"] floating enable , border normal 2
+# for_window [class="REAPER" instance="REAPER"] output primary
+# for_window [class="XClock"] floating enable , border normal 2 
+
+#XClock
+# for_window [class="XClock"] floating enable
+# for_window [class="glhack"] floating enable , resize 151x36
+
