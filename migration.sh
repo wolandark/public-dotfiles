@@ -12,6 +12,7 @@ install_yay()
 	makepkg -si
 }
 install_yay
+cd ..
 # }}}
 
 # Functins {{{
@@ -54,6 +55,7 @@ pkgs=(
 	duf
 	dunst
 	eza
+	entr
 	fbset 
 	fd
 	feh
@@ -254,7 +256,7 @@ rsync -av ~/public-dotfiles/bashrc ~/.bashrc
 rsync -av ~/public-dotfiles/aliases ~/.aliases
 rsync -av ~/public-dotfiles/bash_profile ~/.bash_profile
 rsync -av ~/public-dotfiles/profile ~/.profile
-rsync -av ~/public-dotfiles/tmux.conf ~/.tmux.conf
+rsync -av ~/public-dotfiles/tmux/tmux.conf ~/.tmux.conf
 rsync -av ~/public-dotfiles/kshrc ~/.kshrc
 sleep 1
 # }}}
@@ -279,7 +281,7 @@ sleep 1
 
 # Wim {{{
 echo -e "\033[7;32mCloning Wim and Downloading Nekoray Now\033[0m"
-git clone -b Devel https://github.com/wolandark/wim.git 
+git clone https://github.com/wolandark/wim.git 
 ~/public-dotfiles/NEKO/updater.sh 
 sleep 1
 # }}}
