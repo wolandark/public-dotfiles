@@ -205,6 +205,7 @@ aur=(
 	xidle
 	xidlehook
 	xkb-switch 
+	mangl
 )
 # }}}
 
@@ -276,6 +277,7 @@ rsync -av ~/public-dotfiles/Xmodmap ~/.Xmodmap
 rsync -av ~/public-dotfiles/xinitrc ~/.xinitrc
 rsync -av ~/public-dotfiles/ocr/ ~/ocr/
 rsync -av ~/public-dotfiles/screenlayout/ ~/.screenlayout/
+rsync -av ~/public-dotfiles/manglrc/ ~/.manglrc/
 sleep 1
 # }}}
 
