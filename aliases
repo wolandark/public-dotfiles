@@ -42,7 +42,7 @@ alias reddit='tuir'
 
 alias brc='vim ~/.bashrc'
 alias arc='vim ~/.aliases'
-alias vrc='vim ~/.vimrc'
+alias vrc='vim ~/.vim/vimrc'
 
 alias yt='youtube-dl -ic'
 
@@ -71,7 +71,7 @@ alias pm='pulsemixer'
 
 # alias scrot="scrot '%d-%H:%M-$a.png'"
 
-alias screenkey='screenkey --scr 2 --opacity 0 -p bottom -s small -f Terminus-Bold --font-color yellow & '
+alias screenkey='screenkey --scr 1 --opacity 0 -p bottom -s small -f Terminus-Bold --font-color yellow & '
 alias xep='Xephyr -br -ac -noreset -screen 800x600 :1'
 alias wm='DISPLAY=:1'
 
@@ -79,10 +79,11 @@ alias feh2='feh --bg-fill ~/Pictures/Artix/Artix-dark.png --bg-fill ~/Pictures/V
 alias i3lock='i3lock -c 000000'
 alias xclock='xclock -bg gray -geometry 328x328'
 alias binit="curl -F 'file=@-' 0x0.st"
-alias tilde='ssh -p 443 woland@ssh.tilde.team'
+alias tilde-team='ssh -p 443 woland@ssh.tilde.team'
+alias tilde-club='ssh -p 443 woland@ssh.tilde.club'
 alias psg='python ~/.local/bin/passgen.py'
 alias finder='xfce4-appfinder'
-alias page='/usr/share/vim/vim90/macros/less.sh'
+alias page='/usr/share/vim/vim91/macros/less.sh'
 
 alias player='ncmpcpp'
 alias ping='ping -c 10 8.8.8.8'
@@ -102,6 +103,9 @@ alias docker='doas docker'
 
 # MISC
 alias fs='fluidsynth -a pulseaudio -m alsa_raw -o midi.alsa.device=hw:3,0,1 -g 1.0 ~/Music/Soundfonts/FluidR3_GM.sf2'
-alias mc='tmux split -h lf; lf'
+# alias mc='tmux split -h lf; lf'
 alias glow='glow -s dracula'
 alias pc='proxychains'
+
+alias cmp='composer'
+
