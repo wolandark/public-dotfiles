@@ -4,5 +4,5 @@
 
 [[ $(pgrep startx) = '' ]] && [[ "$(tty)" = "/dev/tty1" ]] && startx
 
-export EDITOR=vim
-
+# [[ -f ~/.Xmodmap-Swaped ]] && xmodmap ~/.Xmodmap-Swaped
+# export EDITOR=vim

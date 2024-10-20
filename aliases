@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # alias vim.='vim "+:CocCommand explorer"'
 #========[ALIASES]========#
@@ -32,7 +32,7 @@ alias l='eza'
 alias ll='eza -l'
 alias la='eza -a'
 alias lla='eza -al'
-alias t='tree'
+alias t='tree -C'
 # web
 alias linksg='links -g www.duckduckgo.com'
 alias www='w3m duckduckgo.com'
@@ -108,4 +108,5 @@ alias glow='glow -s dracula'
 alias pc='proxychains'
 
 alias cmp='composer'
+alias artisan='./artisan'
 

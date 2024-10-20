@@ -5,11 +5,11 @@
 alias rm='trash-put'
 #========[BETTER DIRECTORY NAVIGATION]========#
 # Prepend cd to directory names automatically
-shopt -s autocd 2> /dev/null
+shopt -s autocd 2>/dev/null
 # Correct spelling errors during tab-completion
-shopt -s dirspell 2> /dev/null
+shopt -s dirspell 2>/dev/null
 # Correct spelling errors in arguments supplied to cd
-shopt -s cdspell 2> /dev/null
+shopt -s cdspell 2>/dev/null
 # CDPATH
 # export CDPATH=".:~:~/Work:~/.local:~/.config"
 
@@ -31,43 +31,45 @@ HISTFILESIZE=100000
 HISTCONTROL="erasedups:ignoreboth"
 
 # Don't record some commands
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear:X:v:fzf:vim:vc:tmux"
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear:X:v:fzf:vim:vc"
 
 # Use standard ISO 8601 timestamp
 # %F equivalent to %Y-%m-%d
 # %T equivalent to %H:%M:%S (24-hours format)
 HISTTIMEFORMAT='%F %T '
 
+#========[COMPLETION]========#
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
 #======[ SOURCE ]======#
 source "$HOME"/.aliases
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
-#source ~/tmp/Programs/extraterm-commands-0.9.4/setup_extraterm_bash.sh
+source /home/woland/.bash_completion/composer-artisan-comp.bash
+# source /home/woland/.bash_completion/artisan-completion.bash
+# source /home/woland/.bash_completion/composer-completion.bash
+# source /home/woland/tmp/Programs/extraterm-commands-0.9.4/setup_extraterm_bash.sh
 
 #========[FZF]========#
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/.fzf-git.sh/fzf-git.sh ] && source ~/.fzf-git.sh/fzf-git.sh 
 
-#========[COMPLETION]========#
-if ! shopt -oq posix; then
-	if [ -f /usr/share/bash-completion/bash_completion ]; then
-		. /usr/share/bash-completion/bash_completion
-	elif [ -f /etc/bash_completion ]; then
-		. /etc/bash_completion
-	fi
-fi
-
 #========[Vi  MODE]========#
 if [[ $- == *i* ]]; then # in interactive session
-	set -o emacs
-	# set -o vi
-	# bind -m vi-command 'Control-l: clear-screen'
-	# bind -m vi-insert 'Control-l: clear-screen'
-	# bind '"jj":vi-movement-mode'
-	# bind '"\e[1;5C": forward-word'  # Ctrl-Right Arrow: Move forward one word
-	# bind '"\e[1;5D": backward-word' # Ctrl-Left Arrow: Move backward one word
-	# bind '"\e[1;5H": beginning-of-line'  # Ctrl-Home: Move to the beginning of the line
-	# bind '"\e[1;5F": end-of-line'        # Ctrl-End: Move to the end of the line
+  set -o emacs
+  # set -o vi
+  # bind -m vi-command 'Control-l: clear-screen'
+  # bind -m vi-insert 'Control-l: clear-screen'
+  # bind '"jj":vi-movement-mode'
+  # bind '"\e[1;5C": forward-word'  # Ctrl-Right Arrow: Move forward one word
+  # bind '"\e[1;5D": backward-word' # Ctrl-Left Arrow: Move backward one word
+  # bind '"\e[1;5H": beginning-of-line'  # Ctrl-Home: Move to the beginning of the line
+  # bind '"\e[1;5F": end-of-line'        # Ctrl-End: Move to the end of the line
 fi
 #========[TTY RESOLUTION]========#
 # fbset -a -g 1920 1080 1920 1080 32
@@ -83,15 +85,68 @@ fi
 
 #========[PS1]========#
 parse_git_branch() {
-	# branch=$(git branch 2>/dev/null | grep -E '^\*' | awk '{print $2}')
-	branch=$(git branch 2>/dev/null | sed -n '/\* /s///p')
-	if [ -n "$branch" ]; then
-		ansi --green --italic " " "$branch"
-	fi
+  # branch=$(git branch 2>/dev/null | grep -E '^\*' | awk '{print $2}')
+  branch=$(git branch 2>/dev/null | sed -n '/\* /s///p')
+  if [ -n "$branch" ]; then
+    ansi --green --italic " " "$branch"
+  fi
 }
 
-PS1='\[\e[38;5;39m\]󰣇 \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\[\e[0m\]\n \[\e[38;5;86m\]╰─󰁔\[\e[0m\] '
-PS2='\[\e[31m\] \[\e[0m\] '
+queryTerm() { termname=$(ps -p $(ps -p $$ -o ppid=) o args= ); }; queryTerm
+if [[ $termname == urxvt ]]; then 
+  PS1='[\u@\h \W]\$ '
+else
+  PS1='\[\e[38;5;39m\]󰣇 \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\[\e[0m\]\n \[\e[38;5;86m\]󰘍\[\e[0m\] '
+  PS2='\[\e[31m\] \[\e[0m\] '
+fi
+
+LoadAltPS1()
+{
+  PS1='\[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\[\e[0m\]\[\e[38;5;86m\]:\[\e[0m\] '
+  # PS1='\[\e[38;5;39m\]󰣇 \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\[\e[0m\]\[\e[38;5;86m\]  \[\e[0m\]'
+}
+
+# shorten_path()
+# {
+#     local dir="$1"
+#     local shortened=""
+
+#     IFS='/' read -ra parts <<< "$dir"
+#     for part in "${parts[@]}"; do
+#         if [[ -n $part ]]; then
+#             shortened+="${part:0:1}/"
+#         fi
+#     done
+#     shortened="${shortened%/}"
+#     echo "$shortened"
+# }
+
+shorten_path() {
+  local dir="$1"
+  local shortened=""
+  local part
+
+  IFS='/' read -ra parts <<< "$dir"
+  for part in "${parts[@]}"; do
+    if [[ -n $part ]]; then
+      if [[ "$part" == .* ]]; then
+        shortened+="${part:0:2}/"  # Keep the dot and the first character after it
+      else
+        shortened+="${part:0:1}/"
+      fi
+    fi
+  done
+  shortened="${shortened%/}"
+  echo "$shortened"
+}
+
+ShortenPS1()
+{
+  export PS1='\[\e[38;5;39m\]$(shorten_path "${PWD/#$HOME/~}")  \[\e[0m\] '
+}
+
+
+# PS1='\[\e[38;5;39m\]󰣇 \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\[\e[0m\]\n \[\e[38;5;86m\]╰─󰁔\[\e[0m\] '
 # export PS1="\[\033[32m\]\u@\h \[\033[33;1m\]\w \[\033[36m\]\$(parse_git_branch) \[\033[0m\]\$ "
 # PS1='\[\e[38;5;39m\]  \[\e[0;38;5;46m\] \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\] \[\e[0m\]'
 # PS1='\[\e[38;5;39m\]  \[\e[0;38;5;46m\] \[\e[0;38;5;39m\]\w$(parse_git_branch)\[\e[0m\]\q{my/vim-mode}\[\e[0m\]'
@@ -101,9 +156,11 @@ export EDITOR=vim
 export PATH="$PATH":~/.local/bin/
 export PATH="$PATH":~/.local/bin/PhpStorm2024/bin/
 export PATH="$PATH":~/go/bin/
+export PATH="$PATH":~/.local/bin/calibre-7.16.0-x86_64/
 export BROWSER=waterfox-g
 export browser=waterfox-g
-export TERM=xterm-256color
+# export TERM=xterm-256color
+export TERM=tmux-256color
 export MANPAGER='vim -M +MANPAGER -'
 export BAT_THEME="1337"
 complete -cf sudo
@@ -115,6 +172,18 @@ complete -cf doas
 # export DISPLAY=:0.0
 
 #========[FUNCTIONS]========#
+
+cat_tek() {
+  echo -e '\033[?38h'  # Switch to Tek mode
+  echo -e '\033\014'   # Clear the Tek window
+  cat "$1"             # Display the content of the file in Tek window
+  echo -e '\033[?38l'  # Switch back to VT mode
+}
+# TekCat() {
+#     echo -e '\033[?38h'    # Switch to Tek mode (opens Tek window)
+#     cat "$1"               # Display the content of the file in Tek window
+#     echo -e '\033[?38l'    # Switch back to VT (normal text) mode
+# }
 mkcd (){ mkdir -p "$@" && eval cd "\"\$$#\""; }
 
 cs (){ cd "$@" && ls; }
@@ -126,70 +195,70 @@ redraw(){ tput reset; clear; echo "Width = $(tput cols) Height = $(tput lines)";
 #====[EXTRACTOR]====#
 ex ()
 {
-	if [ -f "$1" ] ; then
-		case $1 in
-			*.tar.bz2)   tar xjf "$1"   ;;
-			*.tar.gz)    tar xzf "$1"   ;;
-			*.bz2)       bunzip2 "$1"   ;;
-			*.rar)       unrar x "$1"   ;;
-			*.gz)        gunzip "$1"    ;;
-			*.tar)       tar xf "$1"    ;;
-			*.tbz2)      tar xjf "$1"   ;;
-			*.tgz)       tar xzf "$1"   ;;
-			*.zip)       unzip "$1"     ;;
-			*.Z)         uncompress "$1";;
-			*.7z)        7zz x "$1"      ;;
-			*.deb)       ar x "$1"      ;;
-			*.tar.xz)    tar xf "$1"    ;;
-			*.tar.zst)   tar xf "$1"    ;;
-			*)           echo "'$1' cannot be extracted via ex()" ;;
-		esac
-	else
-		echo "'$1' is not a valid file"
-	fi
+  if [ -f "$1" ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf "$1"   ;;
+      *.tar.gz)    tar xzf "$1"   ;;
+      *.bz2)       bunzip2 "$1"   ;;
+      *.rar)       unrar x "$1"   ;;
+      *.gz)        gunzip "$1"    ;;
+      *.tar)       tar xf "$1"    ;;
+      *.tbz2)      tar xjf "$1"   ;;
+      *.tgz)       tar xzf "$1"   ;;
+      *.zip)       unzip "$1"     ;;
+      *.Z)         uncompress "$1";;
+      *.7z)        7zz x "$1"      ;;
+      *.deb)       ar x "$1"      ;;
+      *.tar.xz)    tar xf "$1"    ;;
+      *.tar.zst)   tar xf "$1"    ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
 }
 
 #====[COMPRESSOR]====#
 komp() {
-	if [ -d "$2" ]; then
-		case "$1" in
-			"tar")
-				tar -cvf "$(basename "$2").tar" "$2";;
-			"gz")
-				tar -czvf "$(basename "$2").tar.gz" "$2";;
-			"bz")
-				tar -cjvf "$(basename "$2").tar.bz2" "$2";;
-			"xz")
-				tar -cJvf "$(basename "$2").tar.xz" "$2";;
-			*)
-				echo "Invalid compression format.";;
-		esac
-	else
-		echo "Invalid directory path."
-	fi
+  if [ -d "$2" ]; then
+    case "$1" in
+      "tar")
+        tar -cvf "$(basename "$2").tar" "$2";;
+      "gz")
+        tar -czvf "$(basename "$2").tar.gz" "$2";;
+      "bz")
+        tar -cjvf "$(basename "$2").tar.bz2" "$2";;
+      "xz")
+        tar -cJvf "$(basename "$2").tar.xz" "$2";;
+      *)
+        echo "Invalid compression format.";;
+    esac
+  else
+    echo "Invalid directory path."
+  fi
 }
 #========[LF]========#
 lfcd () {
-	tmp="$(mktemp)"
-	# `command` is needed in case `lfcd` is aliased to `lf`
-	command lf -last-dir-path="$tmp" "$@"
-	if [ -f "$tmp" ]; then
-		dir="$(cat "$tmp")"
-		rm -f "$tmp"
-		if [ -d "$dir" ]; then
-			if [ "$dir" != "$(pwd)" ]; then
-				cd "$dir"
-			fi
-		fi
-	fi
+  tmp="$(mktemp)"
+  # `command` is needed in case `lfcd` is aliased to `lf`
+  command lf -last-dir-path="$tmp" "$@"
+  if [ -f "$tmp" ]; then
+    dir="$(cat "$tmp")"
+    rm -f "$tmp"
+    if [ -d "$dir" ]; then
+      if [ "$dir" != "$(pwd)" ]; then
+        cd "$dir"
+      fi
+    fi
+  fi
 }
 
 #========[LF MC]========#
 mc() {
-	cmd='lf -config <(cat ~/.config/lf/lfrc - <<EOF
-	set nopreview
-	set ratios 1
-	set info size:time
+  cmd='lf -config <(cat ~/.config/lf/lfrc - <<EOF
+  set nopreview
+  set ratios 1
+  set info size:time
 EOF
 )'
 tmux split -h "$cmd"; eval "$cmd"
@@ -197,31 +266,31 @@ tmux split -h "$cmd"; eval "$cmd"
 #========[ViFm]========#
 vicd()
 {
-	local dst="$(command vifm --choose-dir - "$@")"
-	if [ -z "$dst" ]; then
-		echo 'Directory picking cancelled/failed'
-		return 1
-	fi
-	cd "$dst" || return
+  local dst="$(command vifm --choose-dir - "$@")"
+  if [ -z "$dst" ]; then
+    echo 'Directory picking cancelled/failed'
+    return 1
+  fi
+  cd "$dst" || return
 }
 #====[COLORS]====#
 ylw() {
-	echo -e "\033[32m$*\033[0m"
+  echo -e "\033[32m$*\033[0m"
 }
 grn() {
-	echo -e "\033[33m$*\033[0m"
+  echo -e "\033[33m$*\033[0m"
 }
 cyn() {
-	echo -e "\033[34m$*\033[0m"
+  echo -e "\033[34m$*\033[0m"
 }
 bylw() {
-	echo -e "\033[1;7;32m$*\033[0m"
+  echo -e "\033[1;7;32m$*\033[0m"
 }
 rd() {
-	echo -e "\033[31m$*\033[0m"
+  echo -e "\033[31m$*\033[0m"
 }
 brd() {
-	echo -e "\033[1;7;31m$*\033[0m"
+  echo -e "\033[1;7;31m$*\033[0m"
 }
 
 #========[FZF]========#
@@ -229,9 +298,9 @@ brd() {
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export FZF_DEFAULT_OPTS=" \
-	--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-	--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-	--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+  --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 export FZF_COMPLETION_TRIGGER='--'
 
@@ -268,23 +337,23 @@ export FZF_ALT_C_OPTS="
 export FZF_COMPLETION_OPTS='--border --info=inline'
 
 _fzf_compgen_path() {
-	fd --hidden --follow --exclude ".git" . "$1"
+  fd --hidden --follow --exclude ".git" . "$1"
 }
 
 _fzf_compgen_dir() {
-	fd --type d --hidden --follow --exclude ".git" . "$1"
+  fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
 _fzf_comprun() {
-	local command=$1
-	shift
+  local command=$1
+  shift
 
-	case "$command" in
-		cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
-		export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
-		ssh)          fzf --preview 'dig {}'                   "$@" ;;
-		*)            fzf --preview 'bat -n --color=always {}' "$@" ;;
-	esac
+  case "$command" in
+    cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+  esac
 }
 
 _fzf_setup_completion path ag git 
@@ -293,23 +362,23 @@ _fzf_setup_completion dir tree
 # integration with z 
 # unalias z 2> /dev/null
 zz() {
-	# [ $# -gt 0 ] && _z "$*" && return
-	cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+  # [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
 # Install packages using yay (change to pacman/AUR helper of your choice)
 function aur() {
-	yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}'| xargs -ro yay -S --color=always --askyesremovemake
+  yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}'| xargs -ro yay -S --color=always --askyesremovemake
 }
 # Remove installed packages (change to pacman/AUR helper of your choice)
 function raur() {
-	yay -Qq | fzf -q "$1" -m --preview 'yay -Qi {1}' | xargs -ro yay -Rns
+  yay -Qq | fzf -q "$1" -m --preview 'yay -Qi {1}' | xargs -ro yay -Rns
 }
 function ins() {
-	pacman -Slq | fzf -q "$1" -m --preview 'pacman -Si {1}'| xargs -ro doas pacman -S
+  pacman -Slq | fzf -q "$1" -m --preview 'pacman -Si {1}'| xargs -ro doas pacman -S
 }
 # Remove installed packages (change to pacman/AUR helper of your choice)
 function remove() {
-	pacman -Qq | fzf -q "$1" -m --preview 'pacman -Qi {1}' | xargs -ro doas pacman -Rns
+  pacman -Qq | fzf -q "$1" -m --preview 'pacman -Qi {1}' | xargs -ro doas pacman -Rns
 }
 
 # List packages contents
@@ -317,27 +386,27 @@ function remove() {
 # pacman -Ql "$@" | fzf
 # }
 function pkg() {
-	doas pacman -Ql | fzf -q "$1" -m --preview 'doas pacman -Si {1}';
+  doas pacman -Ql | fzf -q "$1" -m --preview 'doas pacman -Si {1}';
 }
 
 
 # fda - including hidden directories
 fcda() {
-	local dir
-	dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
 }
 
 #cd into the selected directory
 # This one differs from the above, by only showing the sub directories and not
 #  showing the directories within those.
 fcd() {
-	DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
-		&& cd "$DIR"
-	}
+  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
+    && cd "$DIR"
+  }
 
-	vf() {
-		fzf --multi --bind 'enter:become(vim {+})'
-	}
+  vf() {
+    fzf --multi --bind 'enter:become(vim {+})'
+  }
 
 # FZF MAN PAGES FINDER
 export MANPATH=/usr/share/man/
@@ -348,87 +417,94 @@ f=$(fd . $MANPATH/man${1:-1} -t f -x echo {/.} | fzf) && man $f
 # FZF DOCKER
 # Select a docker container to start and attach to
 function da() {
-	local cid
-	cid=$(doas docker ps -a | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
-	[ -n "$cid" ] && docker start "$cid" && docker attach "$cid"
+  local cid
+  cid=$(doas docker ps -a | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
+  [ -n "$cid" ] && docker start "$cid" && docker attach "$cid"
 }
 # Select a running docker container to stop
 function ds() {
-	local cid
-	cid=$(doas docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
+  local cid
+  cid=$(doas docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
 
-	[ -n "$cid" ] && docker stop "$cid"
+  [ -n "$cid" ] && docker stop "$cid"
 }
 # Remove docker container
 function drm() {
-	doas docker ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r doas docker rm
+  doas docker ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r doas docker rm
 }
 # Same as above, but allows multi selection:
 function mdrm() {
-	doas docker ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r doas docker rm
+  doas docker ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r doas docker rm
 }
 # Select a docker image or images to remove
 function drmi() {
-	doas docker images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r doas docker rmi
+  doas docker images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r doas docker rmi
 }
 # ================================= #
 
 wterm() { ps -p $(ps -p $$ -o ppid=) o args= ; }
 
-live() { xdg-open "$1"; }
+live() { waterfox-g "$1"; }
 
-cheat() {
-	if [ -x "$(command -v curl)" ]; then
-		curl --silent "cht.sh/$1" | bat;
-	fi;
+# cht() {
+#   if [ -x "$(command -v curl)" ]; then
+#     curl --silent "cht.sh/$1" | bat;
+#   fi;
+# }
+
+cht() {
+  if [ -x "$(command -v curl)" ]; then
+    query=$(echo "$@" | tr ' ' '+')
+    curl --silent "cht.sh/$query" | bat;
+  fi;
 }
 
 md-server() {
 if [[ "$1" = *.md ]]; then
-	waterfox-g "$1"
+  waterfox-g "$1"
 fi
 }
 
 PyEnv(){
-	~/PyVirtEnv "$@"
-	source $1/bin/activate
-	cd $1
+  ~/PyVirtEnv "$@"
+  source $1/bin/activate
+  cd $1
 }
 
 brain(){
-	cd ~/vimwiki || return
-	rg $@
-	~
+  cd ~/vimwiki || return
+  rg $@
+  ~
 }
 
 tempo() { 
-	ylw "Metronome Started With $1-BPM"
-	play -n -c1 synth 0.001 sine 1000 pad $(awk "BEGIN { print 60/$1 -.001 }") repeat 999999
+  ylw "Metronome Started With $1-BPM"
+  play -n -c1 synth 0.001 sine 1000 pad $(awk "BEGIN { print 60/$1 -.001 }") repeat 999999
 } 
 
 vis_tempo() {
-	BPM=120;
-	while :;
-	do
-		printf "\e]11;#D80000\007";
-		sleep "$(bc <<< "scale=2; 60 / $BPM")";
-		printf "\e]11;#1e1e2e\007";
-		sleep "$(bc <<< "scale=2; 60 / $BPM")"; 
-	done
+  BPM=120;
+  while :;
+  do
+    printf "\e]11;#D80000\007";
+    sleep "$(bc <<< "scale=2; 60 / $BPM")";
+    printf "\e]11;#1e1e2e\007";
+    sleep "$(bc <<< "scale=2; 60 / $BPM")"; 
+  done
 }
 
 getDefinitions() {
-	local word="$1"
-	local res=$(curl -s "https://api.dictionaryapi.dev/api/v2/entries/en_US/$word")
-	echo "$res" | jq -r '.[0].meanings[].definitions[]?.definition'
+  local word="$1"
+  local res=$(curl -s "https://api.dictionaryapi.dev/api/v2/entries/en_US/$word")
+  echo "$res" | jq -r '.[0].meanings[].definitions[]?.definition'
 }
 
 get_skeleton() {
-	wget https://github.com/dhg/Skeleton/releases/download/2.0.4/Skeleton-2.0.4.zip
+  wget https://github.com/dhg/Skeleton/releases/download/2.0.4/Skeleton-2.0.4.zip
 }
 
 get_miligram() {
-	wget https://github.com/milligram/milligram/archive/v1.4.1.zip
+  wget https://github.com/milligram/milligram/archive/v1.4.1.zip
 }
 
 # fromhex A52A2A
@@ -436,25 +512,25 @@ get_miligram() {
 # BLUE_VIOLET=$(fromhex "#8A2BE2")
 # http://unix.stackexchange.com/a/269085/67282
 function fromhex() {
-	hex=$1
-	if [[ $hex == "#"* ]]; then
-		hex=$(echo $1 | awk '{print substr($0,2)}')
-	fi
-	r=$(printf '0x%0.2s' "$hex")
-	g=$(printf '0x%0.2s' ${hex#??})
-	b=$(printf '0x%0.2s' ${hex#????})
-	echo -e `printf "%03d" "$(((r<75?0:(r-35)/40)*6*6+(g<75?0:(g-35)/40)*6+(b<75?0:(b-35)/40)+16))"`
+  hex=$1
+  if [[ $hex == "#"* ]]; then
+    hex=$(echo $1 | awk '{print substr($0,2)}')
+  fi
+  r=$(printf '0x%0.2s' "$hex")
+  g=$(printf '0x%0.2s' ${hex#??})
+  b=$(printf '0x%0.2s' ${hex#????})
+  echo -e `printf "%03d" "$(((r<75?0:(r-35)/40)*6*6+(g<75?0:(g-35)/40)*6+(b<75?0:(b-35)/40)+16))"`
 }
 
 function bgFg() {
-	printf "\033]11;#"$1"\007"
-	printf "\033]10;#"$2"\007"
+  printf "\033]11;#"$1"\007"
+  printf "\033]10;#"$2"\007"
 }
 
 function lms(){
-	export QT_AUTO_SCREEN_SCALE_FACTOR=1
-	export QT_SCREEN_SCALE_FACTORS=1.2
-	swallow lmms 
+  export QT_AUTO_SCREEN_SCALE_FACTOR=1
+  export QT_SCREEN_SCALE_FACTORS=1.2
+  swallow lmms 
 }
 
 
@@ -579,4 +655,8 @@ function lms(){
 
 # FZF PASS 
 # .local/bin/passfzf
+# keyboardrate.sh
+
+
+
 

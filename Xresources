@@ -9,7 +9,8 @@
 !  |   // ___/ _ \/ ___/ __ \/ / / / ___/ ___/ _ \/ ___/
 ! /   |/ /  /  __(__  ) /_/ / /_/ / /  / /__/  __(__  ) 
 !/_/|_/_/   \___/____/\____/\__,_/_/   \___/\___/____/  
-!                                                       
+!
+! {{{ Guide
 !=========
 !  Guide |
 !=========
@@ -30,10 +31,13 @@
 ! Do not set the TERM variable from your ~/.bashrc or ~/.bash_profile or similar file.
 ! The terminal itself should report the correct TERM to the system so that the proper terminfo file will be used.
 ! Two usable terminfo names are xterm and xterm-256color
-
+!
+!}}}                                                       
+!
 !==========================================!
 !=================Themes===================!
 !==========================================!
+! {{{ Horizon Dark
 ! Base16 Horizon Dark
 ! Scheme author: Michaël Ball (http://github.com/michael-ball/)
 ! Template author: Tinted Theming (https://github.com/tinted-theming)
@@ -89,14 +93,56 @@
 !*color19:      base02
 !*color20:      base04
 !*color21:      base06
-!
+!}}}
+
+! {{{ Machiato
+!==================!
+!=====Machiato=====!
+!==================!
+!*background: #24273A
+!*foreground: #CAD3F5
+
+! black
+!*color0: #494D64
+!*color8: #5B6078
+
+! red
+!*color1: #ED8796
+!*color9: #ED8796
+
+! green
+!*color2: #A6DA95
+!*color10: #A6DA95
+
+! yellow
+!*color3: #EED49F
+!*color11: #EED49F
+
+! blue
+!*color4: #8AADF4
+!*color12: #8AADF4
+
+! magenta
+!*color5: #F5BDE6
+!*color13: #F5BDE6
+
+! cyan
+!*color6: #8BD5CA
+!*color14: #8BD5CA
+
+! white
+!*color7: #B8C0E0
+!*color15: #A5ADCB
+!}}}
+
+! {{{ Mocha
 !===============!
 !=====Mocha=====!
 !===============!
 
-!*.background:   #282936
+!background:   #282936
 
-*.cursorColor:  #e9e9f4
+!*.cursorColor:  #e9e9f4
 
 *background: #1E1E2E
 *foreground: #CDD6F4
@@ -130,8 +176,54 @@
 *color14: #94E2D5
 
 ! white
-*color7: #f2f2f2
+*color7: #f2f2f2 
 *color15: #f8f8f8
+
+!}}}
+!
+! {{{ Mitra
+!===============!
+!=====Mitra=====!
+!===============!
+! special
+!*.foreground:   #e3d9d9
+!*.background:   #1e1e2e
+!*.cursorColor:  #e3d9d9
+
+! black
+!*.color0:      #6c7086
+!*.color8:      #585b70
+
+! red
+!*.color1:       #790914
+!*.color9:       #701c1c
+
+! green
+!*.color2:       #15bd15
+!*.color10:      #00a693
+
+! yellow
+!*.color3:       #d5fe28
+!*.color11:      #d5f34f
+
+! blue
+!*.color4:       #77aaff
+!*.color12:      #0099e6
+
+! magenta
+!*.color5:       #f77fbe
+!*.color13:      #f5c2e7
+
+! cyan
+!*.color6:       #00ccff
+!*.color14:      #57c5c6
+
+! white
+!*.color7:       #f2f2f2
+!*.color15:      #f8f8f8
+!}}}
+!
+! {{{ Lunaperche
 !=======================!
 !========Lunaperche=====!
 !=======================!
@@ -171,7 +263,9 @@
 ! white
 !*.color7:       #c6c6c6
 !*.color15:      #e2f1f6
-
+!}}}
+!
+! {{{ Woland
 !=======================!
 !========Woland=========!
 !=======================!
@@ -211,7 +305,9 @@
 ! white
 !*.color7:       #d5f1f2
 !*.color15:      #e2f1f6
-
+!}}}
+!
+! {{{ Gruvbox
 !==================
 !---Gruvbox-dark---
 !==================
@@ -247,110 +343,9 @@
 ! LightGrey + White
 !*color7:  #a89984
 !*color15: #ebdbb2
-
-!====================
-!---Solarized-Dark---
-!====================
-!!Source http://github.com/altercation/solarized
+!}}}
 !
-! *background: #002b36
-! *foreground: #657b83
-! !*fading: 40
-! *fadeColor: #002b36
-! ! *cursorColor: #93a1a1
-! *pointerColorBackground: #586e75
-! *pointerColorForeground: #93a1a1
-
-! ! black dark/light
-! *color0: #073642
-! *color8: #002b36
-
-! ! red dark/light
-! *color1: #dc322f
-! *color9: #cb4b16
-!
-! ! green dark/light
-! *color2: #859900
-! *color10: #586e75
-!
-! ! yellow dark/light
-! *color3: #b58900
-! *color11: #657b83
-!
-! ! blue dark/light
-! *color4: #268bd2
-! *color12: #839496
-!
-! ! magenta dark/light
-! *color5: #d33682
-! *color13: #6c71c4
-!
-! ! cyan dark/light
-! *color6: #2aa198
-! *color14: #93a1a1
-!
-! ! white dark/light
-! *color7: #eee8d5
-! *color15: #fdf6e3
-
-!==========================================!
-!=================Dracula==================!
-!==========================================!
-! Base16 Dracula
-! Scheme: Mike Barkmin (http://github.com/mikebarkmin) based on Dracula Theme (http://github.com/dracula)
-
-!#define base00 #282936
-!#define base01 #3a3c4e
-!#define base02 #4d4f68
-!#define base03 #626483
-!#define base04 #62d6e8
-!#define base05 #e9e9f4
-!#define base06 #f1f2f8
-!#define base07 #f7f7fb
-!#define base08 #ea51b2
-!#define base09 #b45bcf
-!#define base0B #00f769
-!#define base0A #ebff87
-!#define base0C #a1efe4
-!#define base0D #62d6e8
-!#define base0E #b45bcf
-!#define base0F #00f769
-
-!*.foreground:   base05
-!#ifdef background_opacity
-!*.background:   [background_opacity]base00
-!#else
-!*.background:   base00
-!#endif
-!*.cursorColor:  base05
-
-!*.color0:       base00
-!*.color1:       base08
-!*.color2:       base0B
-!*.color3:       base0A
-!*.color4:       base0D
-!*.color5:       base0E
-!*.color6:       base0C
-!*.color7:       base05
-!
-!*.color8:       base03
-!*.color9:       base08
-!*.color10:      base0B
-!*.color11:      base0A
-!*.color12:      base0D
-!*.color13:      base0E
-!*.color14:      base0C
-!*.color15:      base07
-
-! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
-! use 'shell' template to set these if necessary
-!*.color16:      base09
-!*.color17:      base0F
-!*.color18:      base01
-!*.color19:      base02
-!*.color20:      base04
-!*.color21:      base06
-
+! {{{ XTerm Settings
 !===============================================================!
 !====================== Xterm Settings =========================!
 !===============================================================!
@@ -361,24 +356,19 @@ XTerm*transparent: true
 !-------[ Fonts ]-------
 XTerm*faceName: SauceCodeProNerdFont
 XTerm*faceSize: 13
-
-! VT Font Menu: Unreadable
-xterm*faceSize1: 10
-! VT font menu: Tiny
-xterm*faceSize2: 11
-! VT font menu: Medium
-xterm*faceSize3: 14
-! VT font menu: Large
-xterm*faceSize4: 16
-! VT font menu: Huge
-xterm*faceSize5: 18
-xterm*faceSize6: 20
-xterm*faceSize7: 22
-xterm*faceSize8: 24
-xterm*faceSize9: 26
+XTerm*faceSize1: 11
+XTerm*faceSize2: 12
+XTerm*faceSize3: 13
+XTerm*faceSize4: 14
+XTerm*faceSize5: 15
+XTerm*faceSize6: 16
+XTerm*faceSize7: 17
+XTerm*faceSize8: 18
+XTerm*faceSize9: 19
 
 ! Locale must be UTF-8 
-XTerm.vt100.locale: true
+XTerm.vt100.locale: false
+XTerm.vt100.utf8: true
 
 !---------- [ Cursor ] ------------------
 ! pointer and cursor (blinking and color)
@@ -403,10 +393,14 @@ XTerm*trimSelection: true
 XTerm*saveLines: 16384
 
 ! Turn the scrollbar on, and put it on the right
-! XTerm.vt100.scrollBar: true
-! XTerm.vt100.scrollbar.width: 8
-! xterm*scrollBar: true
-! xterm*rightScrollBar: true
+!XTerm.vt100.scrollBar: true
+!UXTerm.vt100.scrollBar: true
+!XTerm*scrollBar: true
+!UXTerm*scrollBar: true
+!XTerm*rightScrollBar: true
+!UXTerm*rightScrollBar: true
+!XTerm.vt100.scrollbar.width: 12
+!UXTerm.vt100.scrollbar.width: 12
 
 ! Do not scroll when there is new input e.g. tail -f /var/syslog
 XTerm*scrollTtyOutput: false
@@ -474,22 +468,31 @@ XTerm*vt100.Translations: #override\
 !                        Ctrl <Btn5Down>:scroll-forw(1,halfpage,m) \n\
 !                                <BtnUp>:select-end(SELECT, CUT_BUFFER0) \n\
 !                              <BtnDown>:ignore()
-
+!}}}
+!
+! {{{ UXTerm
 !====================================
 !===============UXTerm===============
 !====================================
 UXTerm*faceName: RobotoMonoNerdFont
 UXTerm*faceSize: 13
-uxterm*faceSize1: 10
-uxterm*faceSize2: 11
-uxterm*faceSize3: 14
-uxterm*faceSize4: 16
-uxterm*faceSize5: 18
-uxterm*faceSize6: 20
-uxterm*faceSize7: 22
-uxterm*faceSize8: 24
-uxterm*faceSize9: 26
-uXTerm.vt100.locale: true
+UXTerm*faceSize1: 11
+UXTerm*faceSize2: 12
+UXTerm*faceSize3: 13
+UXTerm*faceSize4: 14
+UXTerm*faceSize5: 15
+UXTerm*faceSize6: 16
+UXTerm*faceSize7: 17
+UXTerm*faceSize8: 18
+UXTerm*faceSize9: 19
+UXTerm*faceSize10: 20
+UXTerm*faceSize11: 21
+UXTerm*faceSize12: 22
+UXTerm*faceSize13: 23
+
+! Locale must be UTF-8 
+UXTerm.vt100.locale: false
+UXTerm.vt100.utf8: true
 
 !!-------------------[ Keybinding ]-------------------
 UXTerm.vt100.translations: #override \n\
@@ -528,4 +531,110 @@ UXTerm*trimSelection: true
 !!------------ [Scrolling ]---------------
 UXTerm*saveLines: 16384
 UXTerm*scrollTtyOutput: false
+!}}}
+!
+! {{{ URXVT
+!====================================
+!===============URXVT================
+!====================================
+! general settings
+URxvt.saveLines:        50000
+URxvt.termName:         xterm-256color
+URxvt.urgentOnBell:     false
+URxvt.visualBell:       false
+URxvt.iso14755:         false
+URxvt.iso14755_52:      false
+URxvt.meta8:            false
+URxvt.metaSendsEscape:  true
+URxvt.iconFile:     /usr/share/icons/Sardi-Mono/scalable/apps/terminal.svg
+URxvt.urlLauncher:      firefox
+URxvt.underlineURLs:    true
+URxvt.urlButton:        1
+
+! appearance
+URxvt.foreground:   #cdcdcd
+URxvt.background: #000000
+! C64 purple
+! URxvt.background:   #4242c6
+! URxvt.background:   [80]#222222
+!URxvt.background:  rgba:2222/2222/2222/AAAA
+!URxvt.background:  [80]#404552
+!URxvt.background:  [70]#3F424A
+
+!URxvt.geometry:     400x400
+!URxvt.depth:             32
+URxvt.transparent:      false
+!URxvt.shading:           80
+URxvt.underlineColor:    #D80000
+URxvt.highlightColor:    #666666
+URxvt.throughColor:      #4682B4
+URxvt.scrollBar:         false
+URxvt.scrollTtyOutput:   false
+URxvt.scrollWithBuffer:  true
+URxvt.scrollTtyKeypress: true
+URxvt.internalBorder:    5
+URxvt.externalBorder:    0
+URxvt.colorIT:         #4682B4
+URxvt.colorBD:         #F9F9F9
+URxvt.colorUL:         #87afd7
+
+! fonts
+URxvt.letterSpace:            -1
+URxvt.font:                   xft:RobotoMonoNerdFont:regular:size=13
+URxvt.imFont:                 xft:RobotoMonoNerdFont:regular:size=13
+URxvt.italicFont:             xft:RobotoMonoNerdFont:italic:size=13
+URxvt.boldFont:               xft:RobotoMonoNerdFont:bold:size=13
+URxvt.boldItalicFont:         xft:RobotoMonoNerdFont:regular:size=13
+! run :.!fc-list | grep <font-name>
+! use wide glyph version from aur
+
+! perl extensions
+! You can install extra perl extensions you should add them here
+URxvt.perl-ext-common:  default,clipboard,keyboard-select,fullscreen,resize-font,matcher,url-select
+!URxvt.perl-ext-common:  default,clipboard,url-select,keyboard-select,tabbed
+
+! macros for resize-font - sudo pacman -S urxvt-resize-font-git
+URxvt.resize-font.step:   1
+URxvt.keysym.C-minus:     resize-font:smaller
+URxvt.keysym.C-plus:      resize-font:bigger
+URxvt.keysym.C-equal:     resize-font:reset
+URxvt.keysym.C-question:  resize-font:show
+URxvt.keysym.C-Down:      resize-font:smaller
+URxvt.keysym.C-Up:        resize-font:bigger
+
+! Command for launching the url-select in  browser
+URxvt.url-select.launcher: waterfox-g 
+
+! macros for clipboard and selection
+! URxvt.copyCommand:      xclip -i -selection clipboard
+! URxvt.pasteCommand:     xclip -o -selection clipboard
+! URxvt.keysym.M-c:       perl:clipboard:copy
+! URxvt.keysym.M-v:       perl:clipboard:paste
+! URxvt.keysym.M-C-v:     perl:clipboard:paste_escaped
+! URxvt.keysym.M-Escape:  perl:keyboard-select:activate
+! URxvt.keysym.M-s:       perl:keyboard-select:search
+! URxvt.keysym.M-u:       perl:url-select:select_next
+
+! fullscreen - sudo pacman -S urxvt-fullscreen
+! urxvt.keysym.F11:       perl:fullscreen:switch
+
+! tabbed
+! URxvt.tabbed.tabbar-fg: 4
+! URxvt.tabbed.tabbar-bg: 16
+! URxvt.tabbed.tab-fg:    15
+! URxvt.tabbed.tab-bg:    4
+! URxvt.buffered:         false
+
+! clipboard
+! URxvt.keysym.Control-Shift-C: perl:clipboard:copy
+! URxvt.keysym.Control-Shift-V: perl:clipboard:paste
+!}}}
+!
+
+XTerm*tekGeometry: 80x40  # Set geometry of Tek window
+XTerm*TekInhibit: false    # Allow switching between Tek and VT modes
+XTerm*tekSmallFont: 6x13   # Set font size for small font in Tek mode
+
+
+! vim: fdm=marker
 

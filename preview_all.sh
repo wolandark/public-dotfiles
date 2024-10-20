@@ -18,7 +18,7 @@ case "$mime" in
 	inode/directory)
 		tree "$1" 2>/dev/null
 		;;
-	image/jpeg | image/png)
+	image/jpeg | image/png | image/gif )
 		# Use magick to display images in the terminal using sixel
 		magick "$1" -geometry 800x480 sixel:- 2>/dev/null
 		;;
@@ -29,6 +29,9 @@ case "$mime" in
 	application/epub+zip)
 		# Use epub2txt for EPUB files
 		epub2txt "$1" | head -n 1000 2>/dev/null
+		;;
+	application/json)
+		bat --color=always style=numbers "$1" 2>/dev/null
 		;;
 	video/*)
 		# Generate a thumbnail for video files
@@ -46,4 +49,5 @@ case "$mime" in
 		echo "No preview available for this file type."
 		;;
 esac
+
 
