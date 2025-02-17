@@ -3,6 +3,7 @@
 while :; do
 	setxkbmap -option caps:escape
 	setxkbmap -layout us,ir
+    # setxkbmap -layout us,ir -option "grp:alt_shift_toggle"
 	xmodmap -e "keycode 135 = Super_L"
 	xset r rate 270 60
 	sleep 60
