@@ -1,0 +1,511 @@
+---
+- name: Dotfiles Migration Playbook
+  hosts: localhost
+  become: true
+  vars:
+    # Package arrays
+    pacman_packages:
+      - adwaita-cursors
+      - alsa-firmware
+      - alsa-lib
+      - alsa-plugins
+      - alsa-utils 
+      - amfora
+      - ark
+      - audacious
+      - awesome-terminal-fonts 
+      - axel
+      - base-devel
+      - bash-completion
+      - bat
+      - bc
+      - chromium 
+      - curl
+      - dash
+      - doas
+      - docker
+      - duf
+      - dunst
+      - eza
+      - entr
+      - fbset 
+      - fd
+      - feh
+      - ffmpeg
+      - ffmpegthumbnailer
+      - figlet
+      - firefox
+      - flameshot 
+      - fuse2
+      - git 
+      - glava
+      - glow
+      - go
+      - gopls
+      - gthumb 
+      - gvim 
+      - hexchat
+      - htop
+      - imagemagick
+      - jq
+      - kate
+      - konsole
+      - ksh
+      - kvantum
+      - leafpad
+      - lf
+      - libnewt
+      - libnotify 
+      - lxappearance-gtk3
+      - lxqt-archiver
+      - man-db
+      - man-pages
+      - mg
+      - mocp
+      - mpc
+      - mpd 
+      - mpv 
+      - ncdu
+      - ncmpcpp
+      - neofetch
+      - nitrogen
+      - nodejs 
+      - noto-fonts
+      - npm 
+      - ntfs-3g
+      - openssh 
+      - pandoc-bin
+      - pass
+      - pcmanfm 
+      - proxychains-ng
+      - pulsemixer
+      - qbittorrent 
+      - qt5ct
+      - ranger
+      - realtime-privileges
+      - ripgrep-all
+      - rofi 
+      - rsync
+      - screenkey
+      - scrot
+      - shellcheck-bin
+      - sxhkd
+      - task
+      - telegram-desktop
+      - tesseract
+      - tesseract-data-eng
+      - the_silver_searcher
+      - thunar-archive-plugin
+      - thunar-volman
+      - thunderbird 
+      - tmux 
+      - toilet
+      - trash-cli
+      - ttf-hack-nerd
+      - ttf-liberation-mono-nerd
+      - tumbler
+      - udiskie
+      - udisks2
+      - ugrep
+      - unzip
+      - vi
+      - vifm 
+      - vlc
+      - w3m
+      - wget
+      - xclip
+      - xcompmgr
+      - xorg-modmap
+      - xorg-xinit 
+      - xorg-xkill 
+      - xorg-xprop 
+      - xorg-xrandr 
+      - xorg-xrdb 
+      - xorg-xset 
+      - xorg-xwininfo
+      - xsel 
+      - xterm
+      - yarn
+      - yt-dlp
+      - z
+      - zathura
+      - zathura-cb
+      - zathura-djvu
+      - zathura-pdf-mupdf
+      - zathura-ps
+      - zenity
+
+    aur_packages:
+      - 7-zip-bin
+      - albert 
+      - autotiling
+      - bottom
+      - catppuccin-gtk-theme-frappe
+      - catppuccin-gtk-theme-latte
+      - catppuccin-gtk-theme-macchiato
+      - catppuccin-gtk-theme-mocha
+      - cava
+      - fsearch 
+      - i3-swallow-git 
+      - jcal
+      - kvantum-theme-catppuccin-git
+      - libvirt-python
+      - lightly-qt
+      - lsix-git
+      - noto-color-emoji-fontconfig
+      - poppler
+      - powerline-fonts 
+      - python-jdatetime
+      - qogir-gtk-theme-git
+      - qogir-icon-theme-git 
+      - selectdefaultapplication-git
+      - shellcheck-bin
+      - simplescreenrecorder-bin
+      - transset-df
+      - ttf-firacode-nerd 
+      - ttf-font-awesome-5
+      - ttf-roboto-mono-nerd 
+      - ttf-ubraille
+      - urlview
+      - vazirmatn-code-fonts
+      - vazirmatn-fonts
+      - waterfox-bin
+      - xdman
+      - xidle
+      - xidlehook
+      - xkb-switch 
+      - mangl
+
+  tasks:
+    - name: Install yay if not present
+      block:
+        - name: Check if yay is installed
+          command: pacman -Q yay
+          register: yay_check
+          failed_when: false
+          changed_when: false
+
+        - name: Install yay
+          block:
+            - name: Clone yay repository
+              git:
+                repo: https://aur.archlinux.org/yay.git
+                dest: /tmp/yay
+                force: yes
+
+            - name: Build and install yay
+              command: makepkg -si --noconfirm
+              args:
+                chdir: /tmp/yay
+
+            - name: Clean up yay build directory
+              file:
+                path: /tmp/yay
+                state: absent
+          when: yay_check.rc != 0
+
+    - name: Install pacman packages
+      pacman:
+        name: "{{ pacman_packages }}"
+        state: present
+        update_cache: yes
+
+    - name: Install AUR packages
+      command: yay -S {{ item }} --noconfirm
+      loop: "{{ aur_packages }}"
+      register: aur_install
+      failed_when: aur_install.results | selectattr('rc', 'ne', 0) | list | length > 0
+
+    - name: Copy configuration files
+      synchronize:
+        src: "{{ playbook_dir }}/config/"
+        dest: "{{ ansible_env.HOME }}/.config/"
+        recursive: yes
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_gid }}"
+
+    - name: Copy shell configuration files
+      copy:
+        src: "{{ playbook_dir }}/{{ item.src }}"
+        dest: "{{ ansible_env.HOME }}/{{ item.dest }}"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_gid }}"
+        mode: '0644'
+      loop:
+        - { src: 'bashrc', dest: '.bashrc' }
+        - { src: 'aliases', dest: '.aliases' }
+        - { src: 'bash_profile', dest: '.bash_profile' }
+        - { src: 'profile', dest: '.profile' }
+        - { src: 'kshrc', dest: '.kshrc' }
+
+    - name: Copy tmux configuration
+      copy:
+        src: "{{ playbook_dir }}/tmux/tmux.conf"
+        dest: "{{ ansible_env.HOME }}/.tmux.conf"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_gid }}"
+        mode: '0644'
+
+    - name: Install TPM for tmux
+      block:
+        - name: Create tmux plugins directory
+          file:
+            path: "{{ ansible_env.HOME }}/.tmux/plugins"
+            state: directory
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_gid }}"
+            mode: '0755'
+
+        - name: Clone TPM repository
+          git:
+            repo: https://github.com/tmux-plugins/tpm
+            dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+            force: yes
+
+    - name: Copy additional configuration files
+      copy:
+        src: "{{ playbook_dir }}/{{ item.src }}"
+        dest: "{{ ansible_env.HOME }}/{{ item.dest }}"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_gid }}"
+        mode: '0644'
+      loop:
+        - { src: 'nk.sh', dest: 'nk.sh' }
+        - { src: 'taskrc', dest: '.taskrc' }
+        - { src: 'exrc', dest: '.exrc' }
+        - { src: 'Xresources', dest: '.Xresources' }
+        - { src: 'Xmodmap', dest: '.Xmodmap' }
+        - { src: 'xinitrc', dest: '.xinitrc' }
+
+    - name: Copy ocr directory
+      synchronize:
+        src: "{{ playbook_dir }}/ocr/"
+        dest: "{{ ansible_env.HOME }}/ocr/"
+        recursive: yes
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_gid }}"
+
+    - name: Copy screenlayout directory
+      synchronize:
+        src: "{{ playbook_dir }}/screenlayout/"
+        dest: "{{ ansible_env.HOME }}/.screenlayout/"
+        recursive: yes
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_gid }}"
+
+    - name: Copy manglrc directory
+      synchronize:
+        src: "{{ playbook_dir }}/manglrc/"
+        dest: "{{ ansible_env.HOME }}/.manglrc/"
+        recursive: yes
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_gid }}"
+
+    - name: Clone wim repository
+      git:
+        repo: https://github.com/wolandark/wim.git
+        dest: "{{ ansible_env.HOME }}/wim"
+        force: yes
+
+    - name: Run NEKO updater script
+      command: "{{ playbook_dir }}/NEKO/updater.sh"
+      args:
+        chdir: "{{ playbook_dir }}"
+
+    - name: Copy local bin files
+      block:
+        - name: Create local bin directory
+          file:
+            path: "{{ ansible_env.HOME }}/.local/bin"
+            state: directory
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_gid }}"
+            mode: '0755'
+
+        - name: Copy local bin files
+          synchronize:
+            src: "{{ playbook_dir }}/local-bin/"
+            dest: "{{ ansible_env.HOME }}/.local/bin/"
+            recursive: yes
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_gid }}"
+
+    - name: Copy system configuration files
+      block:
+        - name: Copy proxychains configuration
+          copy:
+            src: "{{ playbook_dir }}/proxychains.conf"
+            dest: /etc/proxychains.conf
+            mode: '0644'
+
+        - name: Copy keyboard configuration
+          copy:
+            src: "{{ playbook_dir }}/X11/xorg.conf.d/00-keyboard.conf"
+            dest: /etc/X11/xorg.conf.d/00-keyboard.conf
+            mode: '0644'
+
+        - name: Copy doas configuration
+          copy:
+            src: "{{ playbook_dir }}/doas.conf"
+            dest: /etc/doas.conf
+            mode: '0644'
+
+    - name: Copy pictures
+      block:
+        - name: Create Pictures directory
+          file:
+            path: "{{ ansible_env.HOME }}/Pictures"
+            state: directory
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_gid }}"
+            mode: '0755'
+
+        - name: Copy catppuccin wallpapers
+          synchronize:
+            src: "{{ playbook_dir }}/catppuccin-wallpapers/"
+            dest: "{{ ansible_env.HOME }}/Pictures/catppuccin-wallpapers/"
+            recursive: yes
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_gid }}"
+
+        - name: Copy Dracula wallpapers
+          synchronize:
+            src: "{{ playbook_dir }}/Dracula-Wallpapers/"
+            dest: "{{ ansible_env.HOME }}/Pictures/Dracula-Wallpapers/"
+            recursive: yes
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_gid }}"
+
+    - name: Build and install slock
+      block:
+        - name: Build slock
+          command: make install
+          args:
+            chdir: "{{ ansible_env.HOME }}/.config/slock"
+          become: true
+
+    - name: Build and install dmenu
+      block:
+        - name: Build dmenu
+          command: make install
+          args:
+            chdir: "{{ ansible_env.HOME }}/.config/dmenu"
+          become: true
+
+    - name: Install FZF
+      block:
+        - name: Clone FZF repository
+          git:
+            repo: https://github.com/junegunn/fzf.git
+            dest: "{{ ansible_env.HOME }}/.fzf"
+            depth: 1
+            force: yes
+
+        - name: Install FZF
+          command: "{{ ansible_env.HOME }}/.fzf/install --all"
+          args:
+            creates: "{{ ansible_env.HOME }}/.fzf/bin/fzf"
+
+    - name: Setup Rofi themes
+      block:
+        - name: Clone rofi themes repository
+          git:
+            repo: https://github.com/adi1090x/rofi.git
+            dest: "{{ playbook_dir }}/rofi"
+            depth: 1
+            force: yes
+
+        - name: Make rofi setup script executable
+          file:
+            path: "{{ playbook_dir }}/rofi/setup.sh"
+            mode: '0755'
+
+        - name: Run rofi setup
+          command: "{{ playbook_dir }}/rofi/setup.sh"
+          args:
+            chdir: "{{ playbook_dir }}/rofi"
+
+        - name: Update rofi powermenu style
+          replace:
+            path: "{{ ansible_env.HOME }}/.config/rofi/powermenu/type-2/powermenu.sh"
+            regexp: 'style-1'
+            replace: 'style-7'
+
+    - name: Setup QT5CT themes
+      block:
+        - name: Create qt5ct colors directory
+          file:
+            path: "{{ ansible_env.HOME }}/.config/qt5ct/colors"
+            state: directory
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_gid }}"
+            mode: '0755'
+
+        - name: Download QT5CT theme files
+          get_url:
+            url: "{{ item.url }}"
+            dest: "{{ ansible_env.HOME }}/.config/qt5ct/colors/{{ item.filename }}"
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_gid }}"
+            mode: '0644'
+          loop:
+            - { url: 'https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Frappe.conf', filename: 'Catppuccin-Frappe.conf' }
+            - { url: 'https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Latte.conf', filename: 'Catppuccin-Latte.conf' }
+            - { url: 'https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Macchiato.conf', filename: 'Catppuccin-Macchiato.conf' }
+            - { url: 'https://raw.githubusercontent.com/catppuccin/qt5ct/main/themes/Catppuccin-Mocha.conf', filename: 'Catppuccin-Mocha.conf' }
+
+    - name: Download and setup pistol for lf
+      block:
+        - name: Download pistol
+          get_url:
+            url: https://github.com/doronbehar/pistol/releases/download/v0.4.2/pistol-static-linux-x86_64
+            dest: "{{ ansible_env.HOME }}/.config/lf/pistol-static-linux-x86_64"
+            mode: '0755'
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_gid }}"
+
+    - name: Setup QEMU and virtualization
+      block:
+        - name: Install QEMU packages
+          pacman:
+            name:
+              - qemu-full
+              - iptables-nft
+              - dnsmasq
+              - virt-manager
+            state: present
+            update_cache: yes
+
+        - name: Add user to libvirt group
+          user:
+            name: "{{ ansible_user_id }}"
+            groups: libvirt
+            append: yes
+
+        - name: Add user to realtime group
+          user:
+            name: "{{ ansible_user_id }}"
+            groups: realtime
+            append: yes
+
+        - name: Enable and start libvirtd service
+          systemd:
+            name: libvirtd.service
+            enabled: yes
+            state: started
+
+        - name: Enable and start virtlogd service
+          systemd:
+            name: virtlogd.service
+            enabled: yes
+            state: started
+
+        - name: Enable libvirtd socket
+          systemd:
+            name: libvirtd.socket
+            enabled: yes
+            state: started
+
+    - name: Display completion message
+      debug:
+        msg: "All done! Dotfiles migration completed successfully."
